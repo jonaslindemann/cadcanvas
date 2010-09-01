@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: Delaunay</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit Delaunay</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Uses">uses</a></td><td><a class="section"  href="#@Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#@Types">Types</a></td><td><a class="section"  href="#@Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="@Description"></a><h2 class="description">Description</h2>
+<p>
+Credit to Paul Bourke (pbourke@swin.edu.au) for the original Fortran 77 Program :)) Conversion to Visual Basic by EluZioN (EluZioN@casesladder.com) Conversion from VB to Delphi6 by Dr Steve Evans (steve@lociuk.com) ///////////////////////////////////////////////////////////////////////////// June 2002 Update by Dr Steve Evans (steve@lociuk.com): Heap memory allocation added to prevent stack overflow when MaxVertices and MaxTriangles are very large. Additional Updates in June 2002: Bug in InCircle function fixed. Radius r := Sqrt(rsqr). Check for duplicate points added when inserting new point. For speed, all points pre-sorted in x direction using quicksort algorithm and triangles flagged when no longer needed. The circumcircle centre and radius of the triangles are now stored to improve calculation time. Additional Updates in October 2004 Jonas Lindemann Improved OO interface ///////////////////////////////////////////////////////////////////////////// You can use this code however you like providing the above credits remain in tact</p>
+<a name="@Uses"></a><h2 class="uses">uses</h2>
+<ul class="useslist"><li>Dialogs</li><li>Graphics</li><li>Forms</li><li>Types</li></ul><h2 class="overview">Overview</h2>
+<a name="@Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold"  href="Delaunay.dVertex.html"><code>dVertex</code></a></td>
+<td class="itemdesc">Points (Vertices)</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="Delaunay.TDelaunayVertex.html"><code>TDelaunayVertex</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="Delaunay.TDelaunayTriangle.html"><code>TDelaunayTriangle</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold"  href="Delaunay.dTriangle.html"><code>dTriangle</code></a></td>
+<td class="itemdesc">Created Triangles, vv# are the vertex pointers</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="Delaunay.TDelaunay.html"><code>TDelaunay</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+</table>
+<a name="@Types"></a><h3 class="summary">Types</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="Delaunay.html#TDVertex">TDVertex</a></b> = array[0..<a   href="Delaunay.html#MaxVertices">MaxVertices</a>] of <a   href="Delaunay.dVertex.html">dVertex</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="Delaunay.html#PVertex">PVertex</a></b> = &circ;<a   href="Delaunay.html#TDVertex">TDVertex</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="Delaunay.html#TDTriangle">TDTriangle</a></b> = array[0..<a   href="Delaunay.html#MaxTriangles">MaxTriangles</a>] of <a   href="Delaunay.dTriangle.html">dTriangle</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="Delaunay.html#PTriangle">PTriangle</a></b> = &circ;<a   href="Delaunay.html#TDTriangle">TDTriangle</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="Delaunay.html#TDComplete">TDComplete</a></b> = array [0..<a   href="Delaunay.html#MaxTriangles">MaxTriangles</a>] of Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="Delaunay.html#PComplete">PComplete</a></b> = &circ;<a   href="Delaunay.html#TDComplete">TDComplete</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="Delaunay.html#TDEdges">TDEdges</a></b> = array[0..2,0..<a   href="Delaunay.html#MaxTriangles">MaxTriangles</a> * 3] of LongInt;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="Delaunay.html#PEdges">PEdges</a></b> = &circ;<a   href="Delaunay.html#TDEdges">TDEdges</a>;</code></td>
+</tr>
+</table>
+<a name="@Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="Delaunay.html#MaxVertices">MaxVertices</a></b> = 500000;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="Delaunay.html#MaxTriangles">MaxTriangles</a></b> = 1000000;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="Delaunay.html#ExPtTolerance">ExPtTolerance</a></b> = 0.000001;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TDVertex"></a><code><b>TDVertex</b> = array[0..<a   href="Delaunay.html#MaxVertices">MaxVertices</a>] of <a   href="Delaunay.dVertex.html">dVertex</a>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="PVertex"></a><code><b>PVertex</b> = &circ;<a   href="Delaunay.html#TDVertex">TDVertex</a>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TDTriangle"></a><code><b>TDTriangle</b> = array[0..<a   href="Delaunay.html#MaxTriangles">MaxTriangles</a>] of <a   href="Delaunay.dTriangle.html">dTriangle</a>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="PTriangle"></a><code><b>PTriangle</b> = &circ;<a   href="Delaunay.html#TDTriangle">TDTriangle</a>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TDComplete"></a><code><b>TDComplete</b> = array [0..<a   href="Delaunay.html#MaxTriangles">MaxTriangles</a>] of Boolean;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="PComplete"></a><code><b>PComplete</b> = &circ;<a   href="Delaunay.html#TDComplete">TDComplete</a>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TDEdges"></a><code><b>TDEdges</b> = array[0..2,0..<a   href="Delaunay.html#MaxTriangles">MaxTriangles</a> * 3] of LongInt;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="PEdges"></a><code><b>PEdges</b> = &circ;<a   href="Delaunay.html#TDEdges">TDEdges</a>;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Constants</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="MaxVertices"></a><code><b>MaxVertices</b> = 500000;</code></td>
+</tr>
+</table>
+<p>
+Set these as applicable</p>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="MaxTriangles"></a><code><b>MaxTriangles</b> = 1000000;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="ExPtTolerance"></a><code><b>ExPtTolerance</b> = 0.000001;</code></td>
+</tr>
+</table>
+&nbsp;<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadSurfaceDiagram2D</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit CadSurfaceDiagram2D</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Uses">uses</a></td><td><a class="section"  href="#@Classes">Classes, Interfaces, Objects and Records</a></td><td><a class="section"  href="#@FuncsProcs">Functions and Procedures</a></td><td><a class="section"  href="#@Types">Types</a></td><td><a class="section"  href="#@Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="@Description"></a><h2 class="description">Description</h2>
+&nbsp;<a name="@Uses"></a><h2 class="uses">uses</h2>
+<ul class="useslist"><li>SysUtils</li><li>Classes</li><li><a   href="CadCanvas.html">CadCanvas</a></li><li><a   href="Triangle.html">Triangle</a></li><li><a   href="CadMesh.html">CadMesh</a></li><li><a   href="CadG32Device.html">CadG32Device</a></li><li>GR32</li><li>Dialogs</li></ul><h2 class="overview">Overview</h2>
+<a name="@Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TScaling.html"><code>TScaling</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TCadAxes2D.html"><code>TCadAxes2D</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TCadAxesRecord.html"><code>TCadAxesRecord</code></a></td>
+<td class="itemdesc">Property group defining properties for the diagram axes.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TCadDiagramRecord.html"><code>TCadDiagramRecord</code></a></td>
+<td class="itemdesc">Property group defining global diagram related properties.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TCadMeshRecord.html"><code>TCadMeshRecord</code></a></td>
+<td class="itemdesc">Property group describing properties controlling diagram mesh generation.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TTrianglePointList.html"><code>TTrianglePointList</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TCadSurfaceContour.html"><code>TCadSurfaceContour</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html"><code>TCadSurfaceDiagram2D</code></a></td>
+<td class="itemdesc">Two-dimensional Surface diagram component.</td>
+</tr>
+</table>
+<a name="@FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.html#Register">Register</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Types"></a><h3 class="summary">Types</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="CadSurfaceDiagram2D.html#TCadMeshClipSurfaceType">TCadMeshClipSurfaceType</a></b> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="CadSurfaceDiagram2D.html#TCadScalingOptions">TCadScalingOptions</a></b> = (...);</code></td>
+</tr>
+</table>
+<a name="@Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="CadSurfaceDiagram2D.html#StandardScaleCount">StandardScaleCount</a></b> = 15;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="CadSurfaceDiagram2D.html#StandardScales">StandardScales</a></b>: array[1..15] of double =
+    (1, 5, 10, 20, 50 , 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="Register"></a><code>procedure <b>Register</b>;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Types</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TCadMeshClipSurfaceType"></a><code><b>TCadMeshClipSurfaceType</b> = (...);</code></td>
+</tr>
+</table>
+<p>
+    </p>
+<ul>
+<li>
+scClip:  (Unstable)</li>
+<li>
+scRemove:  No clipping.</li>
+<li>
+scRemoveCrossing:  No clipping.</li>
+<li>
+scRemoveReverse:  No clipping.</li>
+<li>
+scRemoveCrossingReverse:  No clipping.</li>
+</ul>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TCadScalingOptions"></a><code><b>TCadScalingOptions</b> = (...);</code></td>
+</tr>
+</table>
+&nbsp;<ul>
+<li>
+soAbsolute: </li>
+<li>
+soRelativeHeight: </li>
+<li>
+soRelativeWidth: </li>
+</ul>
+<h3 class="detail">Constants</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="StandardScaleCount"></a><code><b>StandardScaleCount</b> = 15;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="StandardScales"></a><code><b>StandardScales</b>: array[1..15] of double =
+    (1, 5, 10, 20, 50 , 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000);</code></td>
+</tr>
+</table>
+&nbsp;<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>
