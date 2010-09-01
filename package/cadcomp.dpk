@@ -47,6 +47,7 @@ contains
   CadMesh in '..\src\CadMesh.pas',
   Delaunay in '..\src\Delaunay.pas',
   CadG32Device in '..\src\CadG32Device.pas',
-  CadSurfaceDiagram2D in '..\src\CadSurfaceDiagram2D.pas';
+  CadSurfaceDiagram2D in '..\src\CadSurfaceDiagram2D.pas',
+  FastGEO in '..\depends\fastgeo\FastGEO.pas';
 
 end.

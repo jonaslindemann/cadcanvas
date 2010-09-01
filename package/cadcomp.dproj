@@ -74,6 +74,7 @@
 			<DCCReference Include="..\src\Delaunay.pas"/>
 			<DCCReference Include="..\src\CadG32Device.pas"/>
 			<DCCReference Include="..\src\CadSurfaceDiagram2D.pas"/>
+			<DCCReference Include="..\depends\fastgeo\FastGEO.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -106,7 +107,7 @@
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
 						<VersionInfo Name="Release">1</VersionInfo>
-						<VersionInfo Name="Build">26</VersionInfo>
+						<VersionInfo Name="Build">28</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
 						<VersionInfo Name="Special">False</VersionInfo>
@@ -118,7 +119,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription"/>
-						<VersionInfoKeys Name="FileVersion">1.0.1.26</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.0.1.28</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
