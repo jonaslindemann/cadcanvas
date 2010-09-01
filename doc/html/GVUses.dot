@@ -1,0 +1,94 @@
+DiGraph Uses {
+  CadCanvas -> Windows
+  CadCanvas -> Messages
+  CadCanvas -> SysUtils
+  CadCanvas -> Classes
+  CadCanvas -> Graphics
+  CadCanvas -> Controls
+  CadCanvas -> Forms
+  CadCanvas -> Dialogs
+  CadCanvas -> Math
+  CadCanvas [href="CadCanvas.html"]
+  CadDxfDevice -> Windows
+  CadDxfDevice -> Messages
+  CadDxfDevice -> SysUtils
+  CadDxfDevice -> Classes
+  CadDxfDevice -> Graphics
+  CadDxfDevice -> Controls
+  CadDxfDevice -> Forms
+  CadDxfDevice -> Dialogs
+  CadDxfDevice -> CadCanvas
+  CadDxfDevice [href="CadDxfDevice.html"]
+  CadG32Device -> Windows
+  CadG32Device -> Messages
+  CadG32Device -> SysUtils
+  CadG32Device -> Classes
+  CadG32Device -> Graphics
+  CadG32Device -> Controls
+  CadG32Device -> Forms
+  CadG32Device -> Dialogs
+  CadG32Device -> CadCanvas
+  CadG32Device -> GR32
+  CadG32Device -> GR32_Image
+  CadG32Device -> GR32_Polygons
+  CadG32Device [href="CadG32Device.html"]
+  CadMesh -> Windows
+  CadMesh -> Messages
+  CadMesh -> SysUtils
+  CadMesh -> Classes
+  CadMesh -> Graphics
+  CadMesh -> Controls
+  CadMesh -> Forms
+  CadMesh -> Dialogs
+  CadMesh -> StdCtrls
+  CadMesh -> CadCanvas
+  CadMesh -> Triangle
+  CadMesh -> Math
+  CadMesh [href="CadMesh.html"]
+  CadOpenGLDevice -> Windows
+  CadOpenGLDevice -> Messages
+  CadOpenGLDevice -> SysUtils
+  CadOpenGLDevice -> Classes
+  CadOpenGLDevice -> Graphics
+  CadOpenGLDevice -> Controls
+  CadOpenGLDevice -> Forms
+  CadOpenGLDevice -> Dialogs
+  CadOpenGLDevice -> CadCanvas
+  CadOpenGLDevice [href="CadOpenGLDevice.html"]
+  CadSurfaceDiagram2D -> SysUtils
+  CadSurfaceDiagram2D -> Classes
+  CadSurfaceDiagram2D -> CadCanvas
+  CadSurfaceDiagram2D -> Triangle
+  CadSurfaceDiagram2D -> CadMesh
+  CadSurfaceDiagram2D -> CadG32Device
+  CadSurfaceDiagram2D -> GR32
+  CadSurfaceDiagram2D -> Dialogs
+  CadSurfaceDiagram2D [href="CadSurfaceDiagram2D.html"]
+  CadWinDevice -> Windows
+  CadWinDevice -> Messages
+  CadWinDevice -> SysUtils
+  CadWinDevice -> Classes
+  CadWinDevice -> Graphics
+  CadWinDevice -> Controls
+  CadWinDevice -> Forms
+  CadWinDevice -> Dialogs
+  CadWinDevice -> CadCanvas
+  CadWinDevice [href="CadWinDevice.html"]
+  Delaunay -> Dialogs
+  Delaunay -> Graphics
+  Delaunay -> Forms
+  Delaunay -> Types
+  Delaunay [href="Delaunay.html"]
+  Triangle -> Windows
+  Triangle -> Messages
+  Triangle -> SysUtils
+  Triangle -> Classes
+  Triangle -> Graphics
+  Triangle -> Controls
+  Triangle -> Forms
+  Triangle -> Dialogs
+  Triangle -> Math
+  Triangle -> Delaunay
+  Triangle -> FastGeo
+  Triangle [href="Triangle.html"]
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadSurfaceDiagram2D: Class TCadMeshRecord</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadMeshRecord"></a><h1 class="cio">Class TCadMeshRecord</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadSurfaceDiagram2D.html">CadSurfaceDiagram2D</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadMeshRecord = class(TPersistent)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Property group describing properties controlling diagram mesh generation.</p>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TPersistent</li>
+<li class="thisitem">TCadMeshRecord</li></ul><h2 class="overview">Overview</h2>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#Create">Create</a></b>(AOwner : TComponent);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#Assign">Assign</a></b>(Source : TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#LockNotify">LockNotify</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#UnlockNotify">UnlockNotify</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#OnChangeValue">OnChangeValue</a></b> : TNotifyEvent read FOnChangeValue write SetOnChangeValue;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#AutoLimits">AutoLimits</a></b> : boolean read FAutoLimits write SetAutoLimits;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#MaxValue">MaxValue</a></b> : double read FMaxValue write SetMaxValue;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#MinValue">MinValue</a></b> : double read FMinValue write SetMinValue;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#MeshType">MeshType</a></b> : <a   href="CadMesh.html#TMeshType">TMeshType</a> read FMeshType write SetMeshType;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#ClipSurface">ClipSurface</a></b> : boolean read FClipSurface write SetClipSurface;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#ClipSurfaceType">ClipSurfaceType</a></b> : <a   href="CadSurfaceDiagram2D.html#TCadMeshClipSurfaceType">TCadMeshClipSurfaceType</a> read FClipSurfaceType write SetClipSurfaceType;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#TriangleExecutable">TriangleExecutable</a></b> : string read FTriangleExecutable write SetTriangleExecutable;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadMeshRecord.html#TriangleImplementation">TriangleImplementation</a></b> : <a   href="Triangle.html#TTriangleImplementation">TTriangleImplementation</a> read FTriangleImplementation write SetTriangleImplementation;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner : TComponent);</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source : TPersistent); override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LockNotify"></a><code>procedure <b>LockNotify</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="UnlockNotify"></a><code>procedure <b>UnlockNotify</b>;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="OnChangeValue"></a><code>property <b>OnChangeValue</b> : TNotifyEvent read FOnChangeValue write SetOnChangeValue;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="AutoLimits"></a><code>property <b>AutoLimits</b> : boolean read FAutoLimits write SetAutoLimits;</code></td>
+</tr>
+</table>
+<p>
+Automatically calculate diagram limits. (Default <code>True</code>).</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MaxValue"></a><code>property <b>MaxValue</b> : double read FMaxValue write SetMaxValue;</code></td>
+</tr>
+</table>
+<p>
+Return max diagram value.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MinValue"></a><code>property <b>MinValue</b> : double read FMinValue write SetMinValue;</code></td>
+</tr>
+</table>
+<p>
+Return min diagram value.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MeshType"></a><code>property <b>MeshType</b> : <a   href="CadMesh.html#TMeshType">TMeshType</a> read FMeshType write SetMeshType;</code></td>
+</tr>
+</table>
+<p>
+Set the desired mesh type. mtTriangles, mtIsolines, mtSolid. (Default mtSolid).</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ClipSurface"></a><code>property <b>ClipSurface</b> : boolean read FClipSurface write SetClipSurface;</code></td>
+</tr>
+</table>
+<p>
+Clip to surface. (Default <code>False</code>).</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ClipSurfaceType"></a><code>property <b>ClipSurfaceType</b> : <a   href="CadSurfaceDiagram2D.html#TCadMeshClipSurfaceType">TCadMeshClipSurfaceType</a> read FClipSurfaceType write SetClipSurfaceType;</code></td>
+</tr>
+</table>
+<p>
+Determines how the triangles are clipped to a defined surface contour.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="TriangleExecutable"></a><code>property <b>TriangleExecutable</b> : string read FTriangleExecutable write SetTriangleExecutable;</code></td>
+</tr>
+</table>
+<p>
+Search path to Triangle executable.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="TriangleImplementation"></a><code>property <b>TriangleImplementation</b> : <a   href="Triangle.html#TTriangleImplementation">TTriangleImplementation</a> read FTriangleImplementation write SetTriangleImplementation;</code></td>
+</tr>
+</table>
+<p>
+Delaunay algorithm used to create triangulation used to create the diagram mesh.</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>
