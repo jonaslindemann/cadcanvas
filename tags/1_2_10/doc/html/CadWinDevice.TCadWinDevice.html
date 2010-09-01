@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadWinDevice: Class TCadWinDevice</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadWinDevice"></a><h1 class="cio">Class TCadWinDevice</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadWinDevice.html">CadWinDevice</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadWinDevice = class(TGraphicControl)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Component for drawing the contents of CadCanvas on a window</p>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TGraphicControl</li>
+<li class="thisitem">TCadWinDevice</li></ul><h2 class="overview">Overview</h2>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#Paint">Paint</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#Resize">Resize</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="CadWinDevice.TCadWinDevice.html#Create">Create</a></b>(AOwner : TComponent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="CadWinDevice.TCadWinDevice.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#W2S">W2S</a></b>(Point : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a>; var sx, sy : integer);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadWinDevice.TCadWinDevice.html#L2S">L2S</a></b>(length : double) : integer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#S2W">S2W</a></b>(sx, sy : integer; Point : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#SetWindow">SetWindow</a></b>(MinPoint, MaxPoint : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#ZoomExtent">ZoomExtent</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#Render">Render</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#RenderWMF">RenderWMF</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadWinDevice.TCadWinDevice.html#AddLayer">AddLayer</a></b> : <a   href="CadWinDevice.TCadWinLayer.html">TCadWinLayer</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadWinDevice.TCadWinDevice.html#ClearLayers">ClearLayers</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#WindowMin">WindowMin</a></b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read GetWindowMin;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#WindowMax">WindowMax</a></b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read GetWindowMax;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#Layers">Layers</a></b>[index : integer]: <a   href="CadWinDevice.TCadWinLayer.html">TCadWinLayer</a> read GetCadWinLayers;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#WindowColor">WindowColor</a></b>[index : integer]: TColor read GetColors write SetColor;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#CadCanvas">CadCanvas</a></b> : <a   href="CadCanvas.TCadCanvas.html">TCadCanvas</a> read FCadCanvas write FCadCanvas;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#ScaleFactor">ScaleFactor</a></b> : double read FScaleFactor write SetScaleFactor;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#AutoSize">AutoSize</a></b> : boolean read FAutoSize write SetAutoSizeProp;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#DrawBackground">DrawBackground</a></b> : boolean read FDrawBackground write SetDrawBackground;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#FileName">FileName</a></b> : string read FWMFFileName write FWMFFileName;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#MarginX">MarginX</a></b> : integer read FMarginX write SetMarginX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#MarginY">MarginY</a></b> : integer read FMarginY write SetMarginY;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#SolidOutlines">SolidOutlines</a></b> : boolean  read FSolidOutlines write SetSolidOutlines;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#PointSize">PointSize</a></b> : integer read FPointSize write FPointSize;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#Align">Align</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#Anchors">Anchors</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#Font">Font</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadWinDevice.TCadWinDevice.html#Color">Color</a></b>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Paint"></a><code>procedure <b>Paint</b>; override;</code></td>
+</tr>
+</table>
+<p>
+Protected declarations</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Resize"></a><code>procedure <b>Resize</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner : TComponent); override;</code></td>
+</tr>
+</table>
+<p>
+Public declarations</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="W2S"></a><code>procedure <b>W2S</b>(Point : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a>; var sx, sy : integer);</code></td>
+</tr>
+</table>
+<p>
+Converts a world coordinate to a screen coordinate</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="L2S"></a><code>function <b>L2S</b>(length : double) : integer;</code></td>
+</tr>
+</table>
+<p>
+Converts a world length to a screen length</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="S2W"></a><code>procedure <b>S2W</b>(sx, sy : integer; Point : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a>);</code></td>
+</tr>
+</table>
+<p>
+Converts a screen coordinate to a world coordinate</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SetWindow"></a><code>procedure <b>SetWindow</b>(MinPoint, MaxPoint : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a>);</code></td>
+</tr>
+</table>
+<p>
+Sets the window to be drawn in world coordinates</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ZoomExtent"></a><code>procedure <b>ZoomExtent</b>;</code></td>
+</tr>
+</table>
+<p>
+Zooms to the extent of the drawing in the CadCanvas drawing</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Render"></a><code>procedure <b>Render</b>;</code></td>
+</tr>
+</table>
+<p>
+Renders the CadCanvas drawing in the window</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="RenderWMF"></a><code>procedure <b>RenderWMF</b>;</code></td>
+</tr>
+</table>
+<p>
+Renders the CadCanvas drawing to a Windows Metafile specified in the Filename property</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddLayer"></a><code>function <b>AddLayer</b> : <a   href="CadWinDevice.TCadWinLayer.html">TCadWinLayer</a>;</code></td>
+</tr>
+</table>
+<p>
+Add a TCadWinLayer representing a TCadLayer in the CadCanvas drawing</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ClearLayers"></a><code>procedure <b>ClearLayers</b>;</code></td>
+</tr>
+</table>
+<p>
+Clears all defined layers</p>
+<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WindowMin"></a><code>property <b>WindowMin</b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read GetWindowMin;</code></td>
+</tr>
+</table>
+<p>
+Returns the minimum point of the drawn window</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WindowMax"></a><code>property <b>WindowMax</b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read GetWindowMax;</code></td>
+</tr>
+</table>
+<p>
+Returns the maximum point of the drawn window</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Layers"></a><code>property <b>Layers</b>[index : integer]: <a   href="CadWinDevice.TCadWinLayer.html">TCadWinLayer</a> read GetCadWinLayers;</code></td>
+</tr>
+</table>
+<p>
+Returns the index window layer</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WindowColor"></a><code>property <b>WindowColor</b>[index : integer]: TColor read GetColors write SetColor;</code></td>
+</tr>
+</table>
+<p>
+Gets/Sets the color to represent the indexed color</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="CadCanvas"></a><code>property <b>CadCanvas</b> : <a   href="CadCanvas.TCadCanvas.html">TCadCanvas</a> read FCadCanvas write FCadCanvas;</code></td>
+</tr>
+</table>
+<p>
+Gets/Sets the CadCanvas used when drawing</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ScaleFactor"></a><code>property <b>ScaleFactor</b> : double read FScaleFactor write SetScaleFactor;</code></td>
+</tr>
+</table>
+<p>
+Gets/Sets the scalefactor used when drawing</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="AutoSize"></a><code>property <b>AutoSize</b> : boolean read FAutoSize write SetAutoSizeProp;</code></td>
+</tr>
+</table>
+<p>
+Determines if the window is automatically zoom to the extents when redrawn</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DrawBackground"></a><code>property <b>DrawBackground</b> : boolean read FDrawBackground write SetDrawBackground;</code></td>
+</tr>
+</table>
+<p>
+Determines if a background is to be drawn</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FileName"></a><code>property <b>FileName</b> : string read FWMFFileName write FWMFFileName;</code></td>
+</tr>
+</table>
+<p>
+Gets/sets the filename used when creating WMF files</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MarginX"></a><code>property <b>MarginX</b> : integer read FMarginX write SetMarginX;</code></td>
+</tr>
+</table>
+<p>
+Gets/sets the left right margin in pixels</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MarginY"></a><code>property <b>MarginY</b> : integer read FMarginY write SetMarginY;</code></td>
+</tr>
+</table>
+<p>
+Gets/sets the top bottom margin in pixels</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SolidOutlines"></a><code>property <b>SolidOutlines</b> : boolean  read FSolidOutlines write SetSolidOutlines;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="PointSize"></a><code>property <b>PointSize</b> : integer read FPointSize write FPointSize;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Align"></a><code>property <b>Align</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Anchors"></a><code>property <b>Anchors</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Font"></a><code>property <b>Font</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Color"></a><code>property <b>Color</b>;</code></td>
+</tr>
+</table>
+&nbsp;<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>

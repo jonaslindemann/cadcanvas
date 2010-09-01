@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadCanvas: Class TCadCanvas</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadCanvas"></a><h1 class="cio">Class TCadCanvas</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadCanvas.html">CadCanvas</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadCanvas = class(TComponent)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Non visual component for managing a CAD drawing surface. The CadCanvas component connects to the output components CadDxfDevice and CadWinDevice.</p>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TComponent</li>
+<li class="thisitem">TCadCanvas</li></ul><h2 class="overview">Overview</h2>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="CadCanvas.TCadCanvas.html#Create">Create</a></b>(AOwner : TComponent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="CadCanvas.TCadCanvas.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadCanvas.html#GetLayerIndex">GetLayerIndex</a></b>(Name : string) : integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadCanvas.html#GetLayerWithName">GetLayerWithName</a></b>(Name : string) : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#ResetTextJustify">ResetTextJustify</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#ResetMaxMin">ResetMaxMin</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#Clear">Clear</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadCanvas.html#AddLayer">AddLayer</a></b>(Name : string) : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#DeleteLayerIndex">DeleteLayerIndex</a></b>(idx : integer);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#DeleteLayer">DeleteLayer</a></b>(Layer : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#AddElement">AddElement</a></b>(Element : <a   href="CadCanvas.TCadElement.html">TCadElement</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#MoveTo">MoveTo</a></b>(x, y : double);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#LineTo">LineTo</a></b>(x, y : double);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#BeginPolyLine">BeginPolyLine</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#AddPoint">AddPoint</a></b>(x, y : double);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#AddFromPolyline">AddFromPolyline</a></b>(PolyLine : <a   href="CadCanvas.TCadPolyLine.html">TCadPolyline</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#AddFromPolyGon">AddFromPolyGon</a></b>(PolyGon : <a   href="CadCanvas.TCadPolygon.html">TCadPolyGon</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#Rectangle">Rectangle</a></b>(x1, y1, x2, y2 : double);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#EndPolyLine">EndPolyLine</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#BeginPolyGon">BeginPolyGon</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#EndPolyGon">EndPolyGon</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#TextOut">TextOut</a></b>(x, y : double; Text : string);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadCanvas.html#TextSizeX">TextSizeX</a></b>(TextString : string) : double;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadCanvas.html#TextSizeY">TextSizeY</a></b>(TextString : string) : double;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#SimplePoint">SimplePoint</a></b>(x, y : double);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#Solid4">Solid4</a></b>(x1, y1, x2, y2, x3, y3, x4, y4 : double);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadCanvas.html#Solid3">Solid3</a></b>(x1, y1, x2, y2, x3, y3 : double);</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#Layers">Layers</a></b>[index : integer]: <a   href="CadCanvas.TCadLayer.html">TCadLayer</a> read GetCadLayer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#LayerCount">LayerCount</a></b> : integer read GetLayerCount;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#CurrentLayer">CurrentLayer</a></b> : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a> read FCurrentLayer write SetCurrentLayer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#CurrentColor">CurrentColor</a></b> : integer read FCurrentColor write FCurrentColor;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#ModelMax">ModelMax</a></b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FModelMax write FModelMax;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#ModelMin">ModelMin</a></b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FModelMin write FModelMin;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#TextHeight">TextHeight</a></b> : double read FTextHeight write SetTextHeight;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#TextRotation">TextRotation</a></b> : double read FTextRotation write SetTextRotation;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#TextTweakFactor">TextTweakFactor</a></b> : double read FTextTweakFactor write FTextTweakFactor;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#TextJustifyX">TextJustifyX</a></b> : <a   href="CadCanvas.html#TCadTextJustify">TCadTextJustify</a> read FTextJustifyX write FTextJustifyX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadCanvas.html#TextJustifyY">TextJustifyY</a></b> : <a   href="CadCanvas.html#TCadTextJustify">TCadTextJustify</a> read FTextJustifyY write FTextJustifyY;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner : TComponent); override;</code></td>
+</tr>
+</table>
+<p>
+Protected declarations</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GetLayerIndex"></a><code>function <b>GetLayerIndex</b>(Name : string) : integer;</code></td>
+</tr>
+</table>
+<p>
+Returns the index of the <code>Name</code> layer.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GetLayerWithName"></a><code>function <b>GetLayerWithName</b>(Name : string) : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a>;</code></td>
+</tr>
+</table>
+<p>
+Returns the layer instance of a layer named <code>Name</code>. If not found <code>Nil</code> is returned.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ResetTextJustify"></a><code>procedure <b>ResetTextJustify</b>;</code></td>
+</tr>
+</table>
+<p>
+Resets the text justify of the <a class="normal" href="CadCanvas.TCadCanvas.html#TextOut">TextOut</a> method.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ResetMaxMin"></a><code>procedure <b>ResetMaxMin</b>;</code></td>
+</tr>
+</table>
+<p>
+Reset max and min calculation settings</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>;</code></td>
+</tr>
+</table>
+<p>
+Clear all elements and layers in the CAD drawing surface</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddLayer"></a><code>function <b>AddLayer</b>(Name : string) : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a>;</code></td>
+</tr>
+</table>
+<p>
+Creates and adds a new layer to the canvas</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="DeleteLayerIndex"></a><code>procedure <b>DeleteLayerIndex</b>(idx : integer);</code></td>
+</tr>
+</table>
+<p>
+Delete the layer at <code>idx</code>.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="DeleteLayer"></a><code>procedure <b>DeleteLayer</b>(Layer : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a>);</code></td>
+</tr>
+</table>
+<p>
+Delete the <code>Layer</code>.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddElement"></a><code>procedure <b>AddElement</b>(Element : <a   href="CadCanvas.TCadElement.html">TCadElement</a>);</code></td>
+</tr>
+</table>
+<p>
+Adds an <code>Element</code> instance to the current layer.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MoveTo"></a><code>procedure <b>MoveTo</b>(x, y : double);</code></td>
+</tr>
+</table>
+<p>
+Moves the invisible cursor to given position</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LineTo"></a><code>procedure <b>LineTo</b>(x, y : double);</code></td>
+</tr>
+</table>
+<p>
+Creates line from the cursor position to the new position. The cursor is moved to the new position.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="BeginPolyLine"></a><code>procedure <b>BeginPolyLine</b>;</code></td>
+</tr>
+</table>
+<p>
+Starts a polyline</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddPoint"></a><code>procedure <b>AddPoint</b>(x, y : double);</code></td>
+</tr>
+</table>
+<p>
+Adds a point to the current polyline</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddFromPolyline"></a><code>procedure <b>AddFromPolyline</b>(PolyLine : <a   href="CadCanvas.TCadPolyLine.html">TCadPolyline</a>);</code></td>
+</tr>
+</table>
+<p>
+Adds points from given polyline.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddFromPolyGon"></a><code>procedure <b>AddFromPolyGon</b>(PolyGon : <a   href="CadCanvas.TCadPolygon.html">TCadPolyGon</a>);</code></td>
+</tr>
+</table>
+<p>
+Adds points from given polygon.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Rectangle"></a><code>procedure <b>Rectangle</b>(x1, y1, x2, y2 : double);</code></td>
+</tr>
+</table>
+<p>
+Creats a rectangle consisting of line elements (<a class="normal" href="CadCanvas.TCadLine.html">TCadLine</a>).</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EndPolyLine"></a><code>procedure <b>EndPolyLine</b>;</code></td>
+</tr>
+</table>
+<p>
+Finishes the current polyline</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="BeginPolyGon"></a><code>procedure <b>BeginPolyGon</b>;</code></td>
+</tr>
+</table>
+<p>
+Begins a new polygon.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EndPolyGon"></a><code>procedure <b>EndPolyGon</b>;</code></td>
+</tr>
+</table>
+<p>
+Ends current polygon.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextOut"></a><code>procedure <b>TextOut</b>(x, y : double; Text : string);</code></td>
+</tr>
+</table>
+<p>
+Draws a text a the specified position</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextSizeX"></a><code>function <b>TextSizeX</b>(TextString : string) : double;</code></td>
+</tr>
+</table>
+<p>
+Returns the width of the <code>TextString</code> string.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextSizeY"></a><code>function <b>TextSizeY</b>(TextString : string) : double;</code></td>
+</tr>
+</table>
+<p>
+Returns the height of the <code>TextString</code> string.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SimplePoint"></a><code>procedure <b>SimplePoint</b>(x, y : double);</code></td>
+</tr>
+</table>
+<p>
+Draws a point at the specified position</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Solid4"></a><code>procedure <b>Solid4</b>(x1, y1, x2, y2, x3, y3, x4, y4 : double);</code></td>
+</tr>
+</table>
+<p>
+Draws 4-sided solid</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Solid3"></a><code>procedure <b>Solid3</b>(x1, y1, x2, y2, x3, y3 : double);</code></td>
+</tr>
+</table>
+<p>
+Draws a 3-sided solid</p>
+<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Layers"></a><code>property <b>Layers</b>[index : integer]: <a   href="CadCanvas.TCadLayer.html">TCadLayer</a> read GetCadLayer;</code></td>
+</tr>
+</table>
+<p>
+Returns the layer at index, first = 0, last = LayerCount-1</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LayerCount"></a><code>property <b>LayerCount</b> : integer read GetLayerCount;</code></td>
+</tr>
+</table>
+<p>
+Returns the number of layers</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CurrentLayer"></a><code>property <b>CurrentLayer</b> : <a   href="CadCanvas.TCadLayer.html">TCadLayer</a> read FCurrentLayer write SetCurrentLayer;</code></td>
+</tr>
+</table>
+<p>
+Sets/gets the current layer</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CurrentColor"></a><code>property <b>CurrentColor</b> : integer read FCurrentColor write FCurrentColor;</code></td>
+</tr>
+</table>
+<p>
+Sets/gets the current color</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ModelMax"></a><code>property <b>ModelMax</b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FModelMax write FModelMax;</code></td>
+</tr>
+</table>
+<p>
+Returns the max position of the current drawing</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ModelMin"></a><code>property <b>ModelMin</b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FModelMin write FModelMin;</code></td>
+</tr>
+</table>
+<p>
+Returns the min position of the current drawing</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextHeight"></a><code>property <b>TextHeight</b> : double read FTextHeight write SetTextHeight;</code></td>
+</tr>
+</table>
+<p>
+Sets/gets the current text height</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextRotation"></a><code>property <b>TextRotation</b> : double read FTextRotation write SetTextRotation;</code></td>
+</tr>
+</table>
+<p>
+Sets/gets the current text rotation</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextTweakFactor"></a><code>property <b>TextTweakFactor</b> : double read FTextTweakFactor write FTextTweakFactor;</code></td>
+</tr>
+</table>
+<p>
+Correction factor used to calculate the width of text strings.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextJustifyX"></a><code>property <b>TextJustifyX</b> : <a   href="CadCanvas.html#TCadTextJustify">TCadTextJustify</a> read FTextJustifyX write FTextJustifyX;</code></td>
+</tr>
+</table>
+<p>
+Set the X justify options for text output</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TextJustifyY"></a><code>property <b>TextJustifyY</b> : <a   href="CadCanvas.html#TCadTextJustify">TCadTextJustify</a> read FTextJustifyY write FTextJustifyY;</code></td>
+</tr>
+</table>
+<p>
+Set the Y justify options for text output.</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>
