@@ -455,13 +455,11 @@ type
     FAxes2D : TCadAxes2D;
     FNotationLayer : TCadLayer;
     FTitleLayer : TCadLayer;
-    FSurfaceContourLayer : TCadLayer;
     FAxes: TCadAxesRecord;
     FDiagram: TCadDiagramRecord;
     FDirty : boolean;
     FMesh: TCadMeshRecord;
     FScaling: TScaling;
-    FSurfaceContour: TCadSurfaceContour;
     FOffsetContour : TCadOffsetContour;
     FTempPointList : TTrianglePointList;
 
@@ -472,7 +470,6 @@ type
     procedure CreateLayers;
     procedure CreateTitles;
     procedure CreateLegend;
-    procedure CreateSurfaceContour;
     procedure CreateTriangulation;
     procedure CreateMesh;
     procedure UpdateMesh;
@@ -520,9 +517,6 @@ type
     { Controls the diagram scaling, see @link(TScaling). }
     property Scaling : TScaling read FScaling;
 
-    { Defines the surface contour used to clip the diagram, see @link(TCadSurfaceContour). }
-    property SurfaceContour : TCadSurfaceContour read FSurfaceContour write SetSurfaceContour;
-
     property OffsetContour : TCadOffsetContour read FOffsetContour write SetOffsetContour;
   published
     { Published declarations }
@@ -559,7 +553,6 @@ begin
   FCadCanvas:=nil;
   FNotationLayer:=nil;
   FTitleLayer:=nil;
-  FSurfaceContourLayer:=nil;
 
   // Initialize internal utility objects
   // for triangulation and meshing
@@ -592,7 +585,6 @@ begin
   FMesh:=TCadMeshRecord.Create(AOwner);
   FMesh.OnChangeValue:=Self.MeshChangeValue;
 
-  FSurfaceContour:=TCadSurfaceContour.Create;
   FOffsetContour:=TCadOffsetContour.Create;
 
   FTempPointList:=TTrianglePointList.Create;
@@ -613,7 +605,6 @@ begin
   FDiagram.Free;
   FMesh.Free;
   FScaling.Free;
-  FSurfaceContour.Free;
   FOffsetContour.Free;
   FTempPointList.Free;
 
@@ -652,7 +643,6 @@ begin
   begin
     FNotationLayer:=CadCanvas.AddLayer('NOTATION');
     FTitleLayer:=CadCanvas.AddLayer('TITLES');
-    FSurfaceContourLayer:=CadCanvas.AddLayer('SURFACE');
   end;
 end;
 
@@ -711,28 +701,6 @@ begin
   FTriangle.TriangleClipRect.Top:=Axes.MaxY*FScaling.VerticalExaggeration;
   FTriangle.TriangleClipRect.Bottom:=Axes.MinY*FScaling.VerticalExaggeration;
 
-  // Clip triangle elements to surface contour
-
-  if (FSurfaceContour.Count>0) then
-  begin
-
-    TPL:=TTrianglePolyline.Create;
-    TPL.AddPoint(FSurfaceContour.Points[0].X, 1e10);
-
-    for i:=0 to FSurfaceContour.Count-1 do
-      TPL.AddPoint(FSurfaceContour.Points[i].X, FSurfaceContour.Points[i].Y*FScaling.VerticalExaggeration);
-
-    TPL.AddPoint(FSurfaceContour.Points[FSurfaceContour.Count-1].X, 1e10);
-
-    FTriangle.AddClipPolyline(TPL);
-    FTriangle.ClipPolyline:=True;
-
-  end;
-
-  // Do the clipping...
-
-  FTriangle.Clip;
-
   // Do deformation
 
   if (FOffsetContour.Count>0) then
@@ -747,6 +715,9 @@ begin
 
   end;
 
+    // Do the clipping...
+
+  FTriangle.Clip;
 
 end;
 
@@ -1181,28 +1152,6 @@ begin
   end;
 end;
 
-procedure TCadSurfaceDiagram2D.CreateSurfaceContour;
-var
-    i : integer;
-    CP : TCadPoint;
-begin
-  if assigned(CadCanvas) then
-  begin
-    CadCanvas.CurrentLayer:=FNotationLayer;
-
-    if FSurfaceContour.Count>1 then
-    begin
-      CadCanvas.BeginPolyLine;
-      for i:=0 to FSurfaceContour.Count-1 do
-      begin
-        CP:=FSurfaceContour.Points[i];
-        CadCanvas.AddPoint(CP.X, CP.Y*FScaling.VerticalExaggeration);
-      end;
-      CadCanvas.EndPolyLine;
-    end;
-  end;
-end;
-
 procedure TCadSurfaceDiagram2D.SetIsoLines(const Value: TIsoLines);
 begin
 end;
@@ -1218,7 +1167,6 @@ end;
 procedure TCadSurfaceDiagram2D.SetSurfaceContour(
   const Value: TCadSurfaceContour);
 begin
-  FSurfaceContour := Value;
 end;
 
 
