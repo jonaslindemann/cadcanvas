@@ -1,0 +1,30 @@
+@shorttitle(Overview)
+@title(CadCanvas Sources Overview)
+
+This is the documentation of the CadCanvas component, intended for CadCanvas developers.
+
+@section(1 SecRequirements Requirements)
+
+The CadCanvas component depends on the Graphics32 library, which must be installed before the CadCanvas components. The Graphics32 comes with the CadCanvas distribution 
+
+1. Unzip the files
+
+2. Add location of main installation directory to Tools | Environment Options | Library | Library Path.
+
+3. Select File | Open... on the menu bar. Set Files of type to Delphi package source, locate and open GR32_DSGN_D6.dpk
+(GR32_DSGN_K for Kylix, GR32_DSGN_D2005 for Delphi 2005, GR32_DSGN_D7 for Delphi7, GR32_DSGN_D6 for Delphi6, GR32_DSGN_D5 for Delphi5, GR32_DSGN_D4 for Delphi4 or GR32_DSGN_B5 for C++ Builder) 
+A package editor window will appear. Click Compile, then click Install; 
+If compiler asks whether you want to save changes, usually it is a good idea to choose No. 
+
+@section(2 SecCadCanvasInstall Installing CadCanvas)
+
+1. Unpack the distribution using 7-zip or an equivalent archiver.
+
+2. Start the Delphi IDE. Open the cadcanvas.bpg project-group file located in the root of the distribution.)
+
+3. Add the following directories to the library search path using the Tools/Environment options/library tab:		[CadCanvas root directory]\src, [CadCanvas root directory]\depends\graphics32, [CadCanvas root directory]\depends\FastGEO
+
+4. Open the Project Manager by selecting View/Project Manager in the menu.
+
+5. In the Project Manager window select the cadcomp.bpl package library. Using the right mouse button select the Install 		meny to start the installation of the packag library.
+

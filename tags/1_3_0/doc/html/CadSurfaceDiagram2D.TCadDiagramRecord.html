@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadSurfaceDiagram2D: Class TCadDiagramRecord</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadDiagramRecord"></a><h1 class="cio">Class TCadDiagramRecord</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadSurfaceDiagram2D.html">CadSurfaceDiagram2D</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadDiagramRecord = class(TPersistent)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Property group defining global diagram related properties.</p>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TPersistent</li>
+<li class="thisitem">TCadDiagramRecord</li></ul><h2 class="overview">Overview</h2>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#Create">Create</a></b>(AOwner : TComponent);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#Assign">Assign</a></b>(Source : TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LockNotify">LockNotify</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#UnlockNotify">UnlockNotify</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#OnChangeShowTriangles">OnChangeShowTriangles</a></b> : TNotifyEvent read FOnChangeShowTriangles write SetOnChangeShowTriangles;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#OnChangeValue">OnChangeValue</a></b> : TNotifyEvent read FOnChangeValue write SetOnChangeValue;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#ShowTriangles">ShowTriangles</a></b> : boolean read FShowTriangles write SetShowTriangles;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#Title">Title</a></b> : string read FTitle write SetTitle;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#TitleSize">TitleSize</a></b> : double read FTitleSize write SetTitleSize;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#SubTitle">SubTitle</a></b> : string read FSubTitle write SetSubTitle;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#SubTitleSize">SubTitleSize</a></b> : double read FSubTitleSize write SetSubTitleSize;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#TitleSpacing">TitleSpacing</a></b> : double read FTitleSpacing write SetTitleSpacing;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#TitleDistance">TitleDistance</a></b> : double read FTitleDistance write SetTitleDistance;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#ShowLegend">ShowLegend</a></b> : boolean read FShowLegend write SetShowLegend;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LegendDistance">LegendDistance</a></b> : double read FLegendDistance write SetLegendDistance;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LegendHeight">LegendHeight</a></b> : double read FLegendHeight write SetLegendHeight;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LegendTextHeight">LegendTextHeight</a></b> : double read FLegendTextHeight write SetLegendTextHeight;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LegendTextDistance">LegendTextDistance</a></b> : double read FLegendTextDistance write SetLegendTextDistance;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LegendFormat">LegendFormat</a></b> : string read FLegendFormat write SetLegendFormat;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#ScaleX">ScaleX</a></b> : double read FScaleX write SetScaleX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#VerticalExaggeration">VerticalExaggeration</a></b> : double read FVerticalExaggeration write SetVerticalExaggeration;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#AutoScale">AutoScale</a></b> : boolean read FAutoScale write SetAutoScale;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html#LegendSize">LegendSize</a></b> : double read FLegendSize write SetLegendSize;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner : TComponent);</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source : TPersistent); override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LockNotify"></a><code>procedure <b>LockNotify</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="UnlockNotify"></a><code>procedure <b>UnlockNotify</b>;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="OnChangeShowTriangles"></a><code>property <b>OnChangeShowTriangles</b> : TNotifyEvent read FOnChangeShowTriangles write SetOnChangeShowTriangles;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="OnChangeValue"></a><code>property <b>OnChangeValue</b> : TNotifyEvent read FOnChangeValue write SetOnChangeValue;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ShowTriangles"></a><code>property <b>ShowTriangles</b> : boolean read FShowTriangles write SetShowTriangles;</code></td>
+</tr>
+</table>
+<p>
+Show triangle mesh used for meshing.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Title"></a><code>property <b>Title</b> : string read FTitle write SetTitle;</code></td>
+</tr>
+</table>
+<p>
+Diagram title.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="TitleSize"></a><code>property <b>TitleSize</b> : double read FTitleSize write SetTitleSize;</code></td>
+</tr>
+</table>
+<p>
+Diagram title size in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SubTitle"></a><code>property <b>SubTitle</b> : string read FSubTitle write SetSubTitle;</code></td>
+</tr>
+</table>
+<p>
+Diagram sub title.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SubTitleSize"></a><code>property <b>SubTitleSize</b> : double read FSubTitleSize write SetSubTitleSize;</code></td>
+</tr>
+</table>
+<p>
+Diagram sub title size in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="TitleSpacing"></a><code>property <b>TitleSpacing</b> : double read FTitleSpacing write SetTitleSpacing;</code></td>
+</tr>
+</table>
+<p>
+Spacing between title and sub title in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="TitleDistance"></a><code>property <b>TitleDistance</b> : double read FTitleDistance write SetTitleDistance;</code></td>
+</tr>
+</table>
+<p>
+Distance between title and diagram axes in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ShowLegend"></a><code>property <b>ShowLegend</b> : boolean read FShowLegend write SetShowLegend;</code></td>
+</tr>
+</table>
+<p>
+Legend visibility flag.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LegendDistance"></a><code>property <b>LegendDistance</b> : double read FLegendDistance write SetLegendDistance;</code></td>
+</tr>
+</table>
+<p>
+Distance from diagram axes to legend in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LegendHeight"></a><code>property <b>LegendHeight</b> : double read FLegendHeight write SetLegendHeight;</code></td>
+</tr>
+</table>
+<p>
+Legend height in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LegendTextHeight"></a><code>property <b>LegendTextHeight</b> : double read FLegendTextHeight write SetLegendTextHeight;</code></td>
+</tr>
+</table>
+<p>
+Legend text height in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LegendTextDistance"></a><code>property <b>LegendTextDistance</b> : double read FLegendTextDistance write SetLegendTextDistance;</code></td>
+</tr>
+</table>
+<p>
+Distance between legend text labels and legend in drawing units.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LegendFormat"></a><code>property <b>LegendFormat</b> : string read FLegendFormat write SetLegendFormat;</code></td>
+</tr>
+</table>
+<p>
+Format used to represent the legend values. See the Delphi format routine.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ScaleX"></a><code>property <b>ScaleX</b> : double read FScaleX write SetScaleX;</code></td>
+</tr>
+</table>
+<p>
+Diagram X scale. 1:ScaleX. When <code>AutoScale</code> is set to <code>True</code> this property is automatically calculated.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="VerticalExaggeration"></a><code>property <b>VerticalExaggeration</b> : double read FVerticalExaggeration write SetVerticalExaggeration;</code></td>
+</tr>
+</table>
+<p>
+Sets the diagram vertical exaggeration. The diagram height is scaled with this amount in the y direction.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="AutoScale"></a><code>property <b>AutoScale</b> : boolean read FAutoScale write SetAutoScale;</code></td>
+</tr>
+</table>
+<p>
+Flag for automatic scale calculation based on diagram input values.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LegendSize"></a><code>property <b>LegendSize</b> : double read FLegendSize write SetLegendSize;</code></td>
+</tr>
+</table>
+<p>
+Relative legend size with respect to diagram axes. (1.0 default)</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>
