@@ -692,15 +692,6 @@ begin
 
   FTriangle.Execute;
 
-  // Clip triangle elements to axes
-
-  UpdateAxesProperties;
-
-  FTriangle.TriangleClipRect.Left:=Axes.MinX;
-  FTriangle.TriangleClipRect.Right:=Axes.MaxX;
-  FTriangle.TriangleClipRect.Top:=Axes.MaxY*FScaling.VerticalExaggeration;
-  FTriangle.TriangleClipRect.Bottom:=Axes.MinY*FScaling.VerticalExaggeration;
-
   // Do deformation
 
   if (FOffsetContour.Count>0) then
@@ -715,7 +706,16 @@ begin
 
   end;
 
-    // Do the clipping...
+  // Clip triangle elements to axes
+
+  UpdateAxesProperties;
+
+  FTriangle.TriangleClipRect.Left:=Axes.MinX;
+  FTriangle.TriangleClipRect.Right:=Axes.MaxX;
+  FTriangle.TriangleClipRect.Top:=Axes.MaxY*FScaling.VerticalExaggeration;
+  FTriangle.TriangleClipRect.Bottom:=Axes.MinY*FScaling.VerticalExaggeration;
+
+  // Do the clipping...
 
   FTriangle.Clip;
 
