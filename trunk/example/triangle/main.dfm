@@ -28,8 +28,6 @@ object frmMain: TfrmMain
     Scale = 1.000000000000000000
     ScaleMode = smNormal
     TabOrder = 0
-    ExplicitTop = 129
-    ExplicitHeight = 424
   end
   object Panel1: TPanel
     Left = 0
@@ -279,7 +277,6 @@ object frmMain: TfrmMain
       Height = 25
       Caption = 'Test2'
       TabOrder = 20
-      OnClick = Button2Click
     end
     object AntialiasCheck: TCheckBox
       Left = 12
@@ -291,6 +288,15 @@ object frmMain: TfrmMain
       State = cbChecked
       TabOrder = 21
       OnClick = AntialiasCheckClick
+    end
+    object btnTest3: TButton
+      Left = 175
+      Top = 80
+      Width = 50
+      Height = 25
+      Caption = 'Test3'
+      TabOrder = 22
+      OnClick = btnTest3Click
     end
   end
   object CadCanvas: TCadCanvas
@@ -375,7 +381,7 @@ object frmMain: TfrmMain
     Mesh.MinValue = -1.000000000000000000
     Mesh.MeshType = mtFilled
     Mesh.ClipSurface = False
-    Mesh.ClipSurfaceType = scRemove
+    Mesh.ClipSurfaceType = scRemoveCrossing
     Mesh.AlignWithSurface = False
     Mesh.TriangleImplementation = tiInternal
     Left = 16

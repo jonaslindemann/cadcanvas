@@ -52,6 +52,7 @@ type
     dlgSave: TSaveDialog;
     Button2: TButton;
     AntialiasCheck: TCheckBox;
+    btnTest3: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure mnuFileOpenClick(Sender: TObject);
@@ -67,8 +68,8 @@ type
     procedure btnTest1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure AntialiasCheckClick(Sender: TObject);
+    procedure btnTest3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -149,7 +150,6 @@ begin
     CloseFile(ContourFile);
   end;
 
-
   // Set surface diagram options
 
   CadSurfaceDiagram2D.Axes.TickDistanceX := 50;
@@ -160,9 +160,11 @@ begin
 
   // Set the desited delaunay triangle implementation
 
-  CadSurfaceDiagram2D.Mesh.TriangleExecutable :=
-    '..\..\depends\triangle\bin\triangle.exe';
-  CadSurfaceDiagram2D.Mesh.TriangleImplementation := tiExternal;
+  //CadSurfaceDiagram2D.Mesh.TriangleExecutable :=
+  //  '..\..\depends\triangle\bin\triangle.exe';
+  //CadSurfaceDiagram2D.Mesh.TriangleImplementation := tiExternal;
+
+  CadSurfaceDiagram2D.Mesh.TriangleImplementation:=tiInternal;
 
   // Define iso line setup
 
@@ -304,79 +306,6 @@ begin
       Self.CadG32Device.SaveToFile(dlgSave.FileName);
     end;
   end;
-end;
-
-procedure TfrmMain.Button2Click(Sender: TObject);
-var
-  x, y, dx, dy: double;
-  rows, cols: double;
-begin
-  // Clear diagram
-
-  CadSurfaceDiagram2D.Clear;
-
-  // Create a surface contour
-
-  CadSurfaceDiagram2D.SurfaceContour.Clear;
-  CadSurfaceDiagram2D.SurfaceContour.Add(0.4, 0.5);
-  CadSurfaceDiagram2D.SurfaceContour.Add(0.6, 0.5);
-
-  // Create test case
-
-  CadSurfaceDiagram2D.AddPoint(0.0, 0.0, 0.0);
-  CadSurfaceDiagram2D.AddPoint(1.0, 0.0, 0.0);
-  CadSurfaceDiagram2D.AddPoint(0.5, 1.0 * sqrt(3) * 0.5, 0.0);
-
-  // Define iso line setup
-
-  CadSurfaceDiagram2D.IsoLines.Size := 13;
-
-  // No automatic updating of isolines when assigning max or min properties
-
-  CadSurfaceDiagram2D.IsoLines.AutoUpdate := true;
-  CadSurfaceDiagram2D.Mesh.AutoLimits := true;
-
-  // Define device colors
-
-  // Isoline    1   2   3   4   5   6   7   8   9    10   11   12   13
-  // Color    1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14
-
-  CadG32Device.WindowColor[1] := GR32.Color32(255, 0, 0);
-  CadG32Device.WindowColor[2] := GR32.Color32(0, 32, 192);
-  CadG32Device.WindowColor[3] := GR32.Color32(0, 100, 112);
-  CadG32Device.WindowColor[4] := GR32.Color32(0, 128, 76);
-  CadG32Device.WindowColor[5] := GR32.Color32(0, 152, 52);
-  CadG32Device.WindowColor[6] := GR32.Color32(172, 152, 0);
-  CadG32Device.WindowColor[7] := GR32.Color32(255, 176, 0);
-  CadG32Device.WindowColor[8] := GR32.Color32(255, 128, 0);
-  CadG32Device.WindowColor[9] := GR32.Color32(255, 76, 0);
-  CadG32Device.WindowColor[10] := GR32.Color32(240, 0, 0);
-  CadG32Device.WindowColor[11] := GR32.Color32(192, 0, 0);
-  CadG32Device.WindowColor[12] := GR32.Color32(168, 0, 0);
-  CadG32Device.WindowColor[13] := GR32.Color32(168 - 24, 0, 0);
-  CadG32Device.WindowColor[14] := GR32.Color32(0, 255, 0);
-
-  // Create Diagram
-
-  CadSurfaceDiagram2D.Execute;
-
-  // Draw diagram
-
-  CadG32Device.ZoomExtent;
-  CadG32Device.Render;
-
-  edtXMax.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MaxX);
-  edtYMax.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MaxY);
-  edtXMin.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MinX);
-  edtYMin.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MinY);
-  edtTickX.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceX);
-  edtTickY.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceY);
-  edtTickLabelDistance.Text := FloatToStr
-    (CadSurfaceDiagram2D.Axes.TickLabelDistance);
-  edtTickLabelSize.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickLabelSize);
-  edtVerticalExaggeration.Text := FloatToStr
-    (CadSurfaceDiagram2D.Diagram.VerticalExaggeration);
-
 end;
 
 procedure TfrmMain.AntialiasCheckClick(Sender: TObject);
@@ -545,6 +474,68 @@ begin
   edtTickLabelSize.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickLabelSize);
   edtVerticalExaggeration.Text := FloatToStr
     (CadSurfaceDiagram2D.Diagram.VerticalExaggeration);
+
+end;
+
+procedure TfrmMain.btnTest3Click(Sender: TObject);
+var
+    T : TTriangleElement;
+    TP1 : TTrianglePoint;
+    TP2 : TTrianglePoint;
+    TP3 : TTrianglePoint;
+
+    TL : TTriangleLine;
+
+    RL : TRefList;
+    i : integer;
+
+    DT : TTriangleElement;
+    CE : TCadSolid;
+begin
+  CadCanvas.Clear;
+
+  T:=TTriangleElement.Create;
+  TP1:=TTrianglePoint.Create;
+  TP2:=TTrianglePoint.Create;
+  TP3:=TTrianglePoint.Create;
+  TL:=TTriangleLine.Create;
+
+  T.Point[1]:=TP3;
+  T.Point[2]:=TP1;
+  T.Point[3]:=TP2;
+
+  T.Point[1].X:=0.0;
+  T.Point[1].Y:=0.5;
+  T.Point[2].X:=1.0;
+  T.Point[2].Y:=0.0;
+  T.Point[3].X:=1.0;
+  T.Point[3].Y:=1.0;
+
+  TL.StartPoint.X:=0.1;
+  TL.StartPoint.Y:=1e300;
+  TL.EndPoint.X:=0.1;
+  TL.EndPoint.Y:=-1e300;
+
+  RL:=T.Split(TL);
+
+  if assigned(RL) then
+  begin
+    for i := 0 to RL.Count - 1 do
+    begin
+      DT:=TTriangleElement(RL.Items[i]);
+      CadCanvas.MoveTo(DT.Point[1].X, DT.Point[1].Y);
+      CadCanvas.LineTo(DT.Point[2].X, DT.Point[2].Y);
+      CadCanvas.LineTo(DT.Point[3].X, DT.Point[3].Y);
+      CadCanvas.LineTo(DT.Point[1].X, DT.Point[1].Y);
+    end;
+  end;
+
+  TL.Free;
+  RL.Free;
+  T.Free;
+
+  CadG32Device.ZoomExtent;
+  CadG32Device.Render;
 
 end;
 

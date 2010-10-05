@@ -10,46 +10,46 @@ type
 
   TRefCounted = class
   private
-    FRefCount : integer;
+    FRefCount: integer;
   public
     constructor Create;
 
     procedure AddRef;
     procedure DelRef;
-    function IsReferenced : boolean;
+    function IsReferenced: boolean;
   end;
 
   TRefList = class
   private
-    FList : TList;
+    FList: TList;
     function GetItem(index: integer): TRefCounted;
-    function GetCount : integer;
+    function GetCount: integer;
   public
     constructor Create;
     destructor Destroy; override;
 
-    procedure Add(Item : TRefCounted);
-    procedure Remove(Item : TRefCounted);
-    procedure Delete(Idx : integer);
+    procedure Add(Item: TRefCounted);
+    procedure Remove(Item: TRefCounted);
+    procedure Delete(Idx: integer);
     procedure Clear;
     procedure ClearUnreferenced;
 
-    property Items[index : integer] : TRefCounted read GetItem;
-    property Count : integer read GetCount;
+    property Items[index: integer]: TRefCounted read GetItem;
+    property Count: integer read GetCount;
   end;
 
   TTrianglePoint = class(TRefCounted)
   private
-    FX : double;
-    FY : double;
-    FValue : double;
+    FX: double;
+    FY: double;
+    FValue: double;
   public
     constructor Create;
-    procedure AssignFrom(P : TTrianglePoint);
+    procedure AssignFrom(P: TTrianglePoint);
 
-    property X : double read FX write FX;
-    property Y : double read FY write FY;
-    property Value : double read FValue write FValue;
+    property X: double read FX write FX;
+    property Y: double read FY write FY;
+    property Value: double read FValue write FValue;
   end;
 
   TTriangleLine = class(TRefCounted)
@@ -60,23 +60,23 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    procedure AssignFrom(Line : TTriangleLine);
+    procedure AssignFrom(Line: TTriangleLine);
 
-    procedure Scale(Factor : double);
+    procedure Scale(Factor: double);
 
-    function Length : double;
+    function Length: double;
 
     function Intersection(L: TTriangleLine): TTrianglePoint;
 
-    property StartPoint : TTrianglePoint read FStartPoint;
-    property EndPoint : TTrianglePoint read FEndPoint;
+    property StartPoint: TTrianglePoint read FStartPoint;
+    property EndPoint: TTrianglePoint read FEndPoint;
   end;
 
   TTrianglePolyline = class(TRefCounted)
   private
-    FPoints : TRefList;
+    FPoints: TRefList;
 
-    function GetPoints(idx: integer): TTrianglePoint;
+    function GetPoints(Idx: integer): TTrianglePoint;
     function GetCount: integer;
   public
     constructor Create;
@@ -84,88 +84,90 @@ type
 
     procedure Clear;
 
-    procedure AddPoint(x, y : double);
+    procedure AddPoint(X, Y: double);
 
-    procedure AssignLine(idx : integer; Line : TTriangleLine);
+    procedure AssignLine(Idx: integer; Line: TTriangleLine);
 
-    function Interpolate(x : double) : double;
+    function Interpolate(X: double): double;
 
-    property Points[ idx : integer ] : TTrianglePoint read GetPoints;
-    property Count : integer read GetCount;
+    property Points[Idx: integer]: TTrianglePoint read GetPoints;
+    property Count: integer read GetCount;
 
   end;
 
   TTriangleElement = class(TRefCounted)
   private
-    FTriPoints : array [1..3] of TTrianglePoint;
-    function GetPoint(index : integer) : TTrianglePoint;
-    procedure SetPoint(index : integer; Point : TTrianglePoint);
+    FTriPoints: array [1 .. 3] of TTrianglePoint;
+    function GetPoint(index: integer): TTrianglePoint;
+    procedure SetPoint(index: integer; Point: TTrianglePoint);
   public
     constructor Create;
     destructor Destroy; override;
 
-    function Split(Line : TTriangleLine) : TRefList; overload;
-    function Split(PolyLine : TTrianglePolyLine) : TRefList; overload;
-    function SplitLeft(Line : TTriangleLine) : TRefList; overload;
-    function SplitRight(Line : TTriangleLine) : TRefList; overload;
-    function SplitLeft(Polyline : TTrianglePolyline) : TRefList; overload;
-    function SplitRight(Polyline : TTrianglePolyline) : TRefList; overload;
+    function Split(Line: TTriangleLine): TRefList; overload;
+    function Split(PolyLine: TTrianglePolyline): TRefList; overload;
+    function SplitLeft(Line: TTriangleLine): TRefList; overload;
+    function SplitRight(Line: TTriangleLine): TRefList; overload;
+    function SplitLeft(PolyLine: TTrianglePolyline): TRefList; overload;
+    function SplitRight(PolyLine: TTrianglePolyline): TRefList; overload;
 
-    function GetIntersectionPoints(value : double; var p1, p2 : TTrianglePoint) : boolean;
+    function GetIntersectionPoints(Value: double; var p1, p2: TTrianglePoint)
+      : boolean;
 
-    property Point[index : integer] : TTrianglePoint read GetPoint write SetPoint;
+    property Point[index: integer]: TTrianglePoint read GetPoint write SetPoint;
   end;
 
   TTriangleType = (ttInside, ttCrossing, ttOutside);
 
   TTriangleClipRect = class
   private
-    FLeft : double;
-    FRight : double;
-    FTop : double;
-    FBottom : double;
+    FLeft: double;
+    FRight: double;
+    FTop: double;
+    FBottom: double;
   public
     constructor Create;
 
-    function Check(Triangle : TTriangleElement) : TTriangleType;
+    function Check(Triangle: TTriangleElement): TTriangleType;
 
-    property Left : double read FLeft write FLeft;
-    property Right : double read FRight write FRight;
-    property Top : double read FTop write FTop;
-    property Bottom : double read FBottom write FBottom;
+    property Left: double read FLeft write FLeft;
+    property Right: double read FRight write FRight;
+    property Top: double read FTop write FTop;
+    property Bottom: double read FBottom write FBottom;
   end;
 
   TTriangleImplementation = (tiInternal, tiExternal);
 
-  TTriangleClipProcessing = (tpDoNothing, tpClip, tpRemove, tpRemoveReverse, tpRemoveCrossing, tpRemoveCrossingReverse);
+  TTriangleClipProcessing = (tpDoNothing, tpClip, tpRemove, tpRemoveReverse,
+    tpRemoveCrossing, tpRemoveCrossingReverse);
 
   TTriangle = class(TComponent)
   private
     { Private declarations }
-    FTriangleImplementation : TTriangleImplementation;
-    FTriangleExecutable : string;
-    FModelname : string;
-    FPoints : TRefList;
-    FElements : TRefList;
-    FClippedElements : TRefList;
-    FCrossingElements : TRefList;
-    FVisibleElements : TRefList;
+    FTriangleImplementation: TTriangleImplementation;
+    FTriangleExecutable: string;
+    FModelname: string;
+    FPoints: TRefList;
+    FElements: TRefList;
+    FClippedElements: TRefList;
+    FCrossingElements: TRefList;
+    FVisibleElements: TRefList;
     FQualityMesh: boolean;
     FMinAngle: double;
-    FMaxValue : double;
-    FMinValue : double;
+    FMaxValue: double;
+    FMinValue: double;
 
-    FMaxPoint : TTrianglePoint;
-    FMinPoint : TTrianglePoint;
+    FMaxPoint: TTrianglePoint;
+    FMinPoint: TTrianglePoint;
 
-    FTriangleClipRect : TTriangleClipRect;
-    FClipActive : boolean;
+    FTriangleClipRect: TTriangleClipRect;
+    FClipActive: boolean;
 
-    FClipPolylines : TRefList;
+    FClipPolylines: TRefList;
 
-    FOffsetPolyline : TTrianglePolyline;
+    FOffsetPolyline: TTrianglePolyline;
 
-    FTriangleClipProcessing : TTriangleClipProcessing;
+    FTriangleClipProcessing: TTriangleClipProcessing;
     FClipPolyline: boolean;
 
     procedure ClearPoints;
@@ -181,12 +183,11 @@ type
     function GetMaxPoint: TTrianglePoint;
     function GetMinPoint: TTrianglePoint;
 
-    procedure UpdateExtents(Triangle : TTriangleElement);
+    procedure UpdateExtents(Triangle: TTriangleElement);
     procedure ResetExtents;
     procedure SetClipActive(const Value: boolean);
     function GetPolylines(index: integer): TTrianglePolyline;
-    procedure SetTriangleClipProcessing(
-      const Value: TTriangleClipProcessing);
+    procedure SetTriangleClipProcessing(const Value: TTriangleClipProcessing);
     procedure SetClipPolyline(const Value: boolean);
   protected
     { Protected declarations }
@@ -198,8 +199,8 @@ type
     procedure Clear;
 
     procedure Execute;
-    procedure AddPoint(x, y, value : double);
-    procedure AddClipPolyline(Polyline : TTrianglePolyline);
+    procedure AddPoint(X, Y, Value: double);
+    procedure AddClipPolyline(PolyLine: TTrianglePolyline);
 
     procedure UnClip;
     procedure Clip;
@@ -207,36 +208,42 @@ type
 
     procedure Offset;
 
-    property PointCount : integer read GetPointCount;
-    property Points[index : integer] : TTrianglePoint read GetPoints;
+    property PointCount: integer read GetPointCount;
+    property Points[index: integer]: TTrianglePoint read GetPoints;
 
-    property ElementCount : integer read GetElementCount;
-    property Elements[index : integer] : TTriangleElement read GetElements;
+    property ElementCount: integer read GetElementCount;
+    property Elements[index: integer]: TTriangleElement read GetElements;
 
-    property ClipPolylines[index : integer] : TTrianglePolyline read GetPolylines;
-    property OffsetPolyline : TTrianglePolyline read FOffsetPolyline write FOffsetPolyline;
+    property ClipPolylines[index: integer]: TTrianglePolyline read GetPolylines;
+    property OffsetPolyline
+      : TTrianglePolyline read FOffsetPolyline write FOffsetPolyline;
 
-    property MaxValue : double read FMaxValue;
-    property MinValue : double read FMinValue;
-    property MaxPoint : TTrianglePoint read GetMaxPoint;
-    property MinPoint : TTrianglePoint read GetMinPoint;
+    property MaxValue: double read FMaxValue;
+    property MinValue: double read FMinValue;
+    property MaxPoint: TTrianglePoint read GetMaxPoint;
+    property MinPoint: TTrianglePoint read GetMinPoint;
 
-    property TriangleClipRect : TTriangleClipRect read FTriangleClipRect;
-    property ClipActive : boolean read FClipActive write SetClipActive;
+    property TriangleClipRect: TTriangleClipRect read FTriangleClipRect;
+    property ClipActive: boolean read FClipActive write SetClipActive;
 
   published
     { Published declarations }
-    property TriangleExecutable : string read FTriangleExecutable write FTriangleExecutable;
-    property Modelname : string read FModelname write FModelname;
+    property TriangleExecutable
+      : string read FTriangleExecutable write FTriangleExecutable;
+    property Modelname: string read FModelname write FModelname;
 
-    property QualityMesh : boolean read FQualityMesh write FQualityMesh;
-    property MinAngle : double read FMinAngle write FMinAngle;
-    property TriangleImplementation : TTriangleImplementation read FTriangleImplementation write FTriangleImplementation;
-    property ClipPolyline : boolean read FClipPolyline write SetClipPolyline;
-    property TriangleClipProcessing : TTriangleClipProcessing read FTriangleClipProcessing write SetTriangleClipProcessing;
+    property QualityMesh: boolean read FQualityMesh write FQualityMesh;
+    property MinAngle: double read FMinAngle write FMinAngle;
+    property TriangleImplementation
+      : TTriangleImplementation read FTriangleImplementation write
+      FTriangleImplementation;
+    property ClipPolyline: boolean read FClipPolyline write SetClipPolyline;
+    property TriangleClipProcessing
+      : TTriangleClipProcessing read FTriangleClipProcessing write
+      SetTriangleClipProcessing;
   end;
 
-function Distance(P1, P2 : TTrianglePoint) : double;
+function Distance(p1, p2: TTrianglePoint): double;
 
 procedure Register;
 
@@ -249,81 +256,80 @@ end;
 
 function ExecAndWait(Parameter: string; nCmdShow: integer): longword;
 var
-    zParameter: array[0..255] of char;
-    StartupInfo: TStartupInfo;
-    ProcessInfo: TProcessInformation;
+  zParameter: array [0 .. 255] of char;
+  StartupInfo: TStartupInfo;
+  ProcessInfo: TProcessInformation;
 begin
-  //StrPCopy(zAppName,FileName);
-  StrPCopy(zParameter,Parameter);
-  //StrPCopy(zCurDir,GetCurrentDir());
-  FillChar(StartupInfo,Sizeof(StartupInfo),#0);
-  StartupInfo.cb:=Sizeof(StartupInfo);
-  StartupInfo.dwFlags:=STARTF_USESHOWWINDOW;
-  StartupInfo.wShowWindow:=nCmdShow;
-  if not CreateProcess(nil,zParameter,nil,nil,false,CREATE_NEW_CONSOLE or  NORMAL_PRIORITY_CLASS,nil,nil,StartupInfo,ProcessInfo) then
-    Result:=0
-    else
-    begin
-      WaitforSingleObject(ProcessInfo.hProcess,INFINITE);
-      GetExitCodeProcess(ProcessInfo.hProcess,Result);
-    end;
-end;
-
-
-function Distance(P1, P2 : TTrianglePoint) : double;
-begin
-  Result:=Sqrt(Power(P2.X-P1.X,2)+Power(P2.Y-P1.Y,2));
-end;
-
-function Interpolate(P1, P2 : TTrianglePoint; value : double;
-  var P3 : TTrianglePoint) : boolean;
-var
-    v1, v2 : double;
-    k : double;
-    Inside : boolean;
-
-
-begin
-  v1:=P1.Value;
-  v2:=P2.Value;
-
-  if (v1=v2) then
+  // StrPCopy(zAppName,FileName);
+  StrPCopy(zParameter, Parameter);
+  // StrPCopy(zCurDir,GetCurrentDir());
+  FillChar(StartupInfo, Sizeof(StartupInfo), #0);
+  StartupInfo.cb := Sizeof(StartupInfo);
+  StartupInfo.dwFlags := STARTF_USESHOWWINDOW;
+  StartupInfo.wShowWindow := nCmdShow;
+  if not CreateProcess(nil, zParameter, nil, nil, false,
+    CREATE_NEW_CONSOLE or NORMAL_PRIORITY_CLASS, nil, nil, StartupInfo,
+    ProcessInfo) then
+    Result := 0
+  else
   begin
-    Result:=false;
+    WaitforSingleObject(ProcessInfo.hProcess, INFINITE);
+    GetExitCodeProcess(ProcessInfo.hProcess, Result);
+  end;
+end;
+
+function Distance(p1, p2: TTrianglePoint): double;
+begin
+  Result := Sqrt(Power(p2.X - p1.X, 2) + Power(p2.Y - p1.Y, 2));
+end;
+
+function Interpolate(p1, p2: TTrianglePoint; Value: double;
+  var P3: TTrianglePoint): boolean;
+var
+  v1, v2: double;
+  k: double;
+  Inside: boolean;
+
+begin
+  v1 := p1.Value;
+  v2 := p2.Value;
+
+  if (v1 = v2) then
+  begin
+    Result := false;
     exit;
   end;
 
-  if P2.Value>=P1.Value then
-    begin
-      if (value>=v1) and (value<v2) then
-        Inside:=true
-      else
-        Inside:=false;
-    end
+  if p2.Value >= p1.Value then
+  begin
+    if (Value >= v1) and (Value < v2) then
+      Inside := true
+    else
+      Inside := false;
+  end
   else
-    begin
-      if (value>=v2) and (value<v1) then
-        Inside:=true
-      else
-        Inside:=false;
-    end;
+  begin
+    if (Value >= v2) and (Value < v1) then
+      Inside := true
+    else
+      Inside := false;
+  end;
 
   if not Inside then
   begin
-    Result:=false;
+    Result := false;
     exit;
   end;
 
-  k:=(value-v1)/(v2-v1);
+  k := (Value - v1) / (v2 - v1);
 
-  P3.X:=P1.X*(1-k) + P2.X*k;
-  P3.Y:=P1.Y*(1-k) + P2.Y*k;
-  P3.Value:=value;
+  P3.X := p1.X * (1 - k) + p2.X * k;
+  P3.Y := p1.Y * (1 - k) + p2.Y * k;
+  P3.Value := Value;
 
-  Result:=true;
+  Result := true;
 
 end;
-
 
 { TTriangle }
 
@@ -331,40 +337,40 @@ constructor TTriangle.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  FModelname:='temp';
-  FPoints:=TRefList.Create;
-  FElements:=TRefList.Create;
-  FClippedElements:=TRefList.Create;
-  FCrossingElements:=TRefList.Create;
-  FVisibleElements:=TRefList.Create;
+  FModelname := 'temp';
+  FPoints := TRefList.Create;
+  FElements := TRefList.Create;
+  FClippedElements := TRefList.Create;
+  FCrossingElements := TRefList.Create;
+  FVisibleElements := TRefList.Create;
 
-  FQualityMesh:=false;
-  FMinAngle:=-1;
+  FQualityMesh := false;
+  FMinAngle := -1;
 
-  FTriangleImplementation:=tiExternal;
+  FTriangleImplementation := tiInternal;
 
-  FMaxPoint:=TTrianglePoint.Create;
-  FMinPoint:=TTrianglePoint.Create;
-  FMaxPoint.X:=-1e300;
-  FMaxPoint.Y:=-1e300;
-  FMinPoint.X:=1e300;
-  FMinPoint.Y:=1e300;
+  FMaxPoint := TTrianglePoint.Create;
+  FMinPoint := TTrianglePoint.Create;
+  FMaxPoint.X := -1E300;
+  FMaxPoint.Y := -1E300;
+  FMinPoint.X := 1E300;
+  FMinPoint.Y := 1E300;
 
-  FTriangleClipRect:=TTriangleClipRect.Create;
-  FClipActive:=false;
+  FTriangleClipRect := TTriangleClipRect.Create;
+  FClipActive := false;
 
-  FClipPolylines:=TRefList.Create;
-  FOffsetPolyline:=TTrianglePolyline.Create;
-  FTriangleClipProcessing:=tpClip;
-  FClipPolyline:=false;
+  FClipPolylines := TRefList.Create;
+  FOffsetPolyline := TTrianglePolyline.Create;
+  FTriangleClipProcessing := tpClip;
+  FClipPolyline := false;
 end;
 
 destructor TTriangle.Destroy;
 begin
-  //ClearElements;
+  // ClearElements;
   FElements.Free;
 
-  //ClearPoints;
+  // ClearPoints;
   FPoints.Free;
 
   FClippedElements.Free;
@@ -380,22 +386,21 @@ begin
   inherited;
 end;
 
-
-procedure TTriangle.AddPoint(x, y, value: double);
+procedure TTriangle.AddPoint(X, Y, Value: double);
 var
-    TriPoint : TTrianglePoint;
+  TriPoint: TTrianglePoint;
 begin
-  TriPoint:=TTrianglePoint.Create;
-  TriPoint.X:=x;
-  TriPoint.Y:=y;
-  TriPoint.Value:=value;
+  TriPoint := TTrianglePoint.Create;
+  TriPoint.X := X;
+  TriPoint.Y := Y;
+  TriPoint.Value := Value;
   FPoints.Add(TriPoint);
 
-  if value>FMaxValue then
-    FMaxValue:=value;
+  if Value > FMaxValue then
+    FMaxValue := Value;
 
-  if value<FMinValue then
-    FMinValue:=value;
+  if Value < FMinValue then
+    FMinValue := Value;
 end;
 
 procedure TTriangle.Clear;
@@ -413,109 +418,115 @@ end;
 procedure TTriangle.ClearPoints;
 begin
   FPoints.Clear;
-  FMaxValue:=-1e300;
-  FMinValue:=1e300;
+  FMaxValue := -1E300;
+  FMinValue := 1E300;
 end;
-
 
 procedure TTriangle.CreateNodeFile;
 var
-    f : TextFile;
-    i : integer;
-    TriPoint : TTrianglePoint;
+  f: TextFile;
+  i: integer;
+  TriPoint: TTrianglePoint;
 
-    x, y, value : double;
-    CurrentPath: String;
+  X, Y, Value: double;
+  CurrentPath: String;
 begin
-  CurrentPath:=ExtractFilePath(Application.ExeName);
-  if (FModelname<>'') then
+  CurrentPath := ExtractFilePath(Application.ExeName);
+  if (FModelname <> '') then
   begin
-    AssignFile(f, CurrentPath + FModelname+'.node');  // Ändrat till app-katalogen /RJ
+    AssignFile(f, CurrentPath + FModelname + '.node');
+    // Ändrat till app-katalogen /RJ
     Rewrite(f);
 
-    writeln(f, format('%d %d %d %d',[FPoints.Count,2,1,0]));
+    writeln(f, format('%d %d %d %d', [FPoints.Count, 2, 1, 0]));
 
-    for i:=0 to FPoints.Count-1 do
+    for i := 0 to FPoints.Count - 1 do
     begin
-      TriPoint:=TTrianglePoint(FPoints.Items[i]);
-      x:=TriPoint.X;
-      y:=TriPoint.Y;
-      value:=TriPoint.Value;
-      writeln(f, i+1, ' ', x, ' ', y, ' ', value);
+      TriPoint := TTrianglePoint(FPoints.Items[i]);
+      X := TriPoint.X;
+      Y := TriPoint.Y;
+      Value := TriPoint.Value;
+      writeln(f, i + 1, ' ', X, ' ', Y, ' ', Value);
     end;
 
     CloseFile(f);
   end;
 end;
 
-
 procedure TTriangle.Execute;
 var
-    CurrentPath : string;
-    TriParam : string;
-    Delaunay : TDelaunay;
-    i        : integer;
-    TriElement : TTriangleElement;
+  CurrentPath: string;
+  TriParam: string;
+  Delaunay: TDelaunay;
+  i: integer;
+  TriElement: TTriangleElement;
 begin
 
   ResetExtents;
 
-  if FTriangleImplementation=tiExternal then
+  if FTriangleImplementation = tiExternal then
+  begin
+
+    CurrentPath := ExtractFilePath(Application.ExeName);
+    if (not FileExists(CurrentPath + FTriangleExecutable)) then
+    // Ändrat till app-katalogen /RJ
     begin
-
-      CurrentPath:=ExtractFilePath(Application.ExeName);
-      if (not FileExists(CurrentPath + FTriangleExecutable)) then  // Ändrat till app-katalogen /RJ
-      begin
-        ShowMessage(FTriangleExecutable+' could not be found.');
-        exit;
-      end;
-
-      TriParam:='';
-      if (FQualityMesh) then
-      begin
-        TriParam:=TriParam+'q';
-        if (FMinAngle>0) then
-          TriParam:=TriParam+format('%g',[FMinAngle]);
-      end;
-
-      if TriParam<>'' then
-        TriParam:='-'+TriParam;
-
-      ClearElements;
-      CreateNodeFile;
-      // Ändrat till app-katalogen /RJ
-      ExecAndWait(CurrentPath + FTriangleExecutable + ' ' + TriParam + ' "' + CurrentPath + FModelName + '.node"', SW_SHOWMINIMIZED);
-      ReadElementFile;
-
-    end
-  else
-    begin
-      Self.ClearElements;
-
-      Delaunay:=TDelaunay.Create;
-
-      for i:=0 to Self.PointCount-1 do
-        Delaunay.AddPoint(Self.Points[i].X, Self.Points[i].Y, Self.Points[i].Value);
-
-      Delaunay.Execute;
-
-      ClearPoints;
-
-      for i:=1 to Delaunay.VertexCount-1 do
-        Self.AddPoint(Delaunay.Vertices[i].X, Delaunay.Vertices[i].Y, Delaunay.Vertices[i].Value);
-
-      for i:=1 to Delaunay.TriangleCount do
-      begin
-        TriElement:=TTriangleElement.Create;
-        TriElement.Point[1]:=TTrianglePoint(FPoints.Items[Delaunay.Triangles[i].VertexIndex[0]-1]);
-        TriElement.Point[2]:=TTrianglePoint(FPoints.Items[Delaunay.Triangles[i].VertexIndex[1]-1]);
-        TriElement.Point[3]:=TTrianglePoint(FPoints.Items[Delaunay.Triangles[i].VertexIndex[2]-1]);
-        UpdateExtents(TriElement);
-        FElements.Add(TriElement);
-      end;
-
-      Delaunay.Free;
+      ShowMessage(FTriangleExecutable + ' could not be found.');
+      exit;
     end;
+
+    TriParam := '';
+    if (FQualityMesh) then
+    begin
+      TriParam := TriParam + 'q';
+      if (FMinAngle > 0) then
+        TriParam := TriParam + format('%g', [FMinAngle]);
+    end;
+
+    if TriParam <> '' then
+      TriParam := '-' + TriParam;
+
+    ClearElements;
+    CreateNodeFile;
+    // Ändrat till app-katalogen /RJ
+    ExecAndWait(CurrentPath + FTriangleExecutable + ' ' + TriParam + ' "' +
+        CurrentPath + FModelname + '.node"', SW_SHOWMINIMIZED);
+    ReadElementFile;
+
+  end
+  else
+  begin
+    Self.ClearElements;
+
+    Delaunay := TDelaunay.Create;
+
+    for i := 0 to Self.PointCount - 1 do
+      Delaunay.AddPoint(Self.Points[i].X, Self.Points[i].Y,
+        Self.Points[i].Value);
+
+    Delaunay.Execute;
+
+    ClearPoints;
+
+    for i := 1 to Delaunay.VertexCount - 1 do
+      Self.AddPoint(Delaunay.Vertices[i].X, Delaunay.Vertices[i].Y,
+        Delaunay.Vertices[i].Value);
+
+    for i := 1 to Delaunay.TriangleCount do
+    begin
+      TriElement := TTriangleElement.Create;
+      TriElement.Point[1] := TTrianglePoint
+        (FPoints.Items[Delaunay.Triangles[i].VertexIndex[0] - 1]);
+      TriElement.Point[2] := TTrianglePoint
+        (FPoints.Items[Delaunay.Triangles[i].VertexIndex[1] - 1]);
+      TriElement.Point[3] := TTrianglePoint
+        (FPoints.Items[Delaunay.Triangles[i].VertexIndex[2] - 1]);
+      UpdateExtents(TriElement);
+      FElements.Add(TriElement);
+    end;
+
+    Delaunay.Free;
+  end;
 end;
 
 procedure TTriangle.UnClip;
@@ -527,24 +538,33 @@ begin
   FClippedElements.Clear;
   FVisibleElements.Clear;
   FCrossingElements.Clear;
-  FClipActive:=true;
+  FClipActive := true;
 end;
-
 
 procedure TTriangle.Clip;
 var
-    i, j : integer;
-    T : TTriangleElement;
-    TriangleType : TTriangleType;
-    LeftClip : TTriangleLine;
-    RightClip : TTriangleLine;
-    TopClip : TTriangleLine;
-    BottomClip : TTriangleLine;
-    SplitLeft : TRefList;
-    SplitRight : TRefList;
-    SplitTop : TRefList;
-    SplitBottom : TRefList;
+  i, j, k: integer;
+  OutCount : integer;
+  T, ST: TTriangleElement;
+  TriangleType: TTriangleType;
+  LeftClip: TTriangleLine;
+  RightClip: TTriangleLine;
+  TopClip: TTriangleLine;
+  BottomClip: TTriangleLine;
+  SplitLeft: TRefList;
+  SplitRight: TRefList;
+  SplitTop: TRefList;
+  SplitBottom: TRefList;
+
+  Rect2D : TRectangle;
+  Tri2D  : TTriangle2D;
+
 begin
+
+  Rect2D[1].x:=TriangleClipRect.Left;
+  Rect2D[1].y:=TriangleClipRect.Bottom;
+  Rect2D[2].x:=TriangleClipRect.Right;
+  Rect2D[2].y:=TriangleClipRect.Top;
 
   // Remove all clipped elements
 
@@ -552,96 +572,127 @@ begin
 
   // Move clipped elements to clipped list
 
-  for i:=0 to FElements.Count-1 do
+  for i := 0 to FElements.Count - 1 do
   begin
-    T:=TTriangleElement(FElements.Items[i]);
+    T := TTriangleElement(FElements.Items[i]);
 
-    TriangleType:=TriangleClipRect.Check(T);
+    Tri2D[1].x:=T.Point[1].X;
+    Tri2D[2].x:=T.Point[2].X;
+    Tri2D[3].x:=T.Point[3].X;
+    Tri2D[1].y:=T.Point[1].Y;
+    Tri2D[2].y:=T.Point[2].Y;
+    Tri2D[3].y:=T.Point[3].Y;
 
-    if (TriangleType=ttOutside) then
-      FClippedElements.Add(T);
-
-    if (TriangleType=ttCrossing) then
+    if TriangleInRectangle(Tri2D, Rect2D) then
+      FVisibleElements.Add(T)
+    else if TriangleOutsideRectangle(Tri2D, Rect2D) then
+      FClippedElements.Add(T)
+    else
       FCrossingElements.Add(T);
-
-    if (TriangleType=ttInside) then
-      FVisibleElements.Add(T);
   end;
 
   // Create lines for splitting triangles on the crossing
   // clip rect
 
-  LeftClip:=TTriangleLine.Create;
-  LeftClip.StartPoint.X:=Self.TriangleClipRect.Left;
-  LeftClip.EndPoint.X:=Self.TriangleClipRect.Left;
-  LeftClip.StartPoint.Y:=-1e300;
-  LeftClip.EndPoint.Y:=1e300;
+  LeftClip := TTriangleLine.Create;
+  LeftClip.StartPoint.X := Self.TriangleClipRect.Left;
+  LeftClip.EndPoint.X := Self.TriangleClipRect.Left;
+  LeftClip.StartPoint.Y := -1E300;
+  LeftClip.EndPoint.Y := 1E300;
 
-  RightClip:=TTriangleLine.Create;
-  RightClip.StartPoint.X:=Self.TriangleClipRect.Right;
-  RightClip.EndPoint.X:=Self.TriangleClipRect.Right;
-  RightClip.StartPoint.Y:=-1e300;
-  RightClip.EndPoint.Y:=1e300;
+  RightClip := TTriangleLine.Create;
+  RightClip.StartPoint.X := Self.TriangleClipRect.Right;
+  RightClip.EndPoint.X := Self.TriangleClipRect.Right;
+  RightClip.StartPoint.Y := -1E300;
+  RightClip.EndPoint.Y := 1E300;
 
-  TopClip:=TTriangleLine.Create;
-  TopClip.StartPoint.Y:=Self.TriangleClipRect.Top;
-  TopClip.EndPoint.Y:=Self.TriangleClipRect.Top;
-  TopClip.StartPoint.X:=-1e300;
-  TopClip.EndPoint.X:=1e300;
+  TopClip := TTriangleLine.Create;
+  TopClip.StartPoint.Y := Self.TriangleClipRect.Top;
+  TopClip.EndPoint.Y := Self.TriangleClipRect.Top;
+  TopClip.StartPoint.X := -1E300;
+  TopClip.EndPoint.X := 1E300;
 
-  BottomClip:=TTriangleLine.Create;
-  BottomClip.StartPoint.Y:=Self.TriangleClipRect.Bottom;
-  BottomClip.EndPoint.Y:=Self.TriangleClipRect.Bottom;
-  BottomClip.StartPoint.X:=-1e300;
-  BottomClip.EndPoint.X:=1e300;
+  BottomClip := TTriangleLine.Create;
+  BottomClip.StartPoint.Y := Self.TriangleClipRect.Bottom;
+  BottomClip.EndPoint.Y := Self.TriangleClipRect.Bottom;
+  BottomClip.StartPoint.X := -1E300;
+  BottomClip.EndPoint.X := 1E300;
 
   // Lets split the atoms !
 
-  for i:=0 to FCrossingElements.Count-1 do
+  for i := 0 to FCrossingElements.Count - 1 do
   begin
-    T:=TTriangleElement(FCrossingElements.Items[i]);
+    T := TTriangleElement(FCrossingElements.Items[i]);
 
-    SplitLeft:=T.Split(LeftClip);
-    SplitRight:=T.Split(RightClip);
-    SplitTop:=T.Split(TopClip);
-    SplitBottom:=T.Split(BottomClip);
+    SplitLeft := T.Split(LeftClip);
+    SplitRight := T.Split(RightClip);
+    SplitTop := T.Split(TopClip);
+    SplitBottom := T.Split(BottomClip);
 
     if assigned(SplitLeft) then
     begin
-      for j:=0 to SplitLeft.Count-1 do
+      for j := 0 to SplitLeft.Count - 1 do
       begin
-        if (FTriangleClipRect.Check(TTriangleElement(SplitLeft.Items[j]))=ttInside) then
-          FVisibleElements.Add(TTriangleElement(SplitLeft.Items[j]));
+        ST:=TTriangleElement(SplitLeft.Items[j]);
+        Tri2D[1].x:=ST.Point[1].X;
+        Tri2D[2].x:=ST.Point[2].X;
+        Tri2D[3].x:=ST.Point[3].X;
+        Tri2D[1].y:=ST.Point[1].Y;
+        Tri2D[2].y:=ST.Point[2].Y;
+        Tri2D[3].y:=ST.Point[3].Y;
+        if TriangleInRectangle(Tri2D, Rect2D) then
+          FVisibleElements.Add(ST);
       end;
       SplitLeft.Free;
     end;
 
     if assigned(SplitRight) then
     begin
-      for j:=0 to SplitRight.Count-1 do
+      for j := 0 to SplitRight.Count - 1 do
       begin
-        if (FTriangleClipRect.Check(TTriangleElement(SplitRight.Items[j]))=ttInside) then
-          FVisibleElements.Add(TTriangleElement(SplitRight.Items[j]));
+        ST:=TTriangleElement(SplitRight.Items[j]);
+        Tri2D[1].x:=ST.Point[1].X;
+        Tri2D[2].x:=ST.Point[2].X;
+        Tri2D[3].x:=ST.Point[3].X;
+        Tri2D[1].y:=ST.Point[1].Y;
+        Tri2D[2].y:=ST.Point[2].Y;
+        Tri2D[3].y:=ST.Point[3].Y;
+        if TriangleInRectangle(Tri2D, Rect2D) then
+          FVisibleElements.Add(ST);
       end;
       SplitRight.Free;
     end;
 
     if assigned(SplitTop) then
     begin
-      for j:=0 to SplitTop.Count-1 do
+      for j := 0 to SplitTop.Count - 1 do
       begin
-        if (FTriangleClipRect.Check(TTriangleElement(SplitTop.Items[j]))=ttInside) then
-          FVisibleElements.Add(TTriangleElement(SplitTop.Items[j]));
+        ST:=TTriangleElement(SplitTop.Items[j]);
+        Tri2D[1].x:=ST.Point[1].X;
+        Tri2D[2].x:=ST.Point[2].X;
+        Tri2D[3].x:=ST.Point[3].X;
+        Tri2D[1].y:=ST.Point[1].Y;
+        Tri2D[2].y:=ST.Point[2].Y;
+        Tri2D[3].y:=ST.Point[3].Y;
+        if TriangleInRectangle(Tri2D, Rect2D) then
+          FVisibleElements.Add(ST);
       end;
       SplitTop.Free;
     end;
 
     if assigned(SplitBottom) then
     begin
-      for j:=0 to SplitBottom.Count-1 do
+      for j := 0 to SplitBottom.Count - 1 do
       begin
-        if (FTriangleClipRect.Check(TTriangleElement(SplitBottom.Items[j]))=ttInside) then
-          FVisibleElements.Add(TTriangleElement(SplitBottom.Items[j]));
+        ST:=TTriangleElement(SplitBottom.Items[j]);
+        Tri2D[1].x:=ST.Point[1].X;
+        Tri2D[2].x:=ST.Point[2].X;
+        Tri2D[3].x:=ST.Point[3].X;
+        Tri2D[1].y:=ST.Point[1].Y;
+        Tri2D[2].y:=ST.Point[2].Y;
+        Tri2D[3].y:=ST.Point[3].Y;
+        if TriangleInRectangle(Tri2D, Rect2D) then
+          FVisibleElements.Add(ST);
       end;
       SplitBottom.Free;
     end;
@@ -660,124 +711,125 @@ begin
   TopClip.Free;
   BottomClip.Free;
 
-  FClipActive:=true;
+  FClipActive := true;
 end;
 
 procedure TTriangle.PolygonClip;
 var
-    i, j, k : integer;
-    T : TTriangleElement;
-    ST : TTriangleElement;
-    Test : array [1..3] of boolean;
-    TestPolyline : TPolygon2D;
-    CP : TTrianglePolyline;
-    RemoveList : TRefList;
-    SplitList : TRefList;
-    CrossingElements : TRefList;
-    Line : TTriangleLine;
+  i, j, k: integer;
+  T: TTriangleElement;
+  ST: TTriangleElement;
+  Test: array [1 .. 3] of boolean;
+  TestPolyline: TPolygon2D;
+  CP: TTrianglePolyline;
+  RemoveList: TRefList;
+  SplitList: TRefList;
+  CrossingElements: TRefList;
+  Line: TTriangleLine;
 begin
 
   // Removes triangles inside a polygon.
   // Crossing triangles are clipped.
 
-  RemoveList:=TRefList.Create;
-  CrossingElements:=TRefList.Create;
-  Line:=TTriangleLine.Create;
+  RemoveList := TRefList.Create;
+  CrossingElements := TRefList.Create;
+  Line := TTriangleLine.Create;
 
   // Loop over all clip polylines
 
-  for i:=0 to FClipPolylines.Count-1 do
+  for i := 0 to FClipPolylines.Count - 1 do
   begin
 
     // Create polygons for use with FastGeo
 
-    CP:=TTrianglePolyline(FClipPolylines.Items[i]);
+    CP := TTrianglePolyline(FClipPolylines.Items[i]);
 
     SetLength(TestPolyline, CP.Count);
 
-    for j:=0 to CP.Count-1 do
+    for j := 0 to CP.Count - 1 do
     begin
-      TestPolyline[j].x:=CP.Points[j].X;
-      TestPolyline[j].y:=CP.Points[j].Y;
+      TestPolyline[j].X := CP.Points[j].X;
+      TestPolyline[j].Y := CP.Points[j].Y;
     end;
 
     // Determine what triangles are crossing the
     // polyline boundary and which should be removed
 
-    for j:=0 to FVisibleElements.Count-1 do
+    for j := 0 to FVisibleElements.Count - 1 do
     begin
-      T:=TTriangleElement(FVisibleElements.Items[j]);
+      T := TTriangleElement(FVisibleElements.Items[j]);
 
-      for k:=1 to 3 do
+      for k := 1 to 3 do
       begin
-        Test[k]:=FastGeo.PointInPolygon(T.Point[k].X, T.Point[k].Y, TestPolyline)
+        Test[k] := FastGeo.PointInPolygon(T.Point[k].X, T.Point[k].Y,
+          TestPolyline)
       end;
 
       if (FTriangleClipProcessing = tpRemove) or
-         (FTriangleClipProcessing = tpRemoveCrossing) then
+        (FTriangleClipProcessing = tpRemoveCrossing) then
+      begin
+        if (Test[1]) and (Test[2]) and (Test[3]) then
         begin
-          if (Test[1]) and (Test[2]) and (Test[3]) then
-            begin
-              RemoveList.Add(T);
-            end
-          else if (Test[1]) or (Test[2]) or (Test[3]) then
-            begin
-              CrossingElements.Add(T);
-            end;
+          RemoveList.Add(T);
         end
-      else if (FTriangleClipProcessing = tpRemoveReverse) or
-              (FTriangleClipProcessing = tpRemoveCrossingReverse) then
+        else if (Test[1]) or (Test[2]) or (Test[3]) then
         begin
-          if (not Test[1]) and (not Test[2]) and (not Test[3]) then
-            begin
-              RemoveList.Add(T);
-            end
-          else if (Test[1]) or (Test[2]) or (Test[3]) then
-            begin
-              CrossingElements.Add(T);
-            end;
+          CrossingElements.Add(T);
         end;
+      end
+      else if (FTriangleClipProcessing = tpRemoveReverse) or
+        (FTriangleClipProcessing = tpRemoveCrossingReverse) then
+      begin
+        if (not Test[1]) and (not Test[2]) and (not Test[3]) then
+        begin
+          RemoveList.Add(T);
+        end
+        else if (Test[1]) or (Test[2]) or (Test[3]) then
+        begin
+          CrossingElements.Add(T);
+        end;
+      end;
     end;
 
     // Process crossing triangles
 
-    //if (FTriangleClipProcessing = tpClip) then
-    //begin
-      for j:=0 to CrossingElements.Count-1 do
+    // if (FTriangleClipProcessing = tpClip) then
+    // begin
+    for j := 0 to CrossingElements.Count - 1 do
+    begin
+      T := TTriangleElement(CrossingElements.Items[j]);
+      SplitList := T.SplitRight(CP);
+
+      if assigned(SplitList) then
       begin
-        T:=TTriangleElement(CrossingElements.Items[j]);
-        SplitList:=T.SplitRight(CP);
-
-        if assigned(SplitList) then
+        for k := 0 to SplitList.Count - 1 do
         begin
-          for k:=0 to SplitList.Count-1 do
-          begin
-            ST:=TTriangleElement(SplitList.Items[k]);
-            FVisibleElements.Add(ST);
-          end;
-          SplitList.Free;
+          ST := TTriangleElement(SplitList.Items[k]);
+          FVisibleElements.Add(ST);
         end;
-
-        RemoveList.Add(T);
+        SplitList.Free;
       end;
-    //end;
+
+      RemoveList.Add(T);
+    end;
+    // end;
 
   end;
 
   // Remove clipped triangles from visible list
 
-  for i:=0 to RemoveList.Count-1 do
+  for i := 0 to RemoveList.Count - 1 do
   begin
-    T:=TTriangleElement(RemoveList.Items[i]);
+    T := TTriangleElement(RemoveList.Items[i]);
     FVisibleElements.Remove(T);
   end;
 
-  if (FTriangleClipProcessing=tpRemoveCrossing) or
-     (FTriangleClipProcessing=tpRemoveCrossingReverse) then
+  if (FTriangleClipProcessing = tpRemoveCrossing) or
+    (FTriangleClipProcessing = tpRemoveCrossingReverse) then
   begin
-    for i:=0 to CrossingElements.Count-1 do
+    for i := 0 to CrossingElements.Count - 1 do
     begin
-      T:=TTriangleElement(CrossingElements.Items[i]);
+      T := TTriangleElement(CrossingElements.Items[i]);
       FVisibleElements.Remove(T);
     end;
   end;
@@ -790,75 +842,77 @@ end;
 function TTriangle.GetElementCount: integer;
 begin
   if FClipActive then
-    Result:=FVisibleElements.Count
+    Result := FVisibleElements.Count
   else
-    Result:=FElements.Count;
+    Result := FElements.Count;
 end;
 
 function TTriangle.GetElements(index: integer): TTriangleElement;
 begin
   if FClipActive then
+  begin
+    if (index >= 0) and (index < FVisibleElements.Count) then
     begin
-      if (index>=0) and (index<FVisibleElements.Count) then
-        begin
-         Result:=TTriangleElement(FVisibleElements.Items[index]);
-        end
-      else
-        Result:=nil;
+      Result := TTriangleElement(FVisibleElements.Items[index]);
     end
+    else
+      Result := nil;
+  end
   else
+  begin
+    if (index >= 0) and (index < FElements.Count) then
     begin
-      if (index>=0) and (index<FElements.Count) then
-        begin
-         Result:=TTriangleElement(FElements.Items[index]);
-        end
-      else
-        Result:=nil;
-    end;
+      Result := TTriangleElement(FElements.Items[index]);
+    end
+    else
+      Result := nil;
+  end;
 end;
 
 function TTriangle.GetMaxPoint: TTrianglePoint;
 begin
-  Result:=FMaxPoint;
+  Result := FMaxPoint;
 end;
 
 function TTriangle.GetMinPoint: TTrianglePoint;
 begin
-  Result:=FMinPoint;
+  Result := FMinPoint;
 end;
 
 function TTriangle.GetPointCount: integer;
 begin
-  Result:=FPoints.Count;
+  Result := FPoints.Count;
 end;
 
 function TTriangle.GetPoints(index: integer): TTrianglePoint;
 begin
-  if (index>=0) and (index<FPoints.Count) then
-    begin
-     Result:=TTrianglePoint(FPoints.Items[index]);
-    end
+  if (index >= 0) and (index < FPoints.Count) then
+  begin
+    Result := TTrianglePoint(FPoints.Items[index]);
+  end
   else
-    Result:=nil;
+    Result := nil;
 end;
 
 procedure TTriangle.ReadElementFile;
 var
-    f : TextFile;
-    ElementFilename : string;
-    nElements : integer;
-    ni1 : integer;
-    ni2 : integer;
-    i : integer;
-    p1, p2, p3 : integer;
-    elNbr : integer;
-    TriElement : TTriangleElement;
-    CurrentPath: String;
+  f: TextFile;
+  ElementFilename: string;
+  nElements: integer;
+  ni1: integer;
+  ni2: integer;
+  i: integer;
+  p1, p2, P3: integer;
+  elNbr: integer;
+  TriElement: TTriangleElement;
+  CurrentPath: String;
 begin
-  CurrentPath:=ExtractFilePath(Application.ExeName);
-  if FileExists(CurrentPath + FModelname+'.node') then  // Ändrat till app-katalogen /RJ
+  CurrentPath := ExtractFilePath(Application.ExeName);
+  if FileExists(CurrentPath + FModelname + '.node') then
+  // Ändrat till app-katalogen /RJ
   begin
-    ElementFilename:=CurrentPath + FModelname+'.1.ele';  // Ändrat till app-katalogen /RJ
+    ElementFilename := CurrentPath + FModelname + '.1.ele';
+    // Ändrat till app-katalogen /RJ
     if FileExists(ElementFilename) then
     begin
       AssignFile(f, ElementFilename);
@@ -866,13 +920,13 @@ begin
 
       readln(f, nElements, ni1, ni2);
 
-      for i:=1 to nElements do
+      for i := 1 to nElements do
       begin
-        readln(f, elNbr, p1, p2, p3);
-        TriElement:=TTriangleElement.Create;
-        TriElement.Point[1]:=TTrianglePoint(FPoints.Items[p1-1]);
-        TriElement.Point[2]:=TTrianglePoint(FPoints.Items[p2-1]);
-        TriElement.Point[3]:=TTrianglePoint(FPoints.Items[p3-1]);
+        readln(f, elNbr, p1, p2, P3);
+        TriElement := TTriangleElement.Create;
+        TriElement.Point[1] := TTrianglePoint(FPoints.Items[p1 - 1]);
+        TriElement.Point[2] := TTrianglePoint(FPoints.Items[p2 - 1]);
+        TriElement.Point[3] := TTrianglePoint(FPoints.Items[P3 - 1]);
         UpdateExtents(TriElement);
         FElements.Add(TriElement);
       end;
@@ -884,29 +938,29 @@ end;
 
 procedure TTriangle.ResetExtents;
 begin
-  FMaxPoint.X:=-1e300;
-  FMaxPoint.Y:=-1e300;
-  FMinPoint.X:=1e300;
-  FMinPoint.Y:=1e300;
+  FMaxPoint.X := -1E300;
+  FMaxPoint.Y := -1E300;
+  FMinPoint.X := 1E300;
+  FMinPoint.Y := 1E300;
 end;
 
 procedure TTriangle.UpdateExtents(Triangle: TTriangleElement);
 var
-    i : integer;
+  i: integer;
 begin
-  for i:=1 to 3 do
+  for i := 1 to 3 do
   begin
-    if Triangle.Point[i].X>FMaxPoint.X then
-      FMaxPoint.X:=Triangle.Point[i].X;
+    if Triangle.Point[i].X > FMaxPoint.X then
+      FMaxPoint.X := Triangle.Point[i].X;
 
-    if Triangle.Point[i].Y>FMaxPoint.Y then
-      FMaxPoint.Y:=Triangle.Point[i].Y;
+    if Triangle.Point[i].Y > FMaxPoint.Y then
+      FMaxPoint.Y := Triangle.Point[i].Y;
 
-    if Triangle.Point[i].X<FMinPoint.X then
-      FMinPoint.X:=Triangle.Point[i].X;
+    if Triangle.Point[i].X < FMinPoint.X then
+      FMinPoint.X := Triangle.Point[i].X;
 
-    if Triangle.Point[i].Y<FMinPoint.Y then
-      FMinPoint.Y:=Triangle.Point[i].Y;
+    if Triangle.Point[i].Y < FMinPoint.Y then
+      FMinPoint.Y := Triangle.Point[i].Y;
   end;
 end;
 
@@ -917,35 +971,42 @@ end;
 
 function TTriangle.GetPolylines(index: integer): TTrianglePolyline;
 begin
-  if (index>=0) and (index<FClipPolylines.Count) then
-    Result:=TTrianglePolyline(FClipPolylines.Items[index])
+  if (index >= 0) and (index < FClipPolylines.Count) then
+    Result := TTrianglePolyline(FClipPolylines.Items[index])
   else
-    Result:=nil;
+    Result := nil;
 end;
 
 procedure TTriangle.Offset;
 var
-    TP : TTrianglePoint;
-    i : integer;
+  TP: TTrianglePoint;
+  i: integer;
 begin
-  FMaxPoint.Y:=-1e300;
-  FMinPoint.Y:=1e300;
+
+  ResetExtents;
+
   for i := 0 to FPoints.Count - 1 do
   begin
     TP := Self.Points[i];
-    TP.Y:=TP.Y + OffsetPolyline.Interpolate(TP.X);
+    TP.Y := TP.Y + OffsetPolyline.Interpolate(TP.X);
 
-    if TP.Y>FMaxPoint.Y then
-      FMaxPoint.Y:=TP.Y;
+    if TP.Y > FMaxPoint.Y then
+      FMaxPoint.Y := TP.Y;
 
-    if TP.Y<FMinPoint.Y then
-      FMinPoint.Y:=TP.Y;
+    if TP.Y < FMinPoint.Y then
+      FMinPoint.Y := TP.Y;
+
+    if TP.X > FMaxPoint.X then
+      FMaxPoint.X := TP.X;
+
+    if TP.X < FMinPoint.X then
+      FMinPoint.X := TP.X;
   end;
 end;
 
-procedure TTriangle.AddClipPolyline(Polyline: TTrianglePolyline);
+procedure TTriangle.AddClipPolyline(PolyLine: TTrianglePolyline);
 begin
-  FClipPolylines.Add(Polyline);
+  FClipPolylines.Add(PolyLine);
 end;
 
 procedure TTriangle.ClearClipPolylines;
@@ -953,8 +1014,8 @@ begin
   FClipPolylines.Clear;
 end;
 
-procedure TTriangle.SetTriangleClipProcessing(
-  const Value: TTriangleClipProcessing);
+procedure TTriangle.SetTriangleClipProcessing
+  (const Value: TTriangleClipProcessing);
 begin
   FTriangleClipProcessing := Value;
 end;
@@ -970,81 +1031,80 @@ constructor TTriangleElement.Create;
 begin
   inherited;
 
-  FTriPoints[1]:=nil;
-  FTriPoints[2]:=nil;
-  FTriPoints[3]:=nil;
+  FTriPoints[1] := nil;
+  FTriPoints[2] := nil;
+  FTriPoints[3] := nil;
 end;
-
 
 destructor TTriangleElement.Destroy;
 begin
-  Point[1]:=nil;
-  Point[2]:=nil;
-  Point[3]:=nil;
+  Point[1] := nil;
+  Point[2] := nil;
+  Point[3] := nil;
   inherited;
 end;
 
-function TTriangleElement.GetIntersectionPoints(value: double; var p1,
-  p2: TTrianglePoint): boolean;
+function TTriangleElement.GetIntersectionPoints
+  (Value: double; var p1, p2: TTrianglePoint): boolean;
 var
-    I12 : TTrianglePoint;
-    I13 : TTrianglePoint;
-    I23 : TTrianglePoint;
-    f12 : boolean;
-    f13 : boolean;
-    f23 : boolean;
+  I12: TTrianglePoint;
+  I13: TTrianglePoint;
+  I23: TTrianglePoint;
+  f12: boolean;
+  f13: boolean;
+  f23: boolean;
 begin
-  I12:=TTrianglePoint.Create;
-  I13:=TTrianglePoint.Create;
-  I23:=TTrianglePoint.Create;
-  f12:=Interpolate(FTriPoints[1], FTriPoints[2], value, I12);
-  f13:=Interpolate(FTriPoints[1], FTriPoints[3], value, I13);
-  f23:=Interpolate(FTriPoints[2], FTriPoints[3], value, I23);
+  I12 := TTrianglePoint.Create;
+  I13 := TTrianglePoint.Create;
+  I23 := TTrianglePoint.Create;
+  f12 := Interpolate(FTriPoints[1], FTriPoints[2], Value, I12);
+  f13 := Interpolate(FTriPoints[1], FTriPoints[3], Value, I13);
+  f23 := Interpolate(FTriPoints[2], FTriPoints[3], Value, I23);
 
   if (not f12) and (not f13) and (not f23) then
-    begin
-      Result:=false;
-      I12.Free;
-      I13.Free;
-      I23.Free;
-    end
+  begin
+    Result := false;
+    I12.Free;
+    I13.Free;
+    I23.Free;
+  end
   else
+  begin
+    if f12 then
     begin
-      if f12 then
-        begin
-          p1.AssignFrom(I12);
-          if f13 then
-            p2.AssignFrom(I13)
-          else
-            p2.AssignFrom(I23);
-        end
-      else if f13 then
-        begin
-          p1.AssignFrom(I13);
-          if f12 then
-            p2.AssignFrom(I12)
-          else
-            p2.AssignFrom(I23);
-        end
+      p1.AssignFrom(I12);
+      if f13 then
+        p2.AssignFrom(I13)
       else
-        begin
-          p1.AssignFrom(I23);
-          if f12 then
-            p2.AssignFrom(I12)
-          else
-            p2.AssignFrom(I13);
-        end;
-
-      I12.Free;
-      I13.Free;
-      I23.Free;
-      Result:=true;
+        p2.AssignFrom(I23);
+    end
+    else if f13 then
+    begin
+      p1.AssignFrom(I13);
+      if f12 then
+        p2.AssignFrom(I12)
+      else
+        p2.AssignFrom(I23);
+    end
+    else
+    begin
+      p1.AssignFrom(I23);
+      if f12 then
+        p2.AssignFrom(I12)
+      else
+        p2.AssignFrom(I13);
     end;
+
+    I12.Free;
+    I13.Free;
+    I23.Free;
+    Result := true;
+  end;
 end;
 
 function TTriangleElement.GetPoint(index: integer): TTrianglePoint;
 begin
-  Result:=FTriPoints[index];
+  Result := FTriPoints[index];
 end;
 
 procedure TTriangleElement.SetPoint(index: integer; Point: TTrianglePoint);
@@ -1055,65 +1115,65 @@ begin
     if not FTriPoints[index].IsReferenced then
       FTriPoints[index].Free;
   end;
-  FTriPoints[index]:=Point;
+  FTriPoints[index] := Point;
   if assigned(Point) then
     Point.AddRef;
 end;
 
-function TTriangleElement.Split(PolyLine : TTrianglePolyline) : TRefList;
+function TTriangleElement.Split(PolyLine: TTrianglePolyline): TRefList;
 var
-    i : integer;
-    L : TTriangleLine;
-    SplitList : TRefList;
+  i: integer;
+  L: TTriangleLine;
+  SplitList: TRefList;
 begin
-  L:=TTriangleLine.Create;
+  L := TTriangleLine.Create;
 
-  for i:=0 to Polyline.Count-2 do
+  for i := 0 to PolyLine.Count - 2 do
   begin
-    Polyline.AssignLine(i,L);
-    SplitList:=Self.Split(L);
+    PolyLine.AssignLine(i, L);
+    SplitList := Self.Split(L);
     if assigned(SplitList) then
     begin
-      Result:=SplitList;
+      Result := SplitList;
       L.Free;
       exit;
     end;
   end;
 
-  Result:=nil;
+  Result := nil;
 
   L.Free;
 end;
 
 function TTriangleElement.Split(Line: TTriangleLine): TRefList;
 var
-    L1 : TTriangleLine;
-    L2 : TTriangleLine;
-    L3 : TTriangleLine;
+  L1: TTriangleLine;
+  L2: TTriangleLine;
+  L3: TTriangleLine;
 
-    I1 : TTrianglePoint;
-    I2 : TTrianglePoint;
-    I3 : TTrianglePoint;
+  I1: TTrianglePoint;
+  I2: TTrianglePoint;
+  I3: TTrianglePoint;
 
-    L : TRefList;
-    I : TRefList;
-    T : TRefList;
+  L: TRefList;
+  i: TRefList;
+  T: TRefList;
 
-    T1 : TTriangleElement;
-    T2 : TTriangleElement;
-    T3 : TTriangleElement;
+  T1: TTriangleElement;
+  T2: TTriangleElement;
+  T3: TTriangleElement;
 
-    HaveTriangles : boolean;
+  HaveTriangles: boolean;
 
 begin
 
-  L:=TRefList.Create;
-  I:=TRefList.Create;
-  T:=TRefList.Create;
+  L := TRefList.Create;
+  i := TRefList.Create;
+  T := TRefList.Create;
 
-  L1:=TTriangleLine.Create;
-  L2:=TTriangleLine.Create;
-  L3:=TTriangleLine.Create;
+  L1 := TTriangleLine.Create;
+  L2 := TTriangleLine.Create;
+  L3 := TTriangleLine.Create;
 
   L1.StartPoint.AssignFrom(Self.Point[1]);
   L1.EndPoint.AssignFrom(Self.Point[2]);
@@ -1126,112 +1186,114 @@ begin
 
   // Check for intersections
 
-  I1:=L1.Intersection(Line);
-  I2:=L2.Intersection(Line);
-  I3:=L3.Intersection(Line);
+  I1 := L1.Intersection(Line);
+  I2 := L2.Intersection(Line);
+  I3 := L3.Intersection(Line);
 
-  if assigned(I1) then I.Add(I1);
-  if assigned(I2) then I.Add(I2);
-  if assigned(I3) then I.Add(I3);
+  if assigned(I1) then
+    i.Add(I1);
+  if assigned(I2) then
+    i.Add(I2);
+  if assigned(I3) then
+    i.Add(I3);
 
   // Create triangles
 
-  T1:=TTriangleElement.Create;
-  T2:=TTriangleElement.Create;
-  T3:=TTriangleElement.Create;
+  T1 := TTriangleElement.Create;
+  T2 := TTriangleElement.Create;
+  T3 := TTriangleElement.Create;
 
   T.Add(T1);
   T.Add(T2);
   T.Add(T3);
 
-  HaveTriangles:=false;
+  HaveTriangles := false;
 
   if assigned(I1) and assigned(I3) then
-    begin
+  begin
 
-      // Primary triangle
+    // Primary triangle
 
-      T1.Point[1]:=Self.Point[2];
-      T1.Point[2]:=I3;
-      T1.Point[3]:=I1;
+    T1.Point[1] := Self.Point[2];
+    T1.Point[2] := I3;
+    T1.Point[3] := I1;
 
-      // Secondary triangles
+    // Secondary triangles
 
-      T2.Point[1]:=Self.Point[1];
-      T2.Point[2]:=I1;
-      T2.Point[3]:=I3;
+    T2.Point[1] := Self.Point[1];
+    T2.Point[2] := I1;
+    T2.Point[3] := I3;
 
-      T3.Point[1]:=Self.Point[3];
-      T3.Point[2]:=Self.Point[1];
-      T3.Point[3]:=I3;
+    T3.Point[1] := Self.Point[3];
+    T3.Point[2] := Self.Point[1];
+    T3.Point[3] := I3;
 
-      HaveTriangles:=true;
+    HaveTriangles := true;
 
-    end;
-
+  end;
 
   if assigned(I1) and assigned(I2) then
-    begin
+  begin
 
-      // Primary triangle
+    // Primary triangle
 
-      T1.Point[1]:=Self.Point[1];
-      T1.Point[2]:=I1;
-      T1.Point[3]:=I2;
+    T1.Point[1] := Self.Point[1];
+    T1.Point[2] := I1;
+    T1.Point[3] := I2;
 
-      // Secondary triangles
+    // Secondary triangles
 
-      T2.Point[1]:=Self.Point[2];
-      T2.Point[2]:=I2;
-      T2.Point[3]:=I1;
+    T2.Point[1] := Self.Point[2];
+    T2.Point[2] := I2;
+    T2.Point[3] := I1;
 
-      T3.Point[1]:=Self.Point[2];
-      T3.Point[2]:=Self.Point[3];
-      T3.Point[3]:=I2;
+    T3.Point[1] := Self.Point[2];
+    T3.Point[2] := Self.Point[3];
+    T3.Point[3] := I2;
 
-      HaveTriangles:=true;
+    HaveTriangles := true;
 
-    end;
+  end;
 
   if assigned(I2) and assigned(I3) then
-    begin
+  begin
 
-      // Primary triangle
+    // Primary triangle
 
-      T1.Point[1]:=Self.Point[3];
-      T1.Point[2]:=I2;
-      T1.Point[3]:=I3;
+    T1.Point[1] := Self.Point[3];
+    T1.Point[2] := I2;
+    T1.Point[3] := I3;
 
-      // Secondary triangles
+    // Secondary triangles
 
-      T2.Point[1]:=Self.Point[2];
-      T2.Point[2]:=I3;
-      T2.Point[3]:=Self.Point[1];
+    T2.Point[1] := Self.Point[2];
+    T2.Point[2] := I3;
+    T2.Point[3] := Self.Point[1];
 
-      T3.Point[1]:=I3;
-      T3.Point[2]:=I2;
-      T3.Point[3]:=Self.Point[1];
+    T3.Point[1] := I3;
+    T3.Point[2] := I2;
+    T3.Point[3] := Self.Point[1];
 
-      HaveTriangles:=true;
+    HaveTriangles := true;
 
-    end;
+  end;
 
   if HaveTriangles then
-    begin
-      L.Add(T1);
-      L.Add(T2);
-      L.Add(T3);
-      I.Free;
-      T.Free;
-      Result:=L;
-    end
+  begin
+    L.Add(T1);
+    L.Add(T2);
+    L.Add(T3);
+    i.Free;
+    T.Free;
+    Result := L;
+  end
   else
-    begin
-      L.Free;
-      I.Free;
-      T.Free;
-      Result:=nil;
-    end;
+  begin
+    L.Free;
+    i.Free;
+    T.Free;
+    Result := nil;
+  end;
 
 
   // Clean up
@@ -1243,162 +1305,153 @@ end;
 
 function TTriangleElement.SplitLeft(Line: TTriangleLine): TRefList;
 var
-  SplitList : TRefList;
-  i, j : integer;
-  T : TTriangleElement;
-  alfa : double;
-  beta : double;
-  gamma : double;
-  MaxAngle : double;
-  NewSplitList : TRefList;
-  TempLine : TTriangleLine;
+  SplitList: TRefList;
+  i, j: integer;
+  T: TTriangleElement;
+  alfa: double;
+  beta: double;
+  gamma: double;
+  MaxAngle: double;
+  NewSplitList: TRefList;
+  TempLine: TTriangleLine;
 begin
-  SplitList:=Self.Split(Line);
+  SplitList := Self.Split(Line);
 
   if not assigned(SplitList) then
   begin
-    Result:=nil;
+    Result := nil;
     exit;
   end;
 
-  NewSplitList:=TRefList.Create;
-  TempLine:=TTriangleLine.Create;
+  NewSplitList := TRefList.Create;
+  TempLine := TTriangleLine.Create;
   TempLine.AssignFrom(Line);
-  TempLine.Scale(1e3);
+  TempLine.Scale(1E3);
 
   // Calculate line orientation
 
-  alfa:=Arctan2(
-    TempLine.EndPoint.Y-TempLine.StartPoint.Y,
-    TempLine.EndPoint.X-TempLine.StartPoint.X
-  );
+  alfa := Arctan2(TempLine.EndPoint.Y - TempLine.StartPoint.Y,
+    TempLine.EndPoint.X - TempLine.StartPoint.X);
 
   // Sort out left lying triangles
 
-  for i:=0 to SplitList.Count-1 do
+  for i := 0 to SplitList.Count - 1 do
   begin
-    T:=TTriangleElement(SplitList.Items[i]);
-    MaxAngle:=1e-300;
-    for j:=1 to 3 do
+    T := TTriangleElement(SplitList.Items[i]);
+    MaxAngle := 1E-300;
+    for j := 1 to 3 do
     begin
-      beta:=Arctan2(
-        T.Point[j].Y-TempLine.StartPoint.Y,
-        T.Point[j].X-TempLine.StartPoint.X
-      );
-      gamma:=alfa - beta;
-      if abs(gamma)>abs(MaxAngle) then
-        MaxAngle:=gamma;
+      beta := Arctan2(T.Point[j].Y - TempLine.StartPoint.Y,
+        T.Point[j].X - TempLine.StartPoint.X);
+      gamma := alfa - beta;
+      if abs(gamma) > abs(MaxAngle) then
+        MaxAngle := gamma;
     end;
 
-    if MaxAngle<0 then
+    if MaxAngle < 0 then
       NewSplitList.Add(T);
   end;
 
   SplitList.Free;
   TempLine.Free;
-  Result:=NewSplitList;
+  Result := NewSplitList;
 end;
 
 function TTriangleElement.SplitRight(Line: TTriangleLine): TRefList;
 var
-  SplitList : TRefList;
-  i, j : integer;
-  T : TTriangleElement;
-  alfa : double;
-  beta : double;
-  gamma : double;
-  MaxAngle : double;
-  NewSplitList : TRefList;
+  SplitList: TRefList;
+  i, j: integer;
+  T: TTriangleElement;
+  alfa: double;
+  beta: double;
+  gamma: double;
+  MaxAngle: double;
+  NewSplitList: TRefList;
 begin
-  SplitList:=Self.Split(Line);
+  SplitList := Self.Split(Line);
 
   if not assigned(SplitList) then
   begin
-    Result:=nil;
+    Result := nil;
     exit;
   end;
 
-  NewSplitList:=TRefList.Create;
+  NewSplitList := TRefList.Create;
 
   // Calculate line orientation
 
-  alfa:=Arctan2(
-    Line.EndPoint.Y-Line.StartPoint.Y,
-    Line.EndPoint.X-Line.StartPoint.X
-  );
+  alfa := Arctan2(Line.EndPoint.Y - Line.StartPoint.Y,
+    Line.EndPoint.X - Line.StartPoint.X);
 
   // Sort out left lying triangles
 
-  for i:=0 to SplitList.Count-1 do
+  for i := 0 to SplitList.Count - 1 do
   begin
-    T:=TTriangleElement(SplitList.Items[i]);
-    MaxAngle:=1e-300;
-    for j:=1 to 3 do
+    T := TTriangleElement(SplitList.Items[i]);
+    MaxAngle := 1E-300;
+    for j := 1 to 3 do
     begin
-      beta:=Arctan2(
-        T.Point[j].Y-Line.StartPoint.Y,
-        T.Point[j].X-Line.StartPoint.X
-      );
-      gamma:=alfa - beta;
-      if abs(gamma)>abs(MaxAngle) then
-        MaxAngle:=gamma;
+      beta := Arctan2(T.Point[j].Y - Line.StartPoint.Y,
+        T.Point[j].X - Line.StartPoint.X);
+      gamma := alfa - beta;
+      if abs(gamma) > abs(MaxAngle) then
+        MaxAngle := gamma;
     end;
 
-    if MaxAngle>0 then
+    if MaxAngle > 0 then
       NewSplitList.Add(T);
   end;
 
   SplitList.Free;
-  Result:=NewSplitList;
+  Result := NewSplitList;
 end;
 
-function TTriangleElement.SplitLeft(Polyline: TTrianglePolyline): TRefList;
+function TTriangleElement.SplitLeft(PolyLine: TTrianglePolyline): TRefList;
 var
-    i : integer;
-    L : TTriangleLine;
-    SplitList : TRefList;
+  i: integer;
+  L: TTriangleLine;
+  SplitList: TRefList;
 begin
-  L:=TTriangleLine.Create;
+  L := TTriangleLine.Create;
 
-  for i:=0 to Polyline.Count-2 do
+  for i := 0 to PolyLine.Count - 2 do
   begin
-    Polyline.AssignLine(i,L);
-    SplitList:=Self.SplitLeft(L);
+    PolyLine.AssignLine(i, L);
+    SplitList := Self.SplitLeft(L);
     if assigned(SplitList) then
     begin
-      Result:=SplitList;
+      Result := SplitList;
       L.Free;
       exit;
     end;
   end;
 
-  Result:=nil;
+  Result := nil;
 
   L.Free;
 end;
 
-function TTriangleElement.SplitRight(
-  Polyline: TTrianglePolyline): TRefList;
+function TTriangleElement.SplitRight(PolyLine: TTrianglePolyline): TRefList;
 var
-    i : integer;
-    L : TTriangleLine;
-    SplitList : TRefList;
+  i: integer;
+  L: TTriangleLine;
+  SplitList: TRefList;
 begin
-  L:=TTriangleLine.Create;
+  L := TTriangleLine.Create;
 
-  for i:=0 to Polyline.Count-2 do
+  for i := 0 to PolyLine.Count - 2 do
   begin
-    Polyline.AssignLine(i,L);
-    SplitList:=Self.SplitRight(L);
+    PolyLine.AssignLine(i, L);
+    SplitList := Self.SplitRight(L);
     if assigned(SplitList) then
     begin
-      Result:=SplitList;
+      Result := SplitList;
       L.Free;
       exit;
     end;
   end;
 
-  Result:=nil;
+  Result := nil;
 
   L.Free;
 end;
@@ -1407,56 +1460,89 @@ end;
 
 procedure TTrianglePoint.AssignFrom(P: TTrianglePoint);
 begin
-  FX:=P.X;
-  FY:=P.Y;
-  FValue:=P.Value;
+  FX := P.X;
+  FY := P.Y;
+  FValue := P.Value;
 end;
 
 constructor TTrianglePoint.Create;
 begin
   inherited;
-  FX:=0;
-  FY:=0;
+  FX := 0;
+  FY := 0;
 end;
 
 { TTriangleClipRect }
 
-function TTriangleClipRect.Check(Triangle : TTriangleElement): TTriangleType;
+function ArcTanFull(Y, X : double) : double;
 var
-    i : integer;
-    PointInside : array [1..3] of boolean;
-    Inside : boolean;
-    //Outside : boolean;
-    Crossing : boolean;
-    eps : double;
+    angle : double;
 begin
-  eps := 1e-6;
-  for i:=1 to 3 do
+  angle:=ArcTan2(Y, X);
+  if angle<0 then
+    angle:=2*pi-angle;
+  Result:=angle;
+end;
+
+function TTriangleClipRect.Check(Triangle: TTriangleElement): TTriangleType;
+var
+  i, j: integer;
+  PointInside: array [1 .. 3] of boolean;
+  PointAngle: array [1 .. 3] of double;
+
+  TriangleInside : array [1..4] of boolean;
+  TriangleOutside : array [1..4] of boolean;
+  TriangleCrossing : array [1..4] of boolean;
+
+  Inside: boolean;
+  Outside : boolean;
+  Crossing: boolean;
+  eps: double;
+  x0, y0, x1, y1 : double;
+  a0, a1 : double;
+  da : double;
+
+  OutsideCount : integer;
+
+begin
+
+  // Test against left side
+
+  eps := 0.0;
+  for i := 1 to 3 do
   begin
-    PointInside[i]:=
-      (Triangle.Point[i].X>=FLeft) and (Triangle.Point[i].X<=FRight) and
-      (Triangle.Point[i].Y>=FBottom-eps) and (Triangle.Point[i].Y<=FTop+eps);
+    PointInside[i] :=
+      (Triangle.Point[i].X > FLeft-eps) and
+      (Triangle.Point[i].X < FRight+eps ) and
+      (Triangle.Point[i].Y > FBottom-eps ) and
+      (Triangle.Point[i].Y < FTop+eps );
   end;
 
-  Inside:=PointInside[1] and PointInside[2] and PointInside[3];
-  Crossing:=PointInside[1] or PointInside[2] or PointInside[3];
-  //Outside:=(not PointInside[1]) and (not PointInside[2]) and (not PointInside[1]);
+  OutsideCount := 0;
 
-  if Inside then
-    Result:=ttInside
-  else if Crossing then
-    Result:=ttCrossing
+  for i := 1 to 3 do
+    if not PointInside[i] then
+      inc(OutsideCount);
+
+  Inside := (OutsideCount=0);
+  Outside := (OutsideCount=3);
+  Crossing := (OutsideCount>0) and (OutSideCount<3);
+
+  if Crossing then
+    Result := ttCrossing
+  else if Inside then
+    Result := ttInside
   else
-    Result:=ttOutside;
+    Result := ttOutside;
 end;
 
 constructor TTriangleClipRect.Create;
 begin
   inherited Create;
-  FLeft:=-1;
-  FRight:=1;
-  FTop:=1;
-  FBottom:=-1;
+  FLeft := -1;
+  FRight := 1;
+  FTop := 1;
+  FBottom := -1;
 end;
 
 { TRefCounted }
@@ -1469,18 +1555,18 @@ end;
 constructor TRefCounted.Create;
 begin
   inherited;
-  FRefCount:=0;
+  FRefCount := 0;
 end;
 
 procedure TRefCounted.DelRef;
 begin
-  if FRefCount>0 then
+  if FRefCount > 0 then
     dec(FRefCount);
 end;
 
 function TRefCounted.IsReferenced: boolean;
 begin
-  Result:=FRefCount>0;
+  Result := FRefCount > 0;
 end;
 
 { TRefList }
@@ -1488,7 +1574,7 @@ end;
 constructor TRefList.Create;
 begin
   inherited;
-  FList:=TList.Create;
+  FList := TList.Create;
 end;
 
 destructor TRefList.Destroy;
@@ -1500,12 +1586,12 @@ end;
 
 procedure TRefList.Clear;
 var
-    i : integer;
-    Item : TRefCounted;
+  i: integer;
+  Item: TRefCounted;
 begin
-  for i:=0 to FList.Count-1 do
+  for i := 0 to FList.Count - 1 do
   begin
-    Item:=FList.Items[i];
+    Item := FList.Items[i];
     Item.DelRef;
 
     // Do not free any referenced items
@@ -1533,45 +1619,45 @@ end;
 
 procedure TRefList.Delete(Idx: integer);
 var
-    Item : TRefCounted;
+  Item: TRefCounted;
 begin
-  Item:=FList.Items[Idx];
-  FList.Delete(idx);
+  Item := FList.Items[Idx];
+  FList.Delete(Idx);
   if not Item.IsReferenced then
     Item.Free;
 end;
 
 function TRefList.GetItem(index: integer): TRefCounted;
 begin
-  if (index>=0) and (index<FList.Count) then
-    Result:=FList.Items[index]
+  if (index >= 0) and (index < FList.Count) then
+    Result := FList.Items[index]
   else
-    Result:=nil;
+    Result := nil;
 end;
 
 function TRefList.GetCount: integer;
 begin
-  Result:=FList.Count;
+  Result := FList.Count;
 end;
 
 procedure TRefList.ClearUnreferenced;
 var
-    i : integer;
-    Item : TRefCounted;
-    Referenced : TList;
+  i: integer;
+  Item: TRefCounted;
+  Referenced: TList;
 begin
 
   // Create a list for the referenced items
 
-  Referenced:=TList.Create;
+  Referenced := TList.Create;
 
   // Move all referenced items refcount > 1 to
   // the referenced list. Unreferenced items
   // are freed.
 
-  for i:=0 to FList.Count-1 do
+  for i := 0 to FList.Count - 1 do
   begin
-    Item:=FList.Items[i];
+    Item := FList.Items[i];
     Item.DelRef;
 
     if Item.IsReferenced then
@@ -1586,7 +1672,7 @@ begin
 
   // Add back all referenced items
 
-  for i:=0 to Referenced.Count-1 do
+  for i := 0 to Referenced.Count - 1 do
   begin
     Self.Add(Referenced.Items[i]);
   end;
@@ -1598,18 +1684,18 @@ end;
 
 procedure TTriangleLine.AssignFrom(Line: TTriangleLine);
 begin
-  FStartPoint.X:=Line.StartPoint.X;
-  FStartPoint.Y:=Line.StartPoint.Y;
-  FEndPoint.X:=Line.EndPoint.X;
-  FEndPoint.Y:=Line.EndPoint.Y;
+  FStartPoint.X := Line.StartPoint.X;
+  FStartPoint.Y := Line.StartPoint.Y;
+  FEndPoint.X := Line.EndPoint.X;
+  FEndPoint.Y := Line.EndPoint.Y;
 end;
 
 constructor TTriangleLine.Create;
 begin
   inherited;
 
-  FStartPoint:=TTrianglePoint.Create;
-  FEndPoint:=TTrianglePoint.Create;
+  FStartPoint := TTrianglePoint.Create;
+  FEndPoint := TTrianglePoint.Create;
 end;
 
 destructor TTriangleLine.Destroy;
@@ -1621,258 +1707,90 @@ end;
 
 function TTriangleLine.Intersection(L: TTriangleLine): TTrianglePoint;
 var
-  k1, k2 : double;
-  m1, m2 : double;
-  x, y : double;
-  x1, x2 : double;
-  ISect : TTrianglePoint;
-  dx, dy : double;
+  k1, k2: double;
+  m1, m2: double;
+  X, Y: double;
+  x1, x2: double;
+  ISect: TTrianglePoint;
+  dx, dy: double;
 
-  ltot, lp : double;
-  v : double;
+  ltot, lp: double;
+  v: double;
 
-  TmpStart1, TmpStart2, TmpEnd1, TmpEnd2 : TTrianglePoint;
-  TmpPoint : TTrianglePoint;
+  TmpStart1, TmpStart2, TmpEnd1, TmpEnd2: TTrianglePoint;
+  TmpPoint: TTrianglePoint;
 
-  vert1 : boolean;
-  vert2 : boolean;
+  vert1: boolean;
+  vert2: boolean;
 
-  Done : boolean;
+  Done: boolean;
+
+  s1, s2 : TSegment2D;
 begin
 
-  Result:=nil;
-  Done:=false;
+  Result := nil;
+  Done := false;
 
-  TmpStart1:=TTrianglePoint.Create;
-  TmpStart2:=TTrianglePoint.Create;
-  TmpEnd1:=TTrianglePoint.Create;
-  TmpEnd2:=TTrianglePoint.Create;
-  TmpPoint:=TTrianglePoint.Create;
+  s1[1].x:=Self.FStartPoint.X;
+  s1[1].y:=Self.FStartPoint.Y;
 
-  k1:=0;
-  k2:=0;
-  m1:=0;
-  m2:=0;
-  x1:=0;
-  x2:=0;
+  s1[2].x:=Self.FEndPoint.X;
+  s1[2].y:=Self.FEndPoint.Y;
 
-  try
+  s2[1].x:=L.StartPoint.X;
+  s2[1].y:=L.StartPoint.Y;
 
-    vert1:=false;
-    vert2:=false;
+  s2[2].x:=L.EndPoint.X;
+  s2[2].y:=L.EndPoint.Y;
 
-    if (FStartPoint.X>FEndPoint.X) then
-      begin
-        TmpStart1.AssignFrom(FEndPoint);
-        TmpEnd1.AssignFrom(FStartPoint);
-      end
-    else
-      begin
-        TmpStart1.AssignFrom(FStartPoint);
-        TmpEnd1.AssignFrom(FEndPoint);
-      end;
+  if Intersect(s1, s2, x, y) then
+    begin
+      ISect := TTrianglePoint.Create;
+      ISect.X := x;
+      ISect.Y := y;
 
-    dx:=TmpEnd1.X-TmpStart1.X;
-    dy:=TmpEnd1.Y-TmpStart1.Y;
+      ltot := Distance(StartPoint, EndPoint);
+      lp := Distance(StartPoint, ISect);
+      v := StartPoint.Value + (EndPoint.Value - StartPoint.Value)
+        * lp / ltot;
+      ISect.Value := v;
 
-    if (dx<>0) then
-      begin
-        k1:=dy/dx; // y = kx + m, m = y - kx
-        m1:=TmpEnd1.Y-k1*TmpEnd1.X;
-      end
-    else
-      begin
-        x1:=TmpEnd1.X;
-        vert1:=true;
-      end;
-
-    if (L.StartPoint.X>L.EndPoint.X) then
-      begin
-        TmpStart2.AssignFrom(L.EndPoint);
-        TmpEnd2.AssignFrom(L.StartPoint);
-      end
-    else
-      begin
-        TmpStart2.AssignFrom(L.StartPoint);
-        TmpEnd2.AssignFrom(L.EndPoint);
-      end;
-
-    dx:=TmpEnd2.X-TmpStart2.X;
-    dy:=TmpEnd2.Y-TmpStart2.Y;
-
-    if (dx<>0) then
-      begin
-        k2:=dy/dx;
-        m2:=TmpStart2.Y-k2*TmpStart2.X;
-      end
-    else
-      begin
-        x2:=TmpEnd2.X;
-        vert2:=true;
-      end;
-
-    if (k1-k2=0) then
+      Result:=ISect;
+      exit;
+    end
+  else
     begin
       Result:=nil;
-      Done:=true;
+      exit;
     end;
-
-    if (not vert1) and (not vert2) and (not Done) then
-    begin
-      //x*k1+m1 = x*k2+m2, x*(k1-k2)=m2-m1
-      x:=(m2-m1)/(k1-k2);
-      y:=k1*x+m1;
-
-      if (x>=TmpStart1.X) and (x<=TmpEnd1.X) then
-        if (x>=TmpStart2.X) and (x<=TmpEnd2.X) then
-          begin
-            ISect:=TTrianglePoint.Create;
-            ISect.X:=x;
-            ISect.Y:=y;
-
-            // Calcuate interpolated value
-
-            ltot:=Distance(StartPoint, EndPoint);
-            lp:=Distance(StartPoint, Isect);
-            v:=StartPoint.Value + (EndPoint.Value-StartPoint.Value)*lp/ltot;
-            Isect.Value:=v;
-
-            Result:=ISect;
-            Done:=true;
-          end
-        else
-          begin
-            Result:=nil;
-            Done:=true;
-          end;
-    end;
-
-    if (vert1) and (vert2) and (not Done) then
-    begin
-      Result:=nil;
-      Done:=true;
-    end;
-
-    if (vert1) and (not vert2) and (not Done) then
-    begin
-      x:=x1;
-      y:=k2*x + m2;
-
-      if (TmpStart1.Y>TmpEnd1.Y) then
-      begin
-        TmpPoint.AssignFrom(TmpStart1);
-        TmpStart1.AssignFrom(TmpEnd1);
-        TmpEnd1.AssignFrom(TmpPoint);
-      end;
-
-      if (TmpStart2.Y>TmpEnd2.Y) then
-      begin
-        TmpPoint.AssignFrom(TmpStart2);
-        TmpStart2.AssignFrom(TmpEnd2);
-        TmpEnd2.AssignFrom(TmpPoint);
-      end;
-
-      if (y>=TmpStart1.Y) and (y<=TmpEnd1.Y) then
-        if (y>=TmpStart2.Y) and (y<=TmpEnd2.Y) then
-          begin
-            ISect:=TTrianglePoint.Create;
-            ISect.X:=x;
-            ISect.Y:=y;
-
-            // Calcuate interpolated value
-
-            ltot:=Distance(StartPoint, EndPoint);
-            lp:=Distance(StartPoint, Isect);
-            v:=StartPoint.Value + (EndPoint.Value-StartPoint.Value)*lp/ltot;
-            Isect.Value:=v;
-
-            Result:=ISect;
-          end
-        else
-          begin
-            Result:=nil;
-          end;
-
-      Done:=true;
-    end;
-
-    if (vert2) and (not vert1) and (not Done) then
-    begin
-      x:=x2;
-      y:=k1*x + m1;
-
-      if (TmpStart1.Y>TmpEnd1.Y) then
-      begin
-        TmpPoint.AssignFrom(TmpStart1);
-        TmpStart1.AssignFrom(TmpEnd1);
-        TmpEnd1.AssignFrom(TmpPoint);
-      end;
-
-      if (TmpStart2.Y>TmpEnd2.Y) then
-      begin
-        TmpPoint.AssignFrom(TmpStart2);
-        TmpStart2.AssignFrom(TmpEnd2);
-        TmpEnd2.AssignFrom(TmpPoint);
-      end;
-
-      if (y>=TmpStart1.Y) and (y<=TmpEnd1.Y) then
-        if (y>=TmpStart2.Y) and (y<=TmpEnd2.Y) then
-          begin
-            ISect:=TTrianglePoint.Create;
-            ISect.X:=x;
-            ISect.Y:=y;
-
-            // Calcuate interpolated value
-
-            ltot:=Distance(StartPoint, EndPoint);
-            lp:=Distance(StartPoint, Isect);
-            v:=StartPoint.Value + (EndPoint.Value-StartPoint.Value)*lp/ltot;
-            Isect.Value:=v;
-
-            Result:=ISect;
-          end
-        else
-          begin
-            Result:=nil;
-          end;
-
-      //Done:=true;
-    end;
-  finally
-    TmpStart1.Free;
-    TmpStart2.Free;
-    TmpEnd1.Free;
-    TmpEnd2.Free;
-    TmpPoint.Free;
-  end;
 end;
-
 
 function TTriangleLine.Length: double;
 begin
-  Result:=sqrt(sqr(FEndPoint.X-FStartPoint.X)+sqr(FEndPoint.Y-FStartPoint.Y));
+  Result := Sqrt(sqr(FEndPoint.X - FStartPoint.X) + sqr
+      (FEndPoint.Y - FStartPoint.Y));
 end;
 
 procedure TTriangleLine.Scale(Factor: double);
 var
-  MP : TTrianglePoint;
+  MP: TTrianglePoint;
 
-  vx, vy : double;
-  l : double;
+  vx, vy: double;
+  L: double;
 begin
-  MP:=TTrianglePoint.Create;
-  MP.X:=(FStartPoint.X + FEndPoint.X) * 0.5;
-  MP.Y:=(FStartPoint.Y + FEndPoint.Y) * 0.5;
+  MP := TTrianglePoint.Create;
+  MP.X := (FStartPoint.X + FEndPoint.X) * 0.5;
+  MP.Y := (FStartPoint.Y + FEndPoint.Y) * 0.5;
 
-  l:=Self.Length;
+  L := Self.Length;
 
-  vx:=(FEndPoint.X-FStartPoint.X)/l;
-  vy:=(FEndPoint.Y-FStartPoint.Y)/l;
+  vx := (FEndPoint.X - FStartPoint.X) / L;
+  vy := (FEndPoint.Y - FStartPoint.Y) / L;
 
-  FEndPoint.X:=vx*l*0.5*Factor;
-  FEndPoint.Y:=vy*l*0.5*Factor;
-  FStartPoint.X:=-vx*l*0.5*Factor;
-  FStartPoint.Y:=-vy*l*0.5*Factor;
+  FEndPoint.X := vx * L * 0.5 * Factor;
+  FEndPoint.Y := vy * L * 0.5 * Factor;
+  FStartPoint.X := -vx * L * 0.5 * Factor;
+  FStartPoint.Y := -vy * L * 0.5 * Factor;
 end;
 
 { TTrianglePolyline }
@@ -1885,7 +1803,7 @@ end;
 constructor TTrianglePolyline.Create;
 begin
   inherited;
-  FPoints:=TRefList.Create;
+  FPoints := TRefList.Create;
 end;
 
 destructor TTrianglePolyline.Destroy;
@@ -1894,59 +1812,59 @@ begin
   inherited;
 end;
 
-procedure TTrianglePolyline.AddPoint(x, y: double);
+procedure TTrianglePolyline.AddPoint(X, Y: double);
 var
-    P : TTrianglePoint;
+  P: TTrianglePoint;
 begin
-  P:=TTrianglePoint.Create;
-  P.X:=x;
-  P.Y:=y;
+  P := TTrianglePoint.Create;
+  P.X := X;
+  P.Y := Y;
   FPoints.Add(P);
 end;
 
-function TTrianglePolyline.GetPoints(idx: integer): TTrianglePoint;
+function TTrianglePolyline.GetPoints(Idx: integer): TTrianglePoint;
 begin
-  if (idx>=0) and (idx<FPoints.Count) then
-    begin
-      Result:=TTrianglePoint(FPoints.Items[idx]);
-    end
+  if (Idx >= 0) and (Idx < FPoints.Count) then
+  begin
+    Result := TTrianglePoint(FPoints.Items[Idx]);
+  end
   else
-    Result:=nil;
+    Result := nil;
 end;
 
-function TTrianglePolyline.Interpolate(x : double): double;
+function TTrianglePolyline.Interpolate(X: double): double;
 var
-    i : integer;
-    xStart, xEnd : double;
-    yStart, yEnd : double;
-    x1, x2, y1, y2 : double;
+  i: integer;
+  xStart, xEnd: double;
+  yStart, yEnd: double;
+  x1, x2, y1, y2: double;
 begin
-  xStart:=Self.Points[0].X;
-  yStart:=Self.Points[0].Y;
-  xEnd:=Self.Points[Self.Count-1].X;
-  yEnd:=Self.Points[Self.Count-1].Y;
+  xStart := Self.Points[0].X;
+  yStart := Self.Points[0].Y;
+  xEnd := Self.Points[Self.Count - 1].X;
+  yEnd := Self.Points[Self.Count - 1].Y;
 
-  if x<=xStart then
+  if X <= xStart then
   begin
-    Result:=yStart;
+    Result := yStart;
     exit;
   end;
 
-  if x>=xEnd then
+  if X >= xEnd then
   begin
-    Result:=yEnd;
+    Result := yEnd;
   end;
 
-  for i := 0 to Self.Count-2 do
+  for i := 0 to Self.Count - 2 do
   begin
-    x1:=Self.Points[i].X;
-    y1:=Self.Points[i].Y;
-    x2:=Self.Points[i+1].X;
-    y2:=Self.Points[i+1].Y;
+    x1 := Self.Points[i].X;
+    y1 := Self.Points[i].Y;
+    x2 := Self.Points[i + 1].X;
+    y2 := Self.Points[i + 1].Y;
 
-    if (x1<=x) and (x<x2) then
+    if (x1 <= X) and (X < x2) then
     begin
-      Result:=y1+(y2-y1)*(x-x1)/(x2-x1);
+      Result := y1 + (y2 - y1) * (X - x1) / (x2 - x1);
       exit;
     end;
   end;
@@ -1954,17 +1872,17 @@ end;
 
 function TTrianglePolyline.GetCount: integer;
 begin
-  Result:=FPoints.Count;
+  Result := FPoints.Count;
 end;
 
-procedure TTrianglePolyline.AssignLine(idx: integer; Line: TTriangleLine);
+procedure TTrianglePolyline.AssignLine(Idx: integer; Line: TTriangleLine);
 begin
-  if (idx>=0) and (idx<FPoints.Count-1) then
+  if (Idx >= 0) and (Idx < FPoints.Count - 1) then
   begin
-    Line.StartPoint.X:=TTrianglePoint(FPoints.Items[idx]).X;
-    Line.StartPoint.Y:=TTrianglePoint(FPoints.Items[idx]).Y;
-    Line.EndPoint.X:=TTrianglePoint(FPoints.Items[idx+1]).X;
-    Line.EndPoint.Y:=TTrianglePoint(FPoints.Items[idx+1]).Y;
+    Line.StartPoint.X := TTrianglePoint(FPoints.Items[Idx]).X;
+    Line.StartPoint.Y := TTrianglePoint(FPoints.Items[Idx]).Y;
+    Line.EndPoint.X := TTrianglePoint(FPoints.Items[Idx + 1]).X;
+    Line.EndPoint.Y := TTrianglePoint(FPoints.Items[Idx + 1]).Y;
   end;
 end;
 
