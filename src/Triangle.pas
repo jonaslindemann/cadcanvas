@@ -543,10 +543,8 @@ end;
 
 procedure TTriangle.Clip;
 var
-  i, j, k: integer;
-  OutCount : integer;
+  i, j : integer;
   T, ST: TTriangleElement;
-  TriangleType: TTriangleType;
   LeftClip: TTriangleLine;
   RightClip: TTriangleLine;
   TopClip: TTriangleLine;
@@ -1486,21 +1484,13 @@ end;
 
 function TTriangleClipRect.Check(Triangle: TTriangleElement): TTriangleType;
 var
-  i, j: integer;
+  i : integer;
   PointInside: array [1 .. 3] of boolean;
-  PointAngle: array [1 .. 3] of double;
-
-  TriangleInside : array [1..4] of boolean;
-  TriangleOutside : array [1..4] of boolean;
-  TriangleCrossing : array [1..4] of boolean;
 
   Inside: boolean;
-  Outside : boolean;
+  //Outside : boolean;
   Crossing: boolean;
   eps: double;
-  x0, y0, x1, y1 : double;
-  a0, a1 : double;
-  da : double;
 
   OutsideCount : integer;
 
@@ -1525,7 +1515,7 @@ begin
       inc(OutsideCount);
 
   Inside := (OutsideCount=0);
-  Outside := (OutsideCount=3);
+  //Outside := (OutsideCount=3);
   Crossing := (OutsideCount>0) and (OutSideCount<3);
 
   if Crossing then
@@ -1707,29 +1697,14 @@ end;
 
 function TTriangleLine.Intersection(L: TTriangleLine): TTrianglePoint;
 var
-  k1, k2: double;
-  m1, m2: double;
   X, Y: double;
-  x1, x2: double;
   ISect: TTrianglePoint;
-  dx, dy: double;
 
   ltot, lp: double;
   v: double;
 
-  TmpStart1, TmpStart2, TmpEnd1, TmpEnd2: TTrianglePoint;
-  TmpPoint: TTrianglePoint;
-
-  vert1: boolean;
-  vert2: boolean;
-
-  Done: boolean;
-
   s1, s2 : TSegment2D;
 begin
-
-  Result := nil;
-  Done := false;
 
   s1[1].x:=Self.FStartPoint.X;
   s1[1].y:=Self.FStartPoint.Y;
@@ -1844,30 +1819,34 @@ begin
   xEnd := Self.Points[Self.Count - 1].X;
   yEnd := Self.Points[Self.Count - 1].Y;
 
+  Result:=yEnd;
+
   if X <= xStart then
-  begin
-    Result := yStart;
-    exit;
-  end;
-
-  if X >= xEnd then
-  begin
-    Result := yEnd;
-  end;
-
-  for i := 0 to Self.Count - 2 do
-  begin
-    x1 := Self.Points[i].X;
-    y1 := Self.Points[i].Y;
-    x2 := Self.Points[i + 1].X;
-    y2 := Self.Points[i + 1].Y;
-
-    if (x1 <= X) and (X < x2) then
     begin
-      Result := y1 + (y2 - y1) * (X - x1) / (x2 - x1);
+      Result := yStart;
       exit;
+    end
+  else if X >= xEnd then
+    begin
+      Result := yEnd;
+      exit;
+    end
+  else
+    begin
+      for i := 0 to Self.Count - 2 do
+      begin
+        x1 := Self.Points[i].X;
+        y1 := Self.Points[i].Y;
+        x2 := Self.Points[i + 1].X;
+        y2 := Self.Points[i + 1].Y;
+
+        if (x1 <= X) and (X < x2) then
+        begin
+          Result := y1 + (y2 - y1) * (X - x1) / (x2 - x1);
+          exit;
+        end;
+      end;
     end;
-  end;
 end;
 
 function TTrianglePolyline.GetCount: integer;

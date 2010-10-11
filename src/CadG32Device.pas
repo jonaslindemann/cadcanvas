@@ -12,7 +12,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  CadCanvas, GR32, GR32_Image, GR32_Polygons;
+  CadCanvas, GR32, GR32_Image, GR32_Polygons, Contnrs;
 
 type
 
@@ -54,7 +54,7 @@ type
     FScaleFactor : double;
     FAutoSize: boolean;
     FDrawBackground : boolean;
-    FLayers : TList;
+    FLayers : TObjectList;
     FWMFFileName: string;
     FSolidOutlines : boolean;
     FPointSize : integer;
@@ -243,7 +243,7 @@ begin
 
   FWinColors:=TCadG32Colors.Create;
 
-  FLayers:=TList.Create;
+  FLayers:=TObjectList.Create(False);
 
   FImage32:=nil;
 
@@ -425,7 +425,7 @@ function TCadG32Device.GetCadG32Layers(idx: integer): TCadG32Layer;
 begin
   if (idx>=0) and (idx<FLayers.Count) then
     begin
-      Result:=FLayers.Items[idx];
+      Result:=FLayers.Items[idx] as TCadG32Layer;
     end
   else
     Result:=nil;
@@ -473,7 +473,6 @@ var
     first : boolean;
     PointArray : TArrayOfFixedPoint;
     Color32 : TColor32;
-    TempPoly : TPolygon32;
 begin
   FImageWidth:=FImage32.Width;
   FImageHeight:=FImage32.Height;

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, CadCanvas, Triangle, Math;
+  StdCtrls, CadCanvas, Triangle, Math, Contnrs;
 
 type
 
@@ -28,8 +28,8 @@ type
 
   TIsoLines = class
   private
-    FIsoLines : TList;
-    FIntervals : TList;
+    FIsoLines : TObjectList;
+    FIntervals : TObjectList;
     FSize: integer;
     FMax : double;
     FMin : double;
@@ -74,8 +74,8 @@ type
     FMeshType : TMeshType;
     FIsoLines : TIsoLines;
     FTriangleLayer : TCadLayer;
-    FIntervalLayers : TList;
-    FIsoLayers : TList;
+    FIntervalLayers : TObjectList;
+    FIsoLayers : TObjectList;
 
     FDebugOutput : TMemo;
     FDryRun: boolean;
@@ -85,12 +85,12 @@ type
     procedure CreateIsoLines;
     procedure CreateTriangles;
     procedure CreateFilledMesh;
-    procedure Triangulate(PointList : TRefList);
+    procedure Triangulate(PoinTObjectList : TRefList);
 
     //function AngleCompare(Item1, Item2 : pointer) : integer;
-    //function FindClosest(Point : TTrianglePoint; PointList : TList) : TTrianglePoint;
-    //function FindNextClosest(Point : TTrianglePoint; PointList : TList) : TTrianglePoint;
-    function FindLeftMost(Point : TTrianglePoint; PointList : TList) : TTrianglePoint;
+    //function FindClosest(Point : TTrianglePoint; PoinTObjectList : TObjectList) : TTrianglePoint;
+    //function FindNextClosest(Point : TTrianglePoint; PoinTObjectList : TObjectList) : TTrianglePoint;
+    function FindLeftMost(Point : TTrianglePoint; PoinTObjectList : TObjectList) : TTrianglePoint;
     procedure SetDryRun(const Value: boolean);
   protected
     { Protected declarations }
@@ -106,7 +106,7 @@ type
 
     property IsoLines : TIsoLines read FIsoLines;
     property TriangleLayer : TCadLayer read FTriangleLayer;
-    property IntervalLayers : TList read FIntervalLayers;
+    property IntervalLayers : TObjectList read FIntervalLayers;
   published
     { Published declarations }
     property CadCavnas : TCadCanvas read FCadCanvas write FCadCanvas;
@@ -144,8 +144,8 @@ begin
   // Layers used
 
   FTriangleLayer:=nil;
-  FIntervalLayers:=TList.Create;
-  FIsoLayers:=TList.Create;
+  FIntervalLayers:=TObjectList.Create(False);
+  FIsoLayers:=TObjectList.Create(False);
 
   FDebugOutput:=nil;
 
@@ -160,22 +160,22 @@ var
 
     Layer : TCadLayer;
 
-    Intervals : TList;
-    PointList : TRefList;
+    Intervals : TObjectList;
+    PoinTObjectList : TRefList;
 
-    TempList : TList;
+    TempList : TObjectList;
 
     TP1, TP2, TP3 : TTrianglePoint;
 
 begin
 
-  Intervals:=TList.Create;
-  TempList:=TList.Create;
+  Intervals:=TObjectList.Create(False);
+  TempList:=TObjectList.Create(False);
 
   for i:=0 to FIsoLines.IntervalSize-1 do
   begin
-    PointList:=TRefList.Create;
-    Intervals.Add(PointList);
+    PoinTObjectList:=TRefList.Create;
+    Intervals.Add(PoinTObjectList);
   end;
 
   for i:=0 to FIsoLines.IntervalSize-1 do
@@ -193,8 +193,8 @@ begin
 
     for j:=0 to FIsoLines.IntervalSize-1 do
     begin
-      PointList:=Intervals.Items[j];
-      PointList.Clear;
+      PoinTObjectList:=Intervals.Items[j] as TRefList;
+      PoinTObjectList.Clear;
     end;
 
     // Create list of points sorted for each interval
@@ -203,7 +203,7 @@ begin
     //for j:=0 to 0 do
     begin
 
-      PointList:=Intervals.Items[j];
+      PoinTObjectList:=Intervals.Items[j] as TRefList;
 
       TP1:=TriElement.Point[1];
       TP2:=TriElement.Point[2];
@@ -212,17 +212,17 @@ begin
       // First we add triangle nodes to list
 
       if FIsoLines.InsideInterval(j, TP1) then
-          PointList.Add(TriElement.Point[1]);
+          PoinTObjectList.Add(TriElement.Point[1]);
 
       if FIsoLines.InsideInterval(j, TP2) then
-          PointList.Add(TriElement.Point[2]);
+          PoinTObjectList.Add(TriElement.Point[2]);
 
       if FIsoLines.InsideInterval(j, TP3) then
-          PointList.Add(TriElement.Point[3]);
+          PoinTObjectList.Add(TriElement.Point[3]);
 
-      //if (PointList.Count=3) then PointList.Clear; // REMOVE!
+      //if (PoinTObjectList.Count=3) then PoinTObjectList.Clear; // REMOVE!
 
-      if (PointList.Count<3) then
+      if (PoinTObjectList.Count<3) then
       begin
 
         P1:=TTrianglePoint.Create;
@@ -231,10 +231,10 @@ begin
         if TriElement.GetIntersectionPoints(FIsoLines.Values[j], P1, P2) then
           begin
             if (FIsoLines.InsideInterval(j, P1)) then
-              PointList.Add(P1);
+              PoinTObjectList.Add(P1);
 
             if (FIsoLines.InsideInterval(j, P2)) then
-              PointList.Add(P2);
+              PoinTObjectList.Add(P2);
           end;
 
         if not P1.IsReferenced then
@@ -251,10 +251,10 @@ begin
             if TriElement.GetIntersectionPoints(FIsoLines.Values[j-1], P3, P4) then
               begin
                 if (FIsoLines.InsideInterval(j, P3)) then
-                  PointList.Add(P3);
+                  PoinTObjectList.Add(P3);
 
                 if (FIsoLines.InsideInterval(j, P4)) then
-                  PointList.Add(P4);
+                  PoinTObjectList.Add(P4);
               end;
           end;
 
@@ -271,10 +271,10 @@ begin
 
     for j:=0 to FIsoLines.IntervalSize-1 do
     begin
-      PointList:=Intervals.Items[j];
-      FCadCanvas.CurrentLayer:=FIntervalLayers.Items[j];
-      if (PointList.Count<>0) then
-        Triangulate(PointList);
+      PoinTObjectList:=Intervals.Items[j] as TRefList;
+      FCadCanvas.CurrentLayer:=FIntervalLayers.Items[j] as TCadLayer;
+      if (PoinTObjectList.Count<>0) then
+        Triangulate(PoinTObjectList);
     end;
   end;
 
@@ -288,7 +288,7 @@ begin
 end;
 
 //function TCadMesh.FindClosest(Point: TTrianglePoint;
-//  PointList: TList): TTrianglePoint;
+//  PoinTObjectList: TObjectList): TTrianglePoint;
 //var
 //    i : integer;
 //    ClosestPoint : TTrianglePoint;
@@ -297,9 +297,9 @@ end;
 //begin
 //  lmin:=1e300;
 //  ClosestPoint:=nil;
-//  for i:=0 to PointList.Count-1 do
+//  for i:=0 to PoinTObjectList.Count-1 do
 //  begin
-//    P:=PointList.Items[i];
+//    P:=PoinTObjectList.Items[i];
 //    if (P<>Point) then
 //    begin
 //      l:=Distance(P,Point);
@@ -314,7 +314,7 @@ end;
 //end;
 //
 //function TCadMesh.FindNextClosest(Point: TTrianglePoint;
-//  PointList: TList): TTrianglePoint;
+//  PoinTObjectList: TObjectList): TTrianglePoint;
 //var
 //    i : integer;
 //    ClosestPoint : TTrianglePoint;
@@ -325,9 +325,9 @@ end;
 //  lmin:=1e300;
 //  ClosestPoint:=nil;
 //  NextClosestPoint:=nil;
-//  for i:=0 to PointList.Count-1 do
+//  for i:=0 to PoinTObjectList.Count-1 do
 //  begin
-//    P:=PointList.Items[i];
+//    P:=PoinTObjectList.Items[i];
 //    if (P<>Point) then
 //    begin
 //      l:=Distance(P,Point);
@@ -384,7 +384,7 @@ begin
 end;
 
 function TCadMesh.FindLeftMost(Point: TTrianglePoint;
-  PointList: TList): TTrianglePoint;
+  PoinTObjectList: TObjectList): TTrianglePoint;
 var
     Q : TCadVector;
     V : TCadVector;
@@ -396,15 +396,15 @@ var
 begin
   Q:=TCadVector.Create;
   V:=TCadVector.Create;
-  for i:=0 to PointList.Count-1 do
+  for i:=0 to PoinTObjectList.Count-1 do
   begin
-    P1:=PointList.Items[i];
+    P1:=PoinTObjectList.Items[i] as TTrianglePoint;
     Q.X:=P1.X-Point.X;
     Q.Y:=P1.Y-Point.Y;
     LeftTurn:=false;
-    for j:=0 to PointList.Count-1 do
+    for j:=0 to PoinTObjectList.Count-1 do
     begin
-      P2:=PointList.Items[j];
+      P2:=PoinTObjectList.Items[j] as TTrianglePoint;
       V.X:=P2.X-Point.X;
       V.Y:=P2.Y-Point.Y;
       A:=Q.CrossProduct(V);
@@ -424,33 +424,33 @@ begin
   Result:=nil;
 end;
 
-procedure TCadMesh.Triangulate(PointList: TRefList);
+procedure TCadMesh.Triangulate(PoinTObjectList: TRefList);
 var
     i : integer;
     P0 : TTrianglePoint;
     P1 : TTrianglePoint;
     P2 : TTrianglePoint;
-    TempList : TList;
+    TempList : TObjectList;
 begin
 
-  //OutputDebugString(PWideChar(IntToStr(PointList.Count)));
+  //OutputDebugString(PWideChar(IntToStr(PoinTObjectList.Count)));
 
-  if (PointList.Count=3) then
+  if (PoinTObjectList.Count=3) then
   begin
-    P0:=TTrianglePoint(PointList.Items[0]);
-    P1:=TTrianglePoint(PointList.Items[1]);
-    P2:=TTrianglePoint(PointList.Items[2]);
+    P0:=TTrianglePoint(PoinTObjectList.Items[0]);
+    P1:=TTrianglePoint(PoinTObjectList.Items[1]);
+    P2:=TTrianglePoint(PoinTObjectList.Items[2]);
     FCadCanvas.Solid3(P0.X, P0.Y, P1.X, P1.Y, P2.X, P2.Y);
     exit;
   end;
 
-  if (PointList.Count=4) then
+  if (PoinTObjectList.Count=4) then
   begin
-    P0:=TTrianglePoint(PointList.Items[0]);
-    P1:=TTrianglePoint(PointList.Items[1]);
-    P2:=TTrianglePoint(PointList.Items[2]);
+    P0:=TTrianglePoint(PoinTObjectList.Items[0]);
+    P1:=TTrianglePoint(PoinTObjectList.Items[1]);
+    P2:=TTrianglePoint(PoinTObjectList.Items[2]);
     FCadCanvas.Solid3(P0.X, P0.Y, P1.X, P1.Y, P2.X, P2.Y);
-    P0:=TTrianglePoint(PointList.Items[3]);
+    P0:=TTrianglePoint(PoinTObjectList.Items[3]);
 
     // Sometime a strange point set is generated, this
     // if statement will skip it.
@@ -460,19 +460,19 @@ begin
     exit;
   end;
 
-  if (PointList.Count<=2) then
+  if (PoinTObjectList.Count<=2) then
     exit;
 
 
-  TempList:=TList.Create;
+  TempList:=TObjectList.Create(False);
 
-  for i:=1 to PointList.Count-1 do
+  for i:=1 to PoinTObjectList.Count-1 do
   begin
-    P0:=TTrianglePoint(PointList.Items[i]);
+    P0:=TTrianglePoint(PoinTObjectList.Items[i]);
     TempList.Add(P0);
   end;
 
-  GPivotPoint:=TTrianglePoint(PointList.Items[0]);
+  GPivotPoint:=TTrianglePoint(PoinTObjectList.Items[0]);
   GClosestPoint:=FindLeftMost(GPivotPoint, TempList);
   GCadMesh:=Self;
 
@@ -492,8 +492,8 @@ begin
 
   for i:=0 to TempList.Count-2 do
   begin
-    P1:=TempList.Items[i];
-    P2:=TempList.Items[i+1];
+    P1:=TempList.Items[i] as TTrianglePoint;
+    P2:=TempList.Items[i+1] as TTrianglePoint;
     FCadCanvas.Solid3(P0.X, P0.Y, P1.X, P1.Y, P2.X, P2.Y);
   end;
 
@@ -524,7 +524,7 @@ begin
     TriElement:=FTriangle.Elements[i];
     for j:=0 to FIsoLines.Size-1 do
     begin
-      FCadCanvas.CurrentLayer:=FIsoLayers[j];
+      FCadCanvas.CurrentLayer:=FIsoLayers[j] as TCadLayer;
       if TriElement.Point[1].Value=TriElement.Point[2].Value then
       begin
         if TriElement.Point[1].Value=FIsoLines.Values[j] then
@@ -662,13 +662,13 @@ var
 begin
   for i:=0 to FIsoLines.Count-1 do
   begin
-    IsoLine:=FIsoLines.Items[i];
+    IsoLine:=FIsoLines.Items[i] as TIsoLine;
     IsoLine.Free
   end;
 
   for i:=0 to FIntervals.Count-1 do
   begin
-    Interval:=FIntervals.Items[i];
+    Interval:=FIntervals.Items[i] as TInterval;
     Interval.Free
   end;
 
@@ -681,8 +681,8 @@ end;
 constructor TIsoLines.Create;
 begin
   inherited Create;
-  FIsoLines:=TList.Create;
-  FIntervals:=TList.Create;
+  FIsoLines:=TObjectList.Create(False);
+  FIntervals:=TObjectList.Create(False);
   FMax:=1.0;
   FMin:=-1.0;
   FAutoUpdate:=true;
@@ -702,7 +702,7 @@ var
 begin
   if (idx>=0) and (idx<FSize) then
     begin
-      IsoLine:=FIsoLines.Items[idx];
+      IsoLine:=FIsoLines.Items[idx] as TIsoLine;
       Result:=IsoLine.Color;
     end
   else
@@ -715,7 +715,7 @@ var
 begin
   if (idx>=0) and (idx<=FSize) then
     begin
-      Interval:=FIntervals.Items[idx];
+      Interval:=FIntervals.Items[idx] as TInterval;
       Result:=Interval.Color;
     end
   else
@@ -733,7 +733,7 @@ var
 begin
   if (idx>=0) and (idx<FSize) then
     begin
-      IsoLine:=FIsoLines.Items[idx];
+      IsoLine:=FIsoLines.Items[idx] as TIsoLine;
       Result:=IsoLine.Value;
     end
   else
@@ -756,7 +756,7 @@ begin
   value := P.Value;
   if (idx=0) then
     begin
-      Iso1:=FIsoLines.Items[idx];
+      Iso1:=FIsoLines.Items[idx] as TIsoLine;
       v1:=Iso1.Value;
       if (value<=v1) then
         begin
@@ -773,7 +773,7 @@ begin
     begin
       if (idx=FIsoLines.Count) then
         begin
-          Iso0:=FIsoLines.Items[idx-1];
+          Iso0:=FIsoLines.Items[idx-1] as TIsoLine;
           v0:=Iso0.Value;
           //if (value>=v0) then
           if (value>=v0) then
@@ -789,8 +789,8 @@ begin
         end
       else
         begin
-          Iso0:=FIsoLines.Items[idx-1];
-          Iso1:=FIsoLines.Items[idx];
+          Iso0:=FIsoLines.Items[idx-1] as TIsoLine;
+          Iso1:=FIsoLines.Items[idx] as TIsoLine;
           v0:=Iso0.Value;
           v1:=Iso1.Value;
           //if (value>=v0) and (value<=v1) then
@@ -819,7 +819,7 @@ var
 begin
   if (idx>=0) and (idx<FSize) then
   begin
-    IsoLine:=FIsoLines.Items[idx];
+    IsoLine:=FIsoLines.Items[idx] as TIsoLine;
     IsoLine.Color:=Value;
   end;
 end;
@@ -830,7 +830,7 @@ var
 begin
   if (idx>=0) and (idx<FSize+1) then
   begin
-    Interval:=FIntervals.Items[idx];
+    Interval:=FIntervals.Items[idx] as TInterval;
     Interval.Color:=Value;
   end;
 end;
@@ -881,7 +881,7 @@ var
 begin
   if (idx>=0) and (idx<FSize) then
   begin
-    IsoLine:=FIsoLines.Items[idx];
+    IsoLine:=FIsoLines.Items[idx] as TIsoLine;
     IsoLine.Value:=Value;
   end;
 end;
@@ -897,7 +897,7 @@ begin
   value:=FMin;
   for i:=0 to FIsoLines.Count-1 do
   begin
-    IsoLine:=FIsoLines.Items[i];
+    IsoLine:=FIsoLines.Items[i] as TIsoLine;
     IsoLine.Value:=value;
     value:=value+delta;
   end;
