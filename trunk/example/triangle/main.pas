@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   Triangle, StdCtrls, CadCanvas, CadDxfDevice, ExtCtrls, CadWinDevice,
   CadMesh, Math, ComCtrls, CadG32Device, GR32_Image, DateUtils, Menus, GR32,
-  CadSurfaceDiagram2D;
+  CadSurfaceDiagram2D, ToolWin, Grids, ValEdit;
 
 type
   TfrmMain = class(TForm)
@@ -17,42 +17,36 @@ type
     mnuFile: TMenuItem;
     mnuFileOpen: TMenuItem;
     dlgOpen: TOpenDialog;
-    Panel1: TPanel;
+    CadSurfaceDiagram2D: TCadSurfaceDiagram2D;
+    CadDxfDevice: TCadDxfDevice;
+    dlgSave: TSaveDialog;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
     lblXLimits: TLabel;
-    lblYLimits: TLabel;
     lblMin: TLabel;
     lblMax: TLabel;
+    lblYLimits: TLabel;
     edtXMin: TEdit;
     edtXMax: TEdit;
-    edtYMin: TEdit;
-    edtYMax: TEdit;
     chkAutoX: TCheckBox;
     chkAutoY: TCheckBox;
-    btnUpdate: TButton;
-    edtTickX: TEdit;
-    lblTickX: TLabel;
-    edtTickY: TEdit;
-    lblTickY: TLabel;
-    btnAddX: TButton;
-    btnSubtractX: TButton;
-    btnAddY: TButton;
-    btnSubtractY: TButton;
+    edtYMax: TEdit;
+    edtYMin: TEdit;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
     chkShowTriangles: TCheckBox;
-    CadSurfaceDiagram2D: TCadSurfaceDiagram2D;
-    edtVerticalExaggeration: TEdit;
-    edtTickLabelDistance: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    edtTickLabelSize: TEdit;
-    Label3: TLabel;
-    CadDxfDevice: TCadDxfDevice;
-    btnExport: TButton;
-    btnTest1: TButton;
-    Button1: TButton;
-    dlgSave: TSaveDialog;
-    Button2: TButton;
     AntialiasCheck: TCheckBox;
+    TabSheet4: TTabSheet;
+    btnTest1: TButton;
+    Button2: TButton;
     btnTest3: TButton;
+    CoolBar1: TCoolBar;
+    ToolBar2: TToolBar;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    AxesProperties: TValueListEditor;
+    DiagramProperties: TValueListEditor;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure mnuFileOpenClick(Sender: TObject);
@@ -70,8 +64,12 @@ type
     procedure Button1Click(Sender: TObject);
     procedure AntialiasCheckClick(Sender: TObject);
     procedure btnTest3Click(Sender: TObject);
+    procedure AxesPropertiesStringsChange(Sender: TObject);
   private
     { Private declarations }
+    procedure FillValueList;
+    procedure RetrieveFromValueList;
+    procedure UpdateDiagram;
   public
     { Public declarations }
   end;
@@ -230,13 +228,98 @@ begin
   edtYMax.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MaxY);
   edtXMin.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MinX);
   edtYMin.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MinY);
-  edtTickX.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceX);
-  edtTickY.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceY);
-  edtTickLabelDistance.Text := FloatToStr
-    (CadSurfaceDiagram2D.Axes.TickLabelDistance);
-  edtTickLabelSize.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickLabelSize);
-  edtVerticalExaggeration.Text := FloatToStr
-    (CadSurfaceDiagram2D.Diagram.VerticalExaggeration);
+
+  FillValueList;
+end;
+
+procedure TfrmMain.FillValueList;
+begin
+  AxesProperties.Values['LabelDistance']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelDistance);
+  AxesProperties.Values['LabelSize']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelSize);
+  AxesProperties.Values['LabelUnitSize']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelUnitSize);
+  AxesProperties.Values['LabelUnitSpacing']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelUnitSpacing);
+  AxesProperties.Values['LabelUnitX']:=CadSurfaceDiagram2D.Axes.LabelUnitX;
+  AxesProperties.Values['LabelUnitY']:=CadSurfaceDiagram2D.Axes.LabelUnitY;
+  AxesProperties.Values['LabelX']:=CadSurfaceDiagram2D.Axes.LabelX;
+  AxesProperties.Values['LabelY']:=CadSurfaceDiagram2D.Axes.LabelY;
+  AxesProperties.Values['TickDistanceX']:=FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceX);
+  AxesProperties.Values['TickDistanceY']:=FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceY);
+  AxesProperties.Values['TickLabelDistance']:=FloatToStr(CadSurfaceDiagram2D.Axes.TickLabelDistance);
+  AxesProperties.Values['TickLabelFormat']:=CadSurfaceDiagram2D.Axes.TickLabelFormat;
+  AxesProperties.Values['TickLabelSize']:=FloatToStr(CadSurfaceDiagram2D.Axes.TickLabelSize);
+  AxesProperties.Values['TickSize']:=FloatToStr(CadSurfaceDiagram2D.Axes.TickSize);
+  AxesProperties.Values['TicksTop']:=BoolToStr(CadSurfaceDiagram2D.Axes.TicksTop);
+  AxesProperties.Values['TicksBottom']:=BoolToStr(CadSurfaceDiagram2D.Axes.TicksBottom);
+  AxesProperties.Values['TicksLeft']:=BoolToStr(CadSurfaceDiagram2D.Axes.TicksLeft);
+  AxesProperties.Values['TicksRight']:=BoolToStr(CadSurfaceDiagram2D.Axes.TicksRight);
+
+  DiagramProperties.Values['Title']:=CadSurfaceDiagram2D.Diagram.Title;
+  DiagramProperties.Values['TitleSize']:=FloatToStr(CadSurfaceDiagram2D.Diagram.TitleSize);
+  DiagramProperties.Values['SubTitle']:=CadSurfaceDiagram2D.Diagram.SubTitle;
+  DiagramProperties.Values['SubTitleSize']:=FloatToStr(CadSurfaceDiagram2D.Diagram.SubTitleSize);
+  DiagramProperties.Values['TitleSpacing']:=FloatToStr(CadSurfaceDiagram2D.Diagram.TitleSpacing);
+  DiagramProperties.Values['TitleDistance']:=FloatToStr(CadSurfaceDiagram2D.Diagram.TitleDistance);
+  DiagramProperties.Values['ShowLegend']:=BoolToStr(CadSurfaceDiagram2D.Diagram.ShowLegend);
+  DiagramProperties.Values['LegendDistance']:=FloatToStr(CadSurfaceDiagram2D.Diagram.LegendDistance);
+  DiagramProperties.Values['LegendHeight']:=FloatToStr(CadSurfaceDiagram2D.Diagram.LegendHeight);
+  DiagramProperties.Values['LegendTextHeight']:=FloatToStr(CadSurfaceDiagram2D.Diagram.LegendTextHeight);
+  DiagramProperties.Values['LegendTextDistance']:=FloatToStr(CadSurfaceDiagram2D.Diagram.LegendTextDistance);
+  DiagramProperties.Values['LegendFormat']:=CadSurfaceDiagram2D.Diagram.LegendFormat;
+  DiagramProperties.Values['VerticalExaggeration']:=FloatToStr(CadSurfaceDiagram2D.Diagram.VerticalExaggeration);
+  DiagramProperties.Values['LegendSize']:=FloatToStr(CadSurfaceDiagram2D.Diagram.LegendSize);
+end;
+
+procedure TfrmMain.RetrieveFromValueList;
+begin
+  CadSurfaceDiagram2D.Axes.LabelDistance:=StrToFloat(AxesProperties.Values['LabelDistance']);
+  CadSurfaceDiagram2D.Axes.LabelSize:=StrToFloat(AxesProperties.Values['LabelSize']);
+  CadSurfaceDiagram2D.Axes.LabelUnitSize:=StrToFloat(AxesProperties.Values['LabelUnitSize']);
+  CadSurfaceDiagram2D.Axes.LabelUnitSpacing:=StrToFloat(AxesProperties.Values['LabelUnitSpacing']);
+  CadSurfaceDiagram2D.Axes.LabelUnitX:=AxesProperties.Values['LabelUnitX'];
+  CadSurfaceDiagram2D.Axes.LabelUnitY:=AxesProperties.Values['LabelUnitY'];
+  CadSurfaceDiagram2D.Axes.LabelX:=AxesProperties.Values['LabelX'];
+  CadSurfaceDiagram2D.Axes.LabelY:=AxesProperties.Values['LabelY'];
+  CadSurfaceDiagram2D.Axes.TickDistanceX:=StrToFloat(AxesProperties.Values['TickDistanceX']);
+  CadSurfaceDiagram2D.Axes.TickDistanceY:=StrToFloat(AxesProperties.Values['TickDistanceY']);
+  CadSurfaceDiagram2D.Axes.TickLabelDistance:=StrToFloat(AxesProperties.Values['TickLabelDistance']);
+  CadSurfaceDiagram2D.Axes.TickLabelFormat:=AxesProperties.Values['TickLabelFormat'];
+  CadSurfaceDiagram2D.Axes.TickLabelSize:=StrToFloat(AxesProperties.Values['TickLabelSize']);
+  CadSurfaceDiagram2D.Axes.TickSize:=StrToFloat(AxesProperties.Values['TickSize']);
+  CadSurfaceDiagram2D.Axes.TicksTop:=StrToBool(AxesProperties.Values['TicksTop']);
+  CadSurfaceDiagram2D.Axes.TicksBottom:=StrToBool(AxesProperties.Values['TicksBottom']);
+  CadSurfaceDiagram2D.Axes.TicksLeft:=StrToBool(AxesProperties.Values['TicksLeft']);
+  CadSurfaceDiagram2D.Axes.TicksRight:=StrToBool(AxesProperties.Values['TicksRight']);
+
+  CadSurfaceDiagram2D.Diagram.Title:=DiagramProperties.Values['Title'];
+  CadSurfaceDiagram2D.Diagram.TitleSize:=StrToFloat(DiagramProperties.Values['TitleSize']);
+  CadSurfaceDiagram2D.Diagram.SubTitle:=DiagramProperties.Values['SubTitle'];
+  CadSurfaceDiagram2D.Diagram.SubTitleSize:=StrToFloat(DiagramProperties.Values['SubTitleSize']);
+  CadSurfaceDiagram2D.Diagram.TitleSpacing:=StrToFloat(DiagramProperties.Values['TitleSpacing']);
+  CadSurfaceDiagram2D.Diagram.TitleDistance:=StrToFloat(DiagramProperties.Values['TitleDistance']);
+  CadSurfaceDiagram2D.Diagram.ShowLegend:=StrToBool(DiagramProperties.Values['ShowLegend']);
+  CadSurfaceDiagram2D.Diagram.LegendDistance:=StrToFloat(DiagramProperties.Values['LegendDistance']);
+  CadSurfaceDiagram2D.Diagram.LegendHeight:=StrToFloat(DiagramProperties.Values['LegendHeight']);
+  CadSurfaceDiagram2D.Diagram.LegendTextHeight:=StrToFloat(DiagramProperties.Values['LegendTextHeight']);
+  CadSurfaceDiagram2D.Diagram.LegendTextDistance:=StrToFloat(DiagramProperties.Values['LegendTextDistance']);
+  CadSurfaceDiagram2D.Diagram.LegendFormat:=DiagramProperties.Values['LegendFormat'];
+  CadSurfaceDiagram2D.Diagram.VerticalExaggeration:=StrToFloat(DiagramProperties.Values['VerticalExaggeration']);
+  CadSurfaceDiagram2D.Diagram.LegendSize:=StrToFloat(DiagramProperties.Values['LegendSize']);
+end;
+
+procedure TfrmMain.UpdateDiagram;
+begin
+
+  RetrieveFromValueList;
+
+  CadSurfaceDiagram2D.Axes.MinX := StrToFloat(edtXMin.Text);
+  CadSurfaceDiagram2D.Axes.MinY := StrToFloat(edtYMin.Text);
+  CadSurfaceDiagram2D.Axes.MaxX := StrToFloat(edtXMax.Text);
+  CadSurfaceDiagram2D.Axes.MaxY := StrToFloat(edtYMax.Text);
+
+  CadSurfaceDiagram2D.Execute;
+
+  CadG32Device.ZoomExtent;
+  CadG32Device.Render;
 end;
 
 procedure TfrmMain.chkAutoXClick(Sender: TObject);
@@ -279,22 +362,7 @@ end;
 
 procedure TfrmMain.btnUpdateClick(Sender: TObject);
 begin
-  CadSurfaceDiagram2D.Axes.MinX := StrToFloat(edtXMin.Text);
-  CadSurfaceDiagram2D.Axes.MinY := StrToFloat(edtYMin.Text);
-  CadSurfaceDiagram2D.Axes.MaxX := StrToFloat(edtXMax.Text);
-  CadSurfaceDiagram2D.Axes.MaxY := StrToFloat(edtYMax.Text);
-  CadSurfaceDiagram2D.Axes.TickDistanceX := StrToFloat(edtTickX.Text);
-  CadSurfaceDiagram2D.Axes.TickDistanceY := StrToFloat(edtTickY.Text);
-  CadSurfaceDiagram2D.Axes.TickLabelDistance := StrToFloat
-    (edtTickLabelDistance.Text);
-  CadSurfaceDiagram2D.Axes.TickLabelSize := StrToFloat(edtTickLabelSize.Text);
-  CadSurfaceDiagram2D.Diagram.VerticalExaggeration := StrToFloat
-    (edtVerticalExaggeration.Text);
-
-  CadSurfaceDiagram2D.Execute;
-
-  CadG32Device.ZoomExtent;
-  CadG32Device.Render;
+  UpdateDiagram;
 end;
 
 procedure TfrmMain.Button1Click(Sender: TObject);
@@ -313,6 +381,11 @@ begin
   CadG32Device.Antialias:=AntialiasCheck.Checked;
   CadG32Device.ZoomExtent;
   CadG32Device.Render;
+end;
+
+procedure TfrmMain.AxesPropertiesStringsChange(Sender: TObject);
+begin
+  //UpdateDiagram;
 end;
 
 procedure TfrmMain.btnAddXClick(Sender: TObject);
@@ -467,13 +540,6 @@ begin
   edtYMax.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MaxY);
   edtXMin.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MinX);
   edtYMin.Text := FloatToStr(CadSurfaceDiagram2D.Axes.MinY);
-  edtTickX.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceX);
-  edtTickY.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickDistanceY);
-  edtTickLabelDistance.Text := FloatToStr
-    (CadSurfaceDiagram2D.Axes.TickLabelDistance);
-  edtTickLabelSize.Text := FloatToStr(CadSurfaceDiagram2D.Axes.TickLabelSize);
-  edtVerticalExaggeration.Text := FloatToStr
-    (CadSurfaceDiagram2D.Diagram.VerticalExaggeration);
 
 end;
 

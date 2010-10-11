@@ -20,6 +20,9 @@
 
 unit FastGEO;
 
+{$WARN UNSAFE_CODE OFF}
+{$WARN UNSAFE_TYPE OFF}
+
 interface
 
 
@@ -10534,6 +10537,9 @@ finalization
  CosTable := nil;
  SinTable := nil;
  TanTable := nil;
+
+{$WARN UNSAFE_CODE ON}
+{$WARN UNSAFE_TYPE ON}
 
 end.
 

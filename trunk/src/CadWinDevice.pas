@@ -8,11 +8,13 @@ mode of the Delphi IDE.
 }
 unit CadWinDevice;
 
+{$WARN UNSAFE_CODE OFF}
+
 interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  CadCanvas;
+  CadCanvas, Contnrs;
 
 type
 
@@ -58,7 +60,7 @@ type
     FScaleFactor : double;
     FAutoSize: boolean;
     FDrawBackground : boolean;
-    FLayers : TList;
+    FLayers : TObjectList;
     FWMFFileName: string;
     FSolidOutlines : boolean;
     FPointSize : integer;
@@ -284,7 +286,7 @@ begin
 
   FWinColors:=TCadWinColors.Create;
 
-  FLayers:=TList.Create;
+  FLayers:=TObjectList.Create(False);
 
   AddLayer;
 end;
@@ -409,7 +411,7 @@ function TCadWinDevice.GetCadWinLayers(idx: integer): TCadWinLayer;
 begin
   if (idx>=0) and (idx<FLayers.Count) then
     begin
-      Result:=FLayers.Items[idx];
+      Result:=FLayers.Items[idx] as TCadWinLayer;
     end
   else
     Result:=nil;
@@ -735,5 +737,7 @@ begin
       FColors[index]:=Color;
     end
 end;
+
+{$WARN UNSAFE_CODE ON}
 
 end.

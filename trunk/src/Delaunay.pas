@@ -17,6 +17,8 @@
 
 unit Delaunay;
 
+{$WARN UNSAFE_CODE OFF}
+
 interface
 
 uses Dialogs, Graphics, Forms, Types;
@@ -611,5 +613,6 @@ begin
   FVertexIndex[idx]:=value;
 end;
 
+{$WARN UNSAFE_CODE ON}
 
 end.

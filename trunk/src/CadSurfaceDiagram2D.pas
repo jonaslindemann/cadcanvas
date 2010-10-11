@@ -3,7 +3,7 @@ unit CadSurfaceDiagram2D;
 interface
 
 uses
-  SysUtils, Classes, CadCanvas, Triangle, CadMesh, CadG32Device, GR32, Dialogs;
+  SysUtils, Classes, CadCanvas, Triangle, CadMesh, CadG32Device, GR32, Dialogs, Contnrs;
 
 const
 
@@ -45,6 +45,10 @@ type
     FTickSize: double;
     FTickLabelSize : double;
     FTickLabelDistance : double;
+    FTicksTop : boolean;
+    FTicksBottom : boolean;
+    FTicksLeft : boolean;
+    FTicksRight : boolean;
     FLabelUnitSpacing: double;
     FLabelDistance: double;
     FLabelSize: double;
@@ -71,6 +75,10 @@ type
     procedure SetLabelY(const Value: string);
     procedure SetLabelUnitSize(const Value: double);
     procedure SetTickLabelFormat(const Value: string);
+    procedure SetTicksBottom(const Value: boolean);
+    procedure SetTicksLeft(const Value: boolean);
+    procedure SetTicksRight(const Value: boolean);
+    procedure SetTicksTop(const Value: boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -87,6 +95,10 @@ type
     property TickLabelSize : double read FTickLabelSize write SetTickLabelSize;
     property TickLabelDistance : double read FTickLabelDistance write SetTickLabelDistance;
     property TickLabelFormat : string read FTickLabelFormat write SetTickLabelFormat;
+    property TicksTop : boolean read FTicksTop write SetTicksTop;
+    property TicksBottom : boolean read FTicksBottom write SetTicksBottom;
+    property TicksLeft : boolean read FTicksLeft write SetTicksLeft;
+    property TicksRight : boolean read FTicksRight write SetTicksRight;
     property LabelX : string read FLabelX write SetLabelX;
     property LabelY : string read FLabelY write SetLabelY;
     property LabelUnitX : string read FLabelUnitX write SetLabelUnitX;
@@ -120,6 +132,10 @@ type
     FTickDistanceY: double;
     FTickLabelDistance: double;
     FTickLabelSize: double;
+    FTicksTop : boolean;
+    FTicksBottom : boolean;
+    FTicksLeft : boolean;
+    FTicksRight : boolean;
     FLabelSize: double;
     FLabelDistance: double;
     FLabelUnitSpacing: double;
@@ -158,6 +174,10 @@ type
     procedure SetLabelX(const Value: string);
     procedure SetLabelY(const Value: string);
     procedure SetTickLabelFormat(const Value: string);
+    procedure SetTicksBottom(const Value: boolean);
+    procedure SetTicksLeft(const Value: boolean);
+    procedure SetTicksRight(const Value: boolean);
+    procedure SetTicksTop(const Value: boolean);
 
   public
     constructor Create(AOwner : TComponent);
@@ -211,6 +231,11 @@ type
     { Format string used to represent the tick label value. See the Delphi
       format routine. }
     property TickLabelFormat : string read FTickLabelFormat write SetTickLabelFormat;
+
+    property TicksTop : boolean read FTicksTop write SetTicksTop;
+    property TicksBottom : boolean read FTicksBottom write SetTicksBottom;
+    property TicksLeft : boolean read FTicksLeft write SetTicksLeft;
+    property TicksRight : boolean read FTicksRight write SetTicksRight;
 
     { X-axis label string. }
     property LabelX : string read FLabelX write SetLabelX;
@@ -425,7 +450,7 @@ type
 
   TTrianglePointList = class
   private
-    FPoints : TList;
+    FPoints : TObjectList;
     function GetPoint(idx: integer): TTrianglePoint;
     function GetCount : integer;
   public
@@ -488,7 +513,6 @@ type
     procedure SetIsoLines(const Value: TIsoLines);
     function GetIsoLines: TIsoLines;
     procedure SetMesh(const Value: TCadMeshRecord);
-    procedure SetSurfaceContour(const Value: TCadSurfaceContour);
     procedure SetOffsetContour(const Value: TCadOffsetContour);
 
   protected
@@ -650,7 +674,6 @@ procedure TCadSurfaceDiagram2D.CreateTriangulation;
 var
     i : integer;
     TP : TTrianglePoint;
-    TPL : TTrianglePolyline;
 begin
 
   // Clear old triangulation
@@ -866,6 +889,10 @@ begin
   Axes2D.TickLabelSize:=FAxes.TickLabelSize;
   Axes2D.TickLabelDistance:=FAxes.TickLabelDistance;
   Axes2D.TickLabelFormat:=FAxes.TickLabelFormat;
+  Axes2D.TicksTop:=FAxes.TicksTop;
+  Axes2D.TicksBottom:=FAxes.TicksBottom;
+  Axes2D.TicksLeft:=FAxes.TicksLeft;
+  Axes2D.TicksRight:=FAxes.TicksRight;
   Axes2D.LabelX:=FAxes.LabelX;
   Axes2D.LabelY:=FAxes.LabelY;
   Axes2D.LabelUnitX:=FAxes.LabelUnitX;
@@ -1112,7 +1139,7 @@ begin
 
     for i:=0 to FCadMesh.IsoLines.IntervalSize-1 do
     begin
-      CadCanvas.CurrentLayer:=FCadMesh.IntervalLayers.Items[i];
+      CadCanvas.CurrentLayer:=FCadMesh.IntervalLayers.Items[i] as TCadLayer;
       CadCanvas.CurrentColor:=256;
       CadCanvas.Solid4(
         StartX + i*ColorWidth, StartY,
@@ -1163,12 +1190,6 @@ begin
   else
     Result:=nil;
 end;
-
-procedure TCadSurfaceDiagram2D.SetSurfaceContour(
-  const Value: TCadSurfaceContour);
-begin
-end;
-
 
 { TCadAxes2D }
 
@@ -1266,6 +1287,39 @@ begin
     begin
       with CadCanvas do
       begin
+        if Self.TicksBottom then
+        begin
+          MoveTo(x, MinPoint.Y);
+          LineTo(x, MinPoint.Y-Scaling.L2G(FTickSize));
+          TextJustifyX:=tjCenter;
+          TextJustifyY:=tjTop;
+          TextHeight:=Scaling.L2G(FTickLabelSize);
+          TextOut(x, MinPoint.Y - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
+          ResetTextJustify;
+        end;
+
+        if Self.TicksTop then
+        begin
+          MoveTo(x, MaxPoint.Y);
+          LineTo(x, MaxPoint.Y+Scaling.L2G(FTickSize));
+          TextJustifyX:=tjCenter;
+          TextJustifyY:=tjBottom;
+          TextHeight:=Scaling.L2G(FTickLabelSize);
+          TextOut(x, MaxPoint.Y + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
+          ResetTextJustify;
+        end;
+        x:=x + FTickDistanceX;
+      end;
+    end;
+
+    // Draw last tick...
+
+    x:=MaxPoint.X;
+
+    with CadCanvas do
+    begin
+      if Self.TicksBottom then
+      begin
         MoveTo(x, MinPoint.Y);
         LineTo(x, MinPoint.Y-Scaling.L2G(FTickSize));
         TextJustifyX:=tjCenter;
@@ -1273,8 +1327,17 @@ begin
         TextHeight:=Scaling.L2G(FTickLabelSize);
         TextOut(x, MinPoint.Y - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
         ResetTextJustify;
-        //x:=x + Scaling.L2G(FTickDistanceX);
-        x:=x + FTickDistanceX;
+      end;
+
+      if Self.TicksTop then
+      begin
+        MoveTo(x, MaxPoint.Y);
+        LineTo(x, MaxPoint.Y+Scaling.L2G(FTickSize));
+        TextJustifyX:=tjCenter;
+        TextJustifyY:=tjBottom;
+        TextHeight:=Scaling.L2G(FTickLabelSize);
+        TextOut(x, MaxPoint.Y + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
+        ResetTextJustify;
       end;
     end;
 
@@ -1284,6 +1347,39 @@ begin
     begin
       with CadCanvas do
       begin
+        if Self.TicksLeft then
+        begin
+          MoveTo(MinPoint.X, y);
+          LineTo(MinPoint.X-Scaling.L2G(FTickSize), y);
+          TextJustifyY:=tjCenter;
+          TextJustifyX:=tjRight;
+          TextHeight:=Scaling.L2G(FTickLabelSize);
+          TextOut(MinPoint.X - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
+          ResetTextJustify;
+        end;
+
+        if Self.TicksRight then
+        begin
+          MoveTo(MaxPoint.X, y);
+          LineTo(MaxPoint.X+Scaling.L2G(FTickSize), y);
+          TextJustifyY:=tjCenter;
+          TextJustifyX:=tjLeft;
+          TextHeight:=Scaling.L2G(FTickLabelSize);
+          TextOut(MaxPoint.X + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
+          ResetTextJustify;
+        end;
+        y:=y + FTickDistanceY*Scaling.VerticalExaggeration;
+      end;
+    end;
+
+    // Draw last tick...
+
+    y:=MaxPoint.Y;
+
+    with CadCanvas do
+    begin
+      if Self.TicksLeft then
+      begin
         MoveTo(MinPoint.X, y);
         LineTo(MinPoint.X-Scaling.L2G(FTickSize), y);
         TextJustifyY:=tjCenter;
@@ -1291,8 +1387,17 @@ begin
         TextHeight:=Scaling.L2G(FTickLabelSize);
         TextOut(MinPoint.X - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
         ResetTextJustify;
-        //y:=y + Scaling.L2G(FTickDistanceY*Scaling.VerticalExaggeration);
-        y:=y + FTickDistanceY*Scaling.VerticalExaggeration;
+      end;
+
+      if Self.TicksRight then
+      begin
+        MoveTo(MaxPoint.X, y);
+        LineTo(MaxPoint.X+Scaling.L2G(FTickSize), y);
+        TextJustifyY:=tjCenter;
+        TextJustifyX:=tjLeft;
+        TextHeight:=Scaling.L2G(FTickLabelSize);
+        TextOut(MaxPoint.X + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
+        ResetTextJustify;
       end;
     end;
   end;
@@ -1368,9 +1473,29 @@ begin
   FTickLabelSize := Value;
 end;
 
+procedure TCadAxes2D.SetTicksBottom(const Value: boolean);
+begin
+  FTicksBottom := Value;
+end;
+
 procedure TCadAxes2D.SetTickSize(const Value: double);
 begin
   FTickSize := Value;
+end;
+
+procedure TCadAxes2D.SetTicksLeft(const Value: boolean);
+begin
+  FTicksLeft := Value;
+end;
+
+procedure TCadAxes2D.SetTicksRight(const Value: boolean);
+begin
+  FTicksRight := Value;
+end;
+
+procedure TCadAxes2D.SetTicksTop(const Value: boolean);
+begin
+  FTicksTop := Value;
 end;
 
 { TCadDiagramRecord }
@@ -1588,6 +1713,10 @@ begin
   FTickLabelSize:=0.02;
   FTickLabelDistance:=0.02;
   FTickLabelFormat:='%g';
+  FTicksTop:=True;
+  FTicksBottom:=False;
+  FTicksLeft:=True;
+  FTicksRight:=True;
   FLabelX:='x';
   FLabelY:='y';
   FLabelUnitX:='(m)';
@@ -1622,6 +1751,10 @@ begin
         Self.FTickLabelDistance:=FTickLabelDistance;
         Self.FTickLabelSize:=FTickLabelSize;
         Self.FTickLabelFormat:=FTickLabelFormat;
+        Self.FTicksTop:=FTicksTop;
+        Self.FTicksBottom:=FTicksBottom;
+        Self.FTicksLeft:=FTicksLeft;
+        Self.FTicksRight:=FTicksRight;
         Self.FLabelX:=FLabelX;
         Self.FLabelY:=FLabelY;
         Self.FLabelUnitX:=FLabelUnitX;
@@ -1707,6 +1840,24 @@ begin
   ChangeValue;
 end;
 
+procedure TCadAxesRecord.SetTicksLeft(const Value: boolean);
+begin
+  FTicksLeft := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetTicksRight(const Value: boolean);
+begin
+  FTicksRight := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetTicksTop(const Value: boolean);
+begin
+  FTicksTop := Value;
+  ChangeValue;
+end;
+
 procedure TCadAxesRecord.SetOnChangeAutoX(const Value: TNotifyEvent);
 begin
   FOnChangeAutoX := Value;
@@ -1741,6 +1892,12 @@ end;
 procedure TCadAxesRecord.SetTickLabelSize(const Value: double);
 begin
   FTickLabelSize := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetTicksBottom(const Value: boolean);
+begin
+  FTicksBottom := Value;
   ChangeValue;
 end;
 
@@ -1953,7 +2110,7 @@ end;
 constructor TTrianglePointList.Create;
 begin
   inherited;
-  FPoints:=TList.Create;
+  FPoints:=TObjectList.Create(False);
 end;
 
 destructor TTrianglePointList.Destroy;

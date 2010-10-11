@@ -2,8 +2,8 @@ object frmMain: TfrmMain
   Left = 310
   Top = 402
   Caption = 'Auto'
-  ClientHeight = 553
-  ClientWidth = 671
+  ClientHeight = 562
+  ClientWidth = 949
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,290 +18,311 @@ object frmMain: TfrmMain
   PixelsPerInch = 96
   TextHeight = 13
   object Image: TImage32
-    Left = 0
-    Top = 145
-    Width = 671
-    Height = 408
+    Left = 254
+    Top = 25
+    Width = 695
+    Height = 537
     Align = alClient
+    AutoSize = True
     Bitmap.ResamplerClassName = 'TNearestResampler'
     BitmapAlign = baTopLeft
     Scale = 1.000000000000000000
     ScaleMode = smNormal
     TabOrder = 0
+    ExplicitLeft = 556
+    ExplicitTop = 260
+    ExplicitWidth = 393
+    ExplicitHeight = 302
   end
-  object Panel1: TPanel
+  object PageControl1: TPageControl
+    AlignWithMargins = True
+    Left = 5
+    Top = 30
+    Width = 244
+    Height = 527
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
+    ActivePage = TabSheet1
+    Align = alLeft
+    TabOrder = 1
+    ExplicitHeight = 343
+    object TabSheet1: TTabSheet
+      Caption = 'Axes'
+      ExplicitWidth = 931
+      ExplicitHeight = 111
+      object lblXLimits: TLabel
+        Left = 6
+        Top = 30
+        Width = 32
+        Height = 13
+        Caption = 'X limits'
+      end
+      object lblMin: TLabel
+        Left = 44
+        Top = 11
+        Width = 17
+        Height = 13
+        Caption = 'Min'
+      end
+      object lblMax: TLabel
+        Left = 112
+        Top = 11
+        Width = 20
+        Height = 13
+        Caption = 'Max'
+      end
+      object lblYLimits: TLabel
+        Left = 6
+        Top = 54
+        Width = 32
+        Height = 13
+        Caption = 'Y limits'
+      end
+      object edtXMin: TEdit
+        Left = 44
+        Top = 27
+        Width = 61
+        Height = 21
+        Enabled = False
+        TabOrder = 0
+      end
+      object edtXMax: TEdit
+        Left = 112
+        Top = 27
+        Width = 61
+        Height = 21
+        Enabled = False
+        TabOrder = 1
+      end
+      object chkAutoX: TCheckBox
+        Left = 180
+        Top = 27
+        Width = 97
+        Height = 17
+        Caption = 'Auto'
+        Checked = True
+        State = cbChecked
+        TabOrder = 2
+        OnClick = chkAutoXClick
+      end
+      object chkAutoY: TCheckBox
+        Left = 180
+        Top = 50
+        Width = 42
+        Height = 17
+        Caption = 'Auto'
+        Checked = True
+        State = cbChecked
+        TabOrder = 3
+        OnClick = chkAutoYClick
+      end
+      object edtYMax: TEdit
+        Left = 112
+        Top = 51
+        Width = 61
+        Height = 21
+        Enabled = False
+        TabOrder = 4
+      end
+      object edtYMin: TEdit
+        Left = 44
+        Top = 51
+        Width = 61
+        Height = 21
+        Enabled = False
+        TabOrder = 5
+      end
+      object AxesProperties: TValueListEditor
+        AlignWithMargins = True
+        Left = 3
+        Top = 94
+        Width = 230
+        Height = 402
+        Align = alBottom
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Strings.Strings = (
+          'LabelDistance=10'
+          'LabelSize=3'
+          'LabelUnitSize=3'
+          'LabelUnitSpacing=0.5'
+          'LabelUnitX=(m)'
+          'LabelUnitY=(m)'
+          'LabelX=x'
+          'LabelY=y'
+          'TickDistanceX=10'
+          'TickDistanceY=10'
+          'TickLabelDistance=2'
+          'TickLabelFormat=%.0f'
+          'TickLabelSize=3'
+          'TickSize=1'
+          'TicksTops=1'
+          'TicksBottom=1'
+          'TicksLeft=1'
+          'TicksRight=1')
+        TabOrder = 6
+        TitleCaptions.Strings = (
+          'Property'
+          'Value')
+        OnStringsChange = AxesPropertiesStringsChange
+        ColWidths = (
+          93
+          131)
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Diagram'
+      ImageIndex = 1
+      ExplicitWidth = 931
+      ExplicitHeight = 111
+      object DiagramProperties: TValueListEditor
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 230
+        Height = 493
+        Align = alClient
+        Strings.Strings = (
+          'Title=Title'
+          'TitleSize=5'
+          'SubTitle=Subtitle'
+          'SubTitleSize=3.5'
+          'TitleSpacing=2'
+          'TitleDistance=20'
+          'ShowLegend=1'
+          'LegendDistance=20'
+          'LegendHeight=5'
+          'LegendTextHeight=2.5'
+          'LegendTextDistance=2'
+          'LegendFormat=%g'
+          'VerticalExaggeration=1'
+          'LegendSize=1')
+        TabOrder = 0
+        TitleCaptions.Strings = (
+          'Property'
+          'Value')
+        OnStringsChange = AxesPropertiesStringsChange
+        ColWidths = (
+          93
+          131)
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Mesh'
+      ImageIndex = 2
+      ExplicitWidth = 931
+      ExplicitHeight = 111
+      object chkShowTriangles: TCheckBox
+        Left = 12
+        Top = 9
+        Width = 97
+        Height = 17
+        Caption = 'Show triangles'
+        TabOrder = 0
+        OnClick = chkShowTrianglesClick
+      end
+      object AntialiasCheck: TCheckBox
+        Left = 12
+        Top = 32
+        Width = 97
+        Height = 17
+        Caption = 'Antialias'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
+        OnClick = AntialiasCheckClick
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Tests'
+      ImageIndex = 3
+      ExplicitWidth = 931
+      ExplicitHeight = 111
+      object btnTest1: TButton
+        Left = 3
+        Top = 3
+        Width = 75
+        Height = 25
+        Caption = 'Test1'
+        TabOrder = 0
+        OnClick = btnTest1Click
+      end
+      object Button2: TButton
+        Left = 84
+        Top = 3
+        Width = 75
+        Height = 25
+        Caption = 'Test2'
+        TabOrder = 1
+      end
+      object btnTest3: TButton
+        Left = 166
+        Top = 3
+        Width = 50
+        Height = 25
+        Caption = 'Test3'
+        TabOrder = 2
+        OnClick = btnTest3Click
+      end
+    end
+  end
+  object CoolBar1: TCoolBar
     Left = 0
     Top = 0
-    Width = 671
-    Height = 145
-    Align = alTop
-    BevelOuter = bvNone
-    TabOrder = 1
-    object lblXLimits: TLabel
-      Left = 12
-      Top = 24
-      Width = 32
-      Height = 13
-      Caption = 'X limits'
-    end
-    object lblYLimits: TLabel
-      Left = 12
-      Top = 52
-      Width = 32
-      Height = 13
-      Caption = 'Y limits'
-    end
-    object lblMin: TLabel
-      Left = 56
-      Top = 8
-      Width = 17
-      Height = 13
-      Caption = 'Min'
-    end
-    object lblMax: TLabel
-      Left = 124
-      Top = 8
-      Width = 20
-      Height = 13
-      Caption = 'Max'
-    end
-    object lblTickX: TLabel
-      Left = 432
-      Top = 20
-      Width = 31
-      Height = 13
-      Caption = 'Tick X'
-    end
-    object lblTickY: TLabel
-      Left = 432
-      Top = 48
-      Width = 31
-      Height = 13
-      Caption = 'Tick Y'
-    end
-    object Label1: TLabel
-      Left = 400
-      Top = 68
-      Width = 69
-      Height = 13
-      Caption = 'Label distance'
-    end
-    object Label2: TLabel
-      Left = 256
-      Top = 96
-      Width = 62
-      Height = 13
-      Caption = 'Exaggeration'
-    end
-    object Label3: TLabel
-      Left = 404
-      Top = 92
-      Width = 67
-      Height = 13
-      Caption = 'Tick label size'
-    end
-    object edtXMin: TEdit
-      Left = 56
-      Top = 24
-      Width = 61
-      Height = 21
-      Enabled = False
+    Width = 949
+    Height = 25
+    AutoSize = True
+    BandBorderStyle = bsNone
+    Bands = <
+      item
+        Control = ToolBar2
+        ImageIndex = -1
+        Width = 947
+      end>
+    EdgeBorders = []
+    object ToolBar2: TToolBar
+      AlignWithMargins = True
+      Left = 11
+      Top = 0
+      Width = 938
+      Height = 25
+      Margins.Top = 20
+      ButtonHeight = 19
+      ButtonWidth = 82
+      Caption = 'ToolBar2'
+      List = True
+      AllowTextButtons = True
       TabOrder = 0
-    end
-    object edtXMax: TEdit
-      Left = 124
-      Top = 24
-      Width = 61
-      Height = 21
-      Enabled = False
-      TabOrder = 1
-    end
-    object edtYMin: TEdit
-      Left = 56
-      Top = 48
-      Width = 61
-      Height = 21
-      Enabled = False
-      TabOrder = 2
-    end
-    object edtYMax: TEdit
-      Left = 124
-      Top = 48
-      Width = 61
-      Height = 21
-      Enabled = False
-      TabOrder = 3
-    end
-    object chkAutoX: TCheckBox
-      Left = 192
-      Top = 24
-      Width = 97
-      Height = 17
-      Caption = 'Auto'
-      Checked = True
-      State = cbChecked
-      TabOrder = 4
-      OnClick = chkAutoXClick
-    end
-    object chkAutoY: TCheckBox
-      Left = 192
-      Top = 48
-      Width = 97
-      Height = 17
-      Caption = 'Auto'
-      Checked = True
-      State = cbChecked
-      TabOrder = 5
-      OnClick = chkAutoYClick
-    end
-    object btnUpdate: TButton
-      Left = 548
-      Top = 20
-      Width = 75
-      Height = 25
-      Caption = 'Update'
-      TabOrder = 6
-      OnClick = btnUpdateClick
-    end
-    object edtTickX: TEdit
-      Left = 476
-      Top = 20
-      Width = 61
-      Height = 21
-      TabOrder = 7
-    end
-    object edtTickY: TEdit
-      Left = 476
-      Top = 44
-      Width = 61
-      Height = 21
-      TabOrder = 8
-    end
-    object btnAddX: TButton
-      Left = 240
-      Top = 24
-      Width = 33
-      Height = 21
-      Caption = '+'
-      TabOrder = 9
-      OnClick = btnAddXClick
-    end
-    object btnSubtractX: TButton
-      Left = 276
-      Top = 24
-      Width = 33
-      Height = 21
-      Caption = '-'
-      TabOrder = 10
-      OnClick = btnSubtractXClick
-    end
-    object btnAddY: TButton
-      Left = 240
-      Top = 48
-      Width = 33
-      Height = 21
-      Caption = '+'
-      TabOrder = 11
-      OnClick = btnAddYClick
-    end
-    object btnSubtractY: TButton
-      Left = 276
-      Top = 48
-      Width = 33
-      Height = 21
-      Caption = '-'
-      TabOrder = 12
-      OnClick = btnSubtractYClick
-    end
-    object chkShowTriangles: TCheckBox
-      Left = 324
-      Top = 24
-      Width = 97
-      Height = 17
-      Caption = 'Show triangles'
-      TabOrder = 13
-      OnClick = chkShowTrianglesClick
-    end
-    object edtVerticalExaggeration: TEdit
-      Left = 332
-      Top = 92
-      Width = 61
-      Height = 21
-      TabOrder = 14
-    end
-    object edtTickLabelDistance: TEdit
-      Left = 476
-      Top = 68
-      Width = 61
-      Height = 21
-      TabOrder = 15
-    end
-    object edtTickLabelSize: TEdit
-      Left = 476
-      Top = 92
-      Width = 61
-      Height = 21
-      TabOrder = 16
-    end
-    object btnExport: TButton
-      Left = 548
-      Top = 52
-      Width = 75
-      Height = 25
-      Caption = 'Export'
-      TabOrder = 17
-      OnClick = btnExportClick
-    end
-    object btnTest1: TButton
-      Left = 12
-      Top = 80
-      Width = 75
-      Height = 25
-      Caption = 'Test1'
-      TabOrder = 18
-      OnClick = btnTest1Click
-    end
-    object Button1: TButton
-      Left = 548
-      Top = 83
-      Width = 75
-      Height = 25
-      Caption = 'Export Image'
-      TabOrder = 19
-      OnClick = Button1Click
-    end
-    object Button2: TButton
-      Left = 93
-      Top = 80
-      Width = 75
-      Height = 25
-      Caption = 'Test2'
-      TabOrder = 20
-    end
-    object AntialiasCheck: TCheckBox
-      Left = 12
-      Top = 122
-      Width = 97
-      Height = 17
-      Caption = 'Antialias'
-      Checked = True
-      State = cbChecked
-      TabOrder = 21
-      OnClick = AntialiasCheckClick
-    end
-    object btnTest3: TButton
-      Left = 175
-      Top = 80
-      Width = 50
-      Height = 25
-      Caption = 'Test3'
-      TabOrder = 22
-      OnClick = btnTest3Click
+      object ToolButton4: TToolButton
+        Left = 0
+        Top = 0
+        Caption = 'Update'
+        ImageIndex = 0
+        Style = tbsTextButton
+        OnClick = btnUpdateClick
+      end
+      object ToolButton5: TToolButton
+        Left = 51
+        Top = 0
+        Caption = 'Export...'
+        ImageIndex = 1
+        Style = tbsTextButton
+        OnClick = btnExportClick
+      end
+      object ToolButton6: TToolButton
+        Left = 106
+        Top = 0
+        Caption = 'Export image...'
+        ImageIndex = 2
+        Style = tbsTextButton
+        OnClick = Button1Click
+      end
     end
   end
   object CadCanvas: TCadCanvas
-    Left = 112
-    Top = 156
+    Left = 552
+    Top = 260
   end
   object CadG32Device: TCadG32Device
     CadCanvas = CadCanvas
@@ -316,12 +337,12 @@ object frmMain: TfrmMain
     SolidOutlines = False
     PointSize = 2
     Antialias = True
-    Left = 184
-    Top = 156
+    Left = 652
+    Top = 196
   end
   object mnuMain: TMainMenu
-    Left = 336
-    Top = 165
+    Left = 424
+    Top = 185
     object mnuFile: TMenuItem
       Caption = 'File'
       object mnuFileOpen: TMenuItem
@@ -334,8 +355,8 @@ object frmMain: TfrmMain
     DefaultExt = 'txt'
     Filter = '*.txt'
     Title = 'Open data file'
-    Left = 408
-    Top = 164
+    Left = 484
+    Top = 184
   end
   object CadSurfaceDiagram2D: TCadSurfaceDiagram2D
     CadCanvas = CadCanvas
@@ -351,6 +372,10 @@ object frmMain: TfrmMain
     Axes.TickLabelDistance = 2.000000000000000000
     Axes.TickLabelSize = 3.000000000000000000
     Axes.TickLabelFormat = '%g'
+    Axes.TicksTop = True
+    Axes.TicksBottom = True
+    Axes.TicksLeft = True
+    Axes.TicksRight = True
     Axes.LabelX = 'x'
     Axes.LabelY = 'y'
     Axes.LabelUnitX = '(m)'
@@ -384,21 +409,21 @@ object frmMain: TfrmMain
     Mesh.ClipSurfaceType = scRemoveCrossing
     Mesh.AlignWithSurface = False
     Mesh.TriangleImplementation = tiInternal
-    Left = 16
-    Top = 156
+    Left = 556
+    Top = 212
   end
   object CadDxfDevice: TCadDxfDevice
     CadCanvas = CadCanvas
     FileName = 'test.dxf'
     Partial = False
     SolidOutlines = False
-    Left = 112
-    Top = 208
+    Left = 628
+    Top = 252
   end
   object dlgSave: TSaveDialog
     DefaultExt = 'bmp'
     Filter = '*.bmp'
-    Left = 408
-    Top = 216
+    Left = 452
+    Top = 244
   end
 end

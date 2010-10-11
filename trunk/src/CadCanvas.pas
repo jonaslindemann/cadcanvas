@@ -9,7 +9,7 @@ unit CadCanvas;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Math;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Math, Contnrs;
 
 const
 
@@ -108,7 +108,7 @@ type
   { Polyline class }
   TCadPolyLine = class(TCadLine)
   private
-    FPoints : TList;
+    FPoints : TObjectList;
 
     function GetCount : integer;
     function GetPoint(idx : integer) : TCadPoint;
@@ -134,7 +134,7 @@ type
   { Polygon class (not yet implemented). }
   TCadPolygon = class(TCadElement)
   private
-    FPoints : TList;
+    FPoints : TObjectList;
 
     function GetCount : integer;
     function GetPoint(idx : integer) : TCadPoint;
@@ -153,7 +153,7 @@ type
   { Solid class (4 sided polygon) }
   TCadSolid = class(TCadElement)
   private
-    FPoints : TList;
+    FPoints : TObjectList;
 
     function GetPoint(idx : integer) : TCadPoint;
     function GetCount: integer;
@@ -197,7 +197,7 @@ type
     properties. Elements are added by CadCanvas. }
   TCadLayer = class
   private
-    FElements : TList;
+    FElements : TObjectList;
     FLayerName : string;
     FColor : integer;
     FVisible : boolean;
@@ -239,7 +239,7 @@ type
   TCadCanvas = class(TComponent)
   private
     { Private declarations }
-    FLayers : TList;
+    FLayers : TObjectList;
 
     FCurrentLayer : TCadLayer;
     FCurrentPolyLine : TCadPolyLine;
@@ -519,7 +519,7 @@ constructor TCadCanvas.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  FLayers:=TList.Create;
+  FLayers:=TObjectList.Create(False);
 
   FCurrentPolyLine:=nil;
   FCurrentPolyGon:=nil;
@@ -894,7 +894,7 @@ var
 begin
   for i:=0 to FLayers.Count-1 do
   begin
-    L:=FLayers[i];
+    L:=FLayers[i] as TCadLayer;
 
     if L=Layer then
     begin
@@ -910,7 +910,7 @@ var
 begin
   if (idx>=0) and (idx<FLayers.Count) then
   begin
-    Layer:=FLayers.Items[idx];
+    Layer:=FLayers.Items[idx] as TCadLayer;
     Layer.Free;
     FLayers.Delete(idx);
   end;
@@ -1193,7 +1193,7 @@ end;
 constructor TCadPolyLine.Create;
 begin
   inherited;
-  FPoints:=TList.Create;
+  FPoints:=TObjectList.Create(False);
 end;
 
 destructor TCadPolyLine.Destroy;
@@ -1240,7 +1240,7 @@ end;
 constructor TCadPolyGon.Create;
 begin
   inherited;
-  FPoints:=TList.Create;
+  FPoints:=TObjectList.Create(False);
 end;
 
 destructor TCadPolyGon.Destroy;
@@ -1285,7 +1285,7 @@ end;
 
 constructor TCadLayer.Create;
 begin
-  FElements:=TList.Create;
+  FElements:=TObjectList.Create(False);
   FLayerName:='CADCANVAS';
   FColor:=1;
   FVisible:=true;
@@ -1332,7 +1332,7 @@ end;
 constructor TCadSolid.Create;
 begin
   inherited;
-  FPoints:=TList.Create;
+  FPoints:=TObjectList.Create(False);
   FPoints.Add(TCadPoint.Create);
   FPoints.Add(TCadPoint.Create);
   FPoints.Add(TCadPoint.Create);
@@ -1365,7 +1365,7 @@ function TCadSolid.GetPoint(idx: integer): TCadPoint;
 begin
   if (idx>=0) and (idx<4) then
     begin
-      Result:=FPoints.Items[idx];
+      Result:=FPoints.Items[idx] as TCadPoint;
     end
   else
     Result:=nil;
