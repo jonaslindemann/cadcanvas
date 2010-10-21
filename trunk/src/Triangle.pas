@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Math, Delaunay, FastGeo;
+  Math, Delaunay, FastGeo, Generics.Collections;
 
 type
 
@@ -141,6 +141,8 @@ type
   TTriangleClipProcessing = (tpDoNothing, tpClip, tpRemove, tpRemoveReverse,
     tpRemoveCrossing, tpRemoveCrossingReverse);
 
+  TTriangleDuplicateProcessing = (tdIgnore, tdReplace, tdMean);
+
   TTriangle = class(TComponent)
   private
     { Private declarations }
@@ -148,6 +150,8 @@ type
     FTriangleExecutable: string;
     FModelname: string;
     FPoints: TRefList;
+    FCoordHash: TDictionary<double, integer>;
+    FDuplicateProcessing : TTriangleDuplicateProcessing;
     FElements: TRefList;
     FClippedElements: TRefList;
     FCrossingElements: TRefList;
@@ -182,6 +186,7 @@ type
     function GetElements(index: integer): TTriangleElement;
     function GetMaxPoint: TTrianglePoint;
     function GetMinPoint: TTrianglePoint;
+    function CoordHash(x, y : double) : double;
 
     procedure UpdateExtents(Triangle: TTriangleElement);
     procedure ResetExtents;
@@ -189,6 +194,7 @@ type
     function GetPolylines(index: integer): TTrianglePolyline;
     procedure SetTriangleClipProcessing(const Value: TTriangleClipProcessing);
     procedure SetClipPolyline(const Value: boolean);
+    procedure SetDuplicateProcessing(const Value: TTriangleDuplicateProcessing);
   protected
     { Protected declarations }
   public
@@ -241,6 +247,7 @@ type
     property TriangleClipProcessing
       : TTriangleClipProcessing read FTriangleClipProcessing write
       SetTriangleClipProcessing;
+    property DuplicateProcessing : TTriangleDuplicateProcessing read FDuplicateProcessing write SetDuplicateProcessing;
   end;
 
 function Distance(p1, p2: TTrianglePoint): double;
@@ -344,6 +351,9 @@ begin
   FCrossingElements := TRefList.Create;
   FVisibleElements := TRefList.Create;
 
+  FCoordHash:=TDictionary<double, integer>.Create;
+  FDuplicateProcessing:=tdMean;
+
   FQualityMesh := false;
   FMinAngle := -1;
 
@@ -372,6 +382,7 @@ begin
 
   // ClearPoints;
   FPoints.Free;
+  FCoordHash.Free;
 
   FClippedElements.Free;
   FVisibleElements.Free;
@@ -389,18 +400,37 @@ end;
 procedure TTriangle.AddPoint(X, Y, Value: double);
 var
   TriPoint: TTrianglePoint;
+  HashValue : double;
 begin
-  TriPoint := TTrianglePoint.Create;
-  TriPoint.X := X;
-  TriPoint.Y := Y;
-  TriPoint.Value := Value;
-  FPoints.Add(TriPoint);
 
-  if Value > FMaxValue then
-    FMaxValue := Value;
+  HashValue:=CoordHash(X, Y);
 
-  if Value < FMinValue then
-    FMinValue := Value;
+  if FCoordHash.ContainsKey(HashValue) then
+    begin
+      TriPoint:=FPoints.Items[FCoordHash.Items[HashValue]] as TTrianglePoint;
+
+      if Self.DuplicateProcessing = tdReplace then
+        TriPoint.Value:=Value
+      else if Self.DuplicateProcessing = tdMean then
+        TriPoint.Value:=0.5*(TriPoint.Value + Value);
+    end
+  else
+    begin
+      TriPoint := TTrianglePoint.Create;
+      TriPoint.X := X;
+      TriPoint.Y := Y;
+      TriPoint.Value := Value;
+      FPoints.Add(TriPoint);
+
+      if Value > FMaxValue then
+        FMaxValue := Value;
+
+      if Value < FMinValue then
+        FMinValue := Value;
+
+      FCoordHash.Add(CoordHash(x, y), FPoints.Count-1);
+    end;
+
 end;
 
 procedure TTriangle.Clear;
@@ -418,6 +448,7 @@ end;
 procedure TTriangle.ClearPoints;
 begin
   FPoints.Clear;
+  FCoordHash.Clear;
   FMaxValue := -1E300;
   FMinValue := 1E300;
 end;
@@ -710,6 +741,11 @@ begin
   BottomClip.Free;
 
   FClipActive := true;
+end;
+
+function TTriangle.CoordHash(x, y: double): double;
+begin
+  Result:=x*13123121232.0+y;
 end;
 
 procedure TTriangle.PolygonClip;
@@ -1021,6 +1057,12 @@ end;
 procedure TTriangle.SetClipPolyline(const Value: boolean);
 begin
   FClipPolyline := Value;
+end;
+
+procedure TTriangle.SetDuplicateProcessing(
+  const Value: TTriangleDuplicateProcessing);
+begin
+  FDuplicateProcessing := Value;
 end;
 
 { TTriangleElement }

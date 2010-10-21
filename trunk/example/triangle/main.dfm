@@ -29,10 +29,6 @@ object frmMain: TfrmMain
     Scale = 1.000000000000000000
     ScaleMode = smNormal
     TabOrder = 0
-    ExplicitLeft = 556
-    ExplicitTop = 260
-    ExplicitWidth = 393
-    ExplicitHeight = 302
   end
   object PageControl1: TPageControl
     AlignWithMargins = True
@@ -47,11 +43,8 @@ object frmMain: TfrmMain
     ActivePage = TabSheet1
     Align = alLeft
     TabOrder = 1
-    ExplicitHeight = 343
     object TabSheet1: TTabSheet
       Caption = 'Axes'
-      ExplicitWidth = 931
-      ExplicitHeight = 111
       object lblXLimits: TLabel
         Left = 6
         Top = 30
@@ -174,8 +167,6 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Diagram'
       ImageIndex = 1
-      ExplicitWidth = 931
-      ExplicitHeight = 111
       object DiagramProperties: TValueListEditor
         AlignWithMargins = True
         Left = 3
@@ -211,8 +202,6 @@ object frmMain: TfrmMain
     object TabSheet3: TTabSheet
       Caption = 'Mesh'
       ImageIndex = 2
-      ExplicitWidth = 931
-      ExplicitHeight = 111
       object chkShowTriangles: TCheckBox
         Left = 12
         Top = 9
@@ -237,8 +226,6 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Tests'
       ImageIndex = 3
-      ExplicitWidth = 931
-      ExplicitHeight = 111
       object btnTest1: TButton
         Left = 3
         Top = 3
@@ -382,7 +369,7 @@ object frmMain: TfrmMain
     Axes.LabelUnitY = '(m)'
     Axes.LabelSize = 3.000000000000000000
     Axes.LabelUnitSize = 3.000000000000000000
-    Axes.LabelDistance = 10.000000000000000000
+    Axes.LabelDistance = 2.000000000000000000
     Axes.LabelUnitSpacing = 0.500000000000000000
     Diagram.ShowTriangles = False
     Diagram.Title = 'Title'
@@ -409,6 +396,7 @@ object frmMain: TfrmMain
     Mesh.ClipSurfaceType = scRemoveCrossing
     Mesh.AlignWithSurface = False
     Mesh.TriangleImplementation = tiInternal
+    Mesh.DuplicateProcessing = tdMean
     Left = 556
     Top = 212
   end
