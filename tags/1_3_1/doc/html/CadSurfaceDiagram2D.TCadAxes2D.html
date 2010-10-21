@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadSurfaceDiagram2D: Class TCadAxes2D</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadAxes2D"></a><h1 class="cio">Class TCadAxes2D</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadSurfaceDiagram2D.html">CadSurfaceDiagram2D</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadAxes2D = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">TCadAxes2D</li></ul><h2 class="overview">Overview</h2>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#Create">Create</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#Execute">Execute</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#CadCanvas">CadCanvas</a></b> : <a   href="CadCanvas.TCadCanvas.html">TCadCanvas</a> read FCadCanvas write SetCadCanvas;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#MinPoint">MinPoint</a></b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FMinPoint;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#MaxPoint">MaxPoint</a></b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FMaxPoint;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#TickDistanceX">TickDistanceX</a></b> : double read FTickDistanceX write SetTickDistanceX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#TickDistanceY">TickDistanceY</a></b> : double read FTickDistanceY write SetTickDistanceY;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#TickSize">TickSize</a></b> : double read FTickSize write SetTickSize;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#TickLabelSize">TickLabelSize</a></b> : double read FTickLabelSize write SetTickLabelSize;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#TickLabelDistance">TickLabelDistance</a></b> : double read FTickLabelDistance write SetTickLabelDistance;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#TickLabelFormat">TickLabelFormat</a></b> : string read FTickLabelFormat write SetTickLabelFormat;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelX">LabelX</a></b> : string read FLabelX write SetLabelX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelY">LabelY</a></b> : string read FLabelY write SetLabelY;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelUnitX">LabelUnitX</a></b> : string read FLabelUnitX write SetLabelUnitX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelUnitY">LabelUnitY</a></b> : string read FLabelUnitY write SetLabelUnitY;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelSize">LabelSize</a></b> : double read FLabelSize write SetLabelSize;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelUnitSize">LabelUnitSize</a></b> : double read FLabelUnitSize write SetLabelUnitSize;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelDistance">LabelDistance</a></b> : double read FLabelDistance write SetLabelDistance;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#LabelUnitSpacing">LabelUnitSpacing</a></b> : double read FLabelUnitSpacing write SetLabelUnitSpacing;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadAxes2D.html#Scaling">Scaling</a></b> : <a   href="CadSurfaceDiagram2D.TScaling.html">TScaling</a> read FScaling write FScaling;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Execute"></a><code>procedure <b>Execute</b>;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CadCanvas"></a><code>property <b>CadCanvas</b> : <a   href="CadCanvas.TCadCanvas.html">TCadCanvas</a> read FCadCanvas write SetCadCanvas;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MinPoint"></a><code>property <b>MinPoint</b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FMinPoint;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MaxPoint"></a><code>property <b>MaxPoint</b> : <a   href="CadCanvas.TCadPoint.html">TCadPoint</a> read FMaxPoint;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TickDistanceX"></a><code>property <b>TickDistanceX</b> : double read FTickDistanceX write SetTickDistanceX;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TickDistanceY"></a><code>property <b>TickDistanceY</b> : double read FTickDistanceY write SetTickDistanceY;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TickSize"></a><code>property <b>TickSize</b> : double read FTickSize write SetTickSize;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TickLabelSize"></a><code>property <b>TickLabelSize</b> : double read FTickLabelSize write SetTickLabelSize;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TickLabelDistance"></a><code>property <b>TickLabelDistance</b> : double read FTickLabelDistance write SetTickLabelDistance;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TickLabelFormat"></a><code>property <b>TickLabelFormat</b> : string read FTickLabelFormat write SetTickLabelFormat;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelX"></a><code>property <b>LabelX</b> : string read FLabelX write SetLabelX;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelY"></a><code>property <b>LabelY</b> : string read FLabelY write SetLabelY;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelUnitX"></a><code>property <b>LabelUnitX</b> : string read FLabelUnitX write SetLabelUnitX;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelUnitY"></a><code>property <b>LabelUnitY</b> : string read FLabelUnitY write SetLabelUnitY;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelSize"></a><code>property <b>LabelSize</b> : double read FLabelSize write SetLabelSize;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelUnitSize"></a><code>property <b>LabelUnitSize</b> : double read FLabelUnitSize write SetLabelUnitSize;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelDistance"></a><code>property <b>LabelDistance</b> : double read FLabelDistance write SetLabelDistance;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LabelUnitSpacing"></a><code>property <b>LabelUnitSpacing</b> : double read FLabelUnitSpacing write SetLabelUnitSpacing;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Scaling"></a><code>property <b>Scaling</b> : <a   href="CadSurfaceDiagram2D.TScaling.html">TScaling</a> read FScaling write FScaling;</code></td>
+</tr>
+</table>
+&nbsp;<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>

@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadSurfaceDiagram2D: Class TCadSurfaceDiagram2D</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadSurfaceDiagram2D"></a><h1 class="cio">Class TCadSurfaceDiagram2D</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadSurfaceDiagram2D.html">CadSurfaceDiagram2D</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadSurfaceDiagram2D = class(TComponent)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Two-dimensional Surface diagram component.</p>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TComponent</li>
+<li class="thisitem">TCadSurfaceDiagram2D</li></ul><h2 class="overview">Overview</h2>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Create">Create</a></b>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#AddPoint">AddPoint</a></b>(x, y, value : double);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Clear">Clear</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Execute">Execute</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Axes2D">Axes2D</a></b> : <a   href="CadSurfaceDiagram2D.TCadAxes2D.html">TCadAxes2D</a> read FAxes2D;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#IsoLines">IsoLines</a></b> : <a   href="CadMesh.TIsoLines.html">TIsoLines</a> read GetIsoLines write SetIsoLines;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Scaling">Scaling</a></b> : <a   href="CadSurfaceDiagram2D.TScaling.html">TScaling</a> read FScaling;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#SurfaceContour">SurfaceContour</a></b> : <a   href="CadSurfaceDiagram2D.TCadSurfaceContour.html">TCadSurfaceContour</a> read FSurfaceContour write SetSurfaceContour;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#CadCanvas">CadCanvas</a></b> : <a   href="CadCanvas.TCadCanvas.html">TCadCanvas</a> read FCadCanvas write SetCadCanvas;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Axes">Axes</a></b> : <a   href="CadSurfaceDiagram2D.TCadAxesRecord.html">TCadAxesRecord</a> read FAxes write SetAxes;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Diagram">Diagram</a></b> : <a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html">TCadDiagramRecord</a> read FDiagram write SetDiagram;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html#Mesh">Mesh</a></b> : <a   href="CadSurfaceDiagram2D.TCadMeshRecord.html">TCadMeshRecord</a> read FMesh write SetMesh;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TComponent); override;</code></td>
+</tr>
+</table>
+<p>
+Public declarations</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddPoint"></a><code>procedure <b>AddPoint</b>(x, y, value : double);</code></td>
+</tr>
+</table>
+<p>
+Add a point/value pair to the surface diagram.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>;</code></td>
+</tr>
+</table>
+<p>
+Clear all added point/value pairs.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Execute"></a><code>procedure <b>Execute</b>;</code></td>
+</tr>
+</table>
+<p>
+Create surface diagram. The generated diagram is sent to the CadCanvas specified in the <code>CadCanvas</code> property.</p>
+<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Axes2D"></a><code>property <b>Axes2D</b> : <a   href="CadSurfaceDiagram2D.TCadAxes2D.html">TCadAxes2D</a> read FAxes2D;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IsoLines"></a><code>property <b>IsoLines</b> : <a   href="CadMesh.TIsoLines.html">TIsoLines</a> read GetIsoLines write SetIsoLines;</code></td>
+</tr>
+</table>
+<p>
+Defines the isolines used to generated both a solid surface diagram and a isoline based diagram, see <a class="normal" href="CadMesh.TIsoLines.html">TIsoLines</a>.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Scaling"></a><code>property <b>Scaling</b> : <a   href="CadSurfaceDiagram2D.TScaling.html">TScaling</a> read FScaling;</code></td>
+</tr>
+</table>
+<p>
+Controls the diagram scaling, see <a class="normal" href="CadSurfaceDiagram2D.TScaling.html">TScaling</a>.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SurfaceContour"></a><code>property <b>SurfaceContour</b> : <a   href="CadSurfaceDiagram2D.TCadSurfaceContour.html">TCadSurfaceContour</a> read FSurfaceContour write SetSurfaceContour;</code></td>
+</tr>
+</table>
+<p>
+Defines the surface contour used to clip the diagram, see <a class="normal" href="CadSurfaceDiagram2D.TCadSurfaceContour.html">TCadSurfaceContour</a>.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="CadCanvas"></a><code>property <b>CadCanvas</b> : <a   href="CadCanvas.TCadCanvas.html">TCadCanvas</a> read FCadCanvas write SetCadCanvas;</code></td>
+</tr>
+</table>
+<p>
+Target CadCanvas to send generated diagram.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Axes"></a><code>property <b>Axes</b> : <a   href="CadSurfaceDiagram2D.TCadAxesRecord.html">TCadAxesRecord</a> read FAxes write SetAxes;</code></td>
+</tr>
+</table>
+<p>
+Axes property group.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Diagram"></a><code>property <b>Diagram</b> : <a   href="CadSurfaceDiagram2D.TCadDiagramRecord.html">TCadDiagramRecord</a> read FDiagram write SetDiagram;</code></td>
+</tr>
+</table>
+<p>
+Diagram property group.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Mesh"></a><code>property <b>Mesh</b> : <a   href="CadSurfaceDiagram2D.TCadMeshRecord.html">TCadMeshRecord</a> read FMesh write SetMesh;</code></td>
+</tr>
+</table>
+<p>
+Mesh property group.</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>
