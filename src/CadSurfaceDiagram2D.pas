@@ -381,6 +381,7 @@ type
     @value scRemoveReverse Remove triangles below surface. No clipping.
     @value scRemoveCrossingReverse Remove triangles below and crossing surface. No clipping. }
   TCadMeshClipSurfaceType = (scClip, scRemove, scRemoveCrossing, scRemoveReverse, scRemoveCrossingReverse);
+  TCadMeshDuplicateProcessing = (tdIgnore, tdReplace, tdMean);
 
   { Property group describing properties controlling diagram mesh generation. }
   TCadMeshRecord = class(TPersistent)
@@ -396,6 +397,7 @@ type
     FAlignWithSurface : boolean;
     FTriangleExecutable: string;
     FTriangleImplementation: TTriangleImplementation;
+    FDuplicateProcessing: TCadMeshDuplicateProcessing;
     procedure ChangeValue;
     procedure SetOnChangeValue(const Value: TNotifyEvent);
     procedure SetAutoLimits(const Value: boolean);
@@ -408,6 +410,7 @@ type
     procedure SetTriangleImplementation(
       const Value: TTriangleImplementation);
     procedure SetAlignWithSurface(const Value: boolean);
+    procedure SetDuplicateProcessing(const Value: TCadMeshDuplicateProcessing);
 
   public
     constructor Create(AOwner : TComponent);
@@ -444,6 +447,8 @@ type
 
     { Delaunay algorithm used to create triangulation used to create the diagram mesh. }
     property TriangleImplementation : TTriangleImplementation read FTriangleImplementation write SetTriangleImplementation;
+
+    property DuplicateProcessing : TCadMeshDuplicateProcessing read FDuplicateProcessing write SetDuplicateProcessing;
   end;
 
   TCadScalingOptions = (soAbsolute, soRelativeHeight, soRelativeWidth);
@@ -685,6 +690,13 @@ begin
     end
   else
     FTriangle.TriangleImplementation:=tiInternal;
+
+  if FMesh.DuplicateProcessing = tdIgnore then
+    FTriangle.DuplicateProcessing:=TTriangleDuplicateProcessing.tdIgnore
+  else if FMesh.DuplicateProcessing = tdReplace then
+    FTriangle.DuplicateProcessing:=TTriangleDuplicateProcessing.tdReplace
+  else
+    FTriangle.DuplicateProcessing:=TTriangleDuplicateProcessing.tdMean;
 
   FTriangle.Clear;
 
@@ -1968,6 +1980,7 @@ begin
   FMeshType:=mtFilled;
   FTriangleImplementation:=tiInternal;
   FTriangleExecutable:='';
+  FDuplicateProcessing:=tdMean;
 end;
 
 procedure TCadMeshRecord.Assign(Source: TPersistent);
@@ -1982,6 +1995,7 @@ begin
         Self.FClipSurface:=FClipSurface;
         Self.FTriangleExecutable:=FTriangleExecutable;
         Self.FTriangleImplementation:=FTriangleImplementation;
+        Self.FDuplicateProcessing:=FDuplicateProcessing;
       end
   else
     inherited; //raises an exception
@@ -2055,6 +2069,13 @@ procedure TCadMeshRecord.SetClipSurfaceType(
   const Value: TCadMeshClipSurfaceType);
 begin
   FClipSurfaceType := Value;
+  ChangeValue;
+end;
+
+procedure TCadMeshRecord.SetDuplicateProcessing(
+  const Value: TCadMeshDuplicateProcessing);
+begin
+  FDuplicateProcessing := Value;
   ChangeValue;
 end;
 
