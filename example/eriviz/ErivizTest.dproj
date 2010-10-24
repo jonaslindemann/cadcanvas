@@ -46,6 +46,10 @@
 			<DCCReference Include="main.pas">
 				<Form>Form1</Form>
 			</DCCReference>
+			<DCCReference Include="..\..\src\EriViz.pas"/>
+			<DCCReference Include="FenceForm.pas">
+				<Form>FenceEditor</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
