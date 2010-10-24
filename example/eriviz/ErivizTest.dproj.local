@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2010-10-24 22:12:24.009.pas,C:\Users\jonas\Documents\RAD Studio\Projects\Unit1.pas=D:\Users\Jonas\Documents\Development\cadcanvas\example\eriviz\main.pas</Transaction>
+    <Transaction>2010-10-24 22:12:24.009.dfm,C:\Users\jonas\Documents\RAD Studio\Projects\Unit1.dfm=D:\Users\Jonas\Documents\Development\cadcanvas\example\eriviz\main.dfm</Transaction>
+    <Transaction>2010-10-24 22:12:34.999.dproj,C:\Users\jonas\Documents\RAD Studio\Projects\Project1.dproj=D:\Users\Jonas\Documents\Development\cadcanvas\example\eriviz\ErivizTest.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
