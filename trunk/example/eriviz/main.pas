@@ -11,10 +11,15 @@ type
     EriViz: TEriViz;
     ReadButton: TButton;
     WriteButton: TButton;
+    EditorButton: TButton;
     procedure ReadButtonClick(Sender: TObject);
     procedure WriteButtonClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure EditorButtonClick(Sender: TObject);
   private
     { Private declarations }
+    FEriVizFile : TEriVizFile;
   public
     { Public declarations }
   end;
@@ -24,26 +29,35 @@ var
 
 implementation
 
+uses FenceForm;
+
 {$R *.dfm}
 
-procedure TForm1.ReadButtonClick(Sender: TObject);
-var
-  EriVizFile : TEriVizFile;
+procedure TForm1.EditorButtonClick(Sender: TObject);
 begin
-  EriVizFile:=TEriVizFile.Create;
-  EriVizFile.Filename:='..\..\examples\salix01.fnc';
-  EriVizFile.Load;
-  EriVizFile.Free;
+  FenceEditor.Show;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FEriVizFile.Free;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  FEriVizFile:=TEriVizFile.Create;
+end;
+
+procedure TForm1.ReadButtonClick(Sender: TObject);
+begin
+  FEriVizFile.Filename:='salix01.fnc';
+  FEriVizFile.Load;
 end;
 
 procedure TForm1.WriteButtonClick(Sender: TObject);
-var
-  EriVizFile : TEriVizFile;
 begin
-  EriVizFile:=TEriVizFile.Create;
-  EriVizFile.Filename:='..\..\examples\salix01-new.fnc';
-  EriVizFile.Save;
-  EriVizFile.Free;
+  FEriVizFile.Filename:='salix01-new.fnc';
+  FEriVizFile.Save;
 end;
 
 end.

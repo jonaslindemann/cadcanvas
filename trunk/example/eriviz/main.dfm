@@ -11,6 +11,8 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object ReadButton: TButton
@@ -30,6 +32,15 @@ object Form1: TForm1
     Caption = 'Write'
     TabOrder = 1
     OnClick = WriteButtonClick
+  end
+  object EditorButton: TButton
+    Left = 8
+    Top = 48
+    Width = 75
+    Height = 25
+    Caption = 'Editor'
+    TabOrder = 2
+    OnClick = EditorButtonClick
   end
   object EriViz: TEriViz
     AutoDetect = False
