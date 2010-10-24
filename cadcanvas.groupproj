@@ -9,6 +9,9 @@
 			<Projects Include="example\triangle\TestTriangle.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="example\eriviz\ErivizTest.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
 		<Target Name="TestTriangle:Make">
 			<MSBuild Targets="Make" Projects="example\triangle\TestTriangle.dproj"/>
 		</Target>
+		<Target Name="ErivizTest">
+			<MSBuild Projects="example\eriviz\ErivizTest.dproj"/>
+		</Target>
+		<Target Name="ErivizTest:Clean">
+			<MSBuild Targets="Clean" Projects="example\eriviz\ErivizTest.dproj"/>
+		</Target>
+		<Target Name="ErivizTest:Make">
+			<MSBuild Targets="Make" Projects="example\eriviz\ErivizTest.dproj"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="cadcomp;TestTriangle"/>
+			<CallTarget Targets="cadcomp;TestTriangle;ErivizTest"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="cadcomp:Clean;TestTriangle:Clean"/>
+			<CallTarget Targets="cadcomp:Clean;TestTriangle:Clean;ErivizTest:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="cadcomp:Make;TestTriangle:Make"/>
+			<CallTarget Targets="cadcomp:Make;TestTriangle:Make;ErivizTest:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

@@ -68,6 +68,7 @@
 			<DCCReference Include="..\..\depends\fastgeo\FastGEO.pas"/>
 			<DCCReference Include="..\..\src\CadSurfaceDiagram2D.pas"/>
 			<DCCReference Include="..\..\src\CadCanvas.pas"/>
+			<DCCReference Include="..\..\src\EriViz.pas"/>
 			<None Include="pungwe1.lvl"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
