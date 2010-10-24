@@ -8,7 +8,8 @@ uses
   Triangle in '..\..\src\Triangle.pas',
   FastGEO in '..\..\depends\fastgeo\FastGEO.pas',
   CadSurfaceDiagram2D in '..\..\src\CadSurfaceDiagram2D.pas',
-  CadCanvas in '..\..\src\CadCanvas.pas';
+  CadCanvas in '..\..\src\CadCanvas.pas',
+  EriViz in '..\..\src\EriViz.pas';
 
 {$R *.RES}
 
