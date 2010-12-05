@@ -48,7 +48,7 @@ contains
   Delaunay in '..\src\Delaunay.pas',
   CadG32Device in '..\src\CadG32Device.pas',
   CadSurfaceDiagram2D in '..\src\CadSurfaceDiagram2D.pas',
-  FastGEO in '..\depends\fastgeo\FastGEO.pas',
-  EriViz in '..\src\EriViz.pas';
+  EriViz in '..\src\EriViz.pas',
+  FastGEO in '..\src\FastGEO.pas';
 
 end.
