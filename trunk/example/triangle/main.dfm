@@ -137,6 +137,8 @@ object frmMain: TfrmMain
         Anchors = [akLeft, akTop, akRight, akBottom]
         Strings.Strings = (
           'LabelDistance=10'
+          'LabelDistanceX=10'
+          'LabelDistanceY=10'
           'LabelSize=3'
           'LabelUnitSize=3'
           'LabelUnitSpacing=0.5'
@@ -167,6 +169,10 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Diagram'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object DiagramProperties: TValueListEditor
         AlignWithMargins = True
         Left = 3
@@ -202,6 +208,10 @@ object frmMain: TfrmMain
     object TabSheet3: TTabSheet
       Caption = 'Mesh'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkShowTriangles: TCheckBox
         Left = 12
         Top = 9
@@ -226,6 +236,10 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Tests'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object btnTest1: TButton
         Left = 3
         Top = 3
@@ -370,6 +384,8 @@ object frmMain: TfrmMain
     Axes.LabelSize = 3.000000000000000000
     Axes.LabelUnitSize = 3.000000000000000000
     Axes.LabelDistance = 2.000000000000000000
+    Axes.LabelDistanceX = 2.000000000000000000
+    Axes.LabelDistanceY = 2.000000000000000000
     Axes.LabelUnitSpacing = 0.500000000000000000
     Diagram.ShowTriangles = False
     Diagram.Title = 'Title'

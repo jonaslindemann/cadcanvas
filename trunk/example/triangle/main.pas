@@ -235,6 +235,8 @@ end;
 procedure TfrmMain.FillValueList;
 begin
   AxesProperties.Values['LabelDistance']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelDistance);
+  AxesProperties.Values['LabelDistanceX']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelDistanceX);
+  AxesProperties.Values['LabelDistanceY']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelDistanceY);
   AxesProperties.Values['LabelSize']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelSize);
   AxesProperties.Values['LabelUnitSize']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelUnitSize);
   AxesProperties.Values['LabelUnitSpacing']:=FloatToStr(CadSurfaceDiagram2D.Axes.LabelUnitSpacing);
@@ -272,6 +274,8 @@ end;
 procedure TfrmMain.RetrieveFromValueList;
 begin
   CadSurfaceDiagram2D.Axes.LabelDistance:=StrToFloat(AxesProperties.Values['LabelDistance']);
+  CadSurfaceDiagram2D.Axes.LabelDistanceX:=StrToFloat(AxesProperties.Values['LabelDistanceX']);
+  CadSurfaceDiagram2D.Axes.LabelDistanceY:=StrToFloat(AxesProperties.Values['LabelDistanceY']);
   CadSurfaceDiagram2D.Axes.LabelSize:=StrToFloat(AxesProperties.Values['LabelSize']);
   CadSurfaceDiagram2D.Axes.LabelUnitSize:=StrToFloat(AxesProperties.Values['LabelUnitSize']);
   CadSurfaceDiagram2D.Axes.LabelUnitSpacing:=StrToFloat(AxesProperties.Values['LabelUnitSpacing']);

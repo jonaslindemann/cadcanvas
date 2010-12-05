@@ -44,7 +44,7 @@ object Form1: TForm1
   end
   object EriViz: TEriViz
     AutoDetect = False
-    Left = 172
-    Top = 148
+    Left = 128
+    Top = 68
   end
 end
