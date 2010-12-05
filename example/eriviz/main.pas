@@ -35,7 +35,7 @@ uses FenceForm;
 
 procedure TForm1.EditorButtonClick(Sender: TObject);
 begin
-  FenceEditor.Show;
+  EriViz.Execute;
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);

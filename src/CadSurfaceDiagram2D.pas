@@ -3,14 +3,16 @@ unit CadSurfaceDiagram2D;
 interface
 
 uses
-  SysUtils, Classes, CadCanvas, Triangle, CadMesh, CadG32Device, GR32, Dialogs, Contnrs;
+  SysUtils, Classes, CadCanvas, Triangle, CadMesh, CadG32Device, GR32, Dialogs,
+  Contnrs;
 
 const
 
   StandardScaleCount = 15;
 
-  StandardScales: array[1..15] of double =
-    (1, 5, 10, 20, 50 , 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000);
+  StandardScales: array [1 .. 15] of double =
+    (1, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000,
+    100000);
 
 type
 
@@ -26,31 +28,35 @@ type
   public
     constructor Create;
 
-    function L2G(d : double) : double;
-    function G2L(d : double) : double;
+    function L2G(d: double): double;
+    function G2L(d: double): double;
 
-    property ScaleX : double read FScaleX write SetScaleX;
-    property UnitMultiplier : double read FUnitMultiplier write SetUnitMultiplier;
-    property VerticalExaggeration : double read FVerticalExaggeration write SetVerticalExaggeration;
+    property ScaleX: double read FScaleX write SetScaleX;
+    property UnitMultiplier
+      : double read FUnitMultiplier write SetUnitMultiplier;
+    property VerticalExaggeration: double read FVerticalExaggeration write
+      SetVerticalExaggeration;
   end;
-
 
   TCadAxes2D = class
   private
-    FCadCanvas : TCadCanvas;
+    FCadCanvas: TCadCanvas;
     FMinPoint: TCadPoint;
     FMaxPoint: TCadPoint;
-    FTickDistanceX : double;
-    FTickDistanceY : double;
+    FTickDistanceX: double;
+    FTickDistanceY: double;
     FTickSize: double;
-    FTickLabelSize : double;
-    FTickLabelDistance : double;
-    FTicksTop : boolean;
-    FTicksBottom : boolean;
-    FTicksLeft : boolean;
-    FTicksRight : boolean;
+    FTickLabelSize: double;
+    FTickLabelDistance: double;
+    FTicksTop: boolean;
+    FTicksBottom: boolean;
+    FTicksLeft: boolean;
+    FTicksRight: boolean;
     FLabelUnitSpacing: double;
     FLabelDistance: double;
+    FLabelDistanceX: double;
+    FLabelDistanceY: double;
+
     FLabelSize: double;
     FLabelUnitY: string;
     FLabelX: string;
@@ -58,7 +64,7 @@ type
     FLabelY: string;
     FLabelUnitSize: double;
     FTickLabelFormat: string;
-    FScaling : TScaling;
+    FScaling: TScaling;
 
     procedure SetCadCanvas(const Value: TCadCanvas);
     procedure SetTickDistanceX(const Value: double);
@@ -79,41 +85,48 @@ type
     procedure SetTicksLeft(const Value: boolean);
     procedure SetTicksRight(const Value: boolean);
     procedure SetTicksTop(const Value: boolean);
+    procedure SetLabelDistanceX(const Value: double);
+    procedure SetLabelDistanceY(const Value: double);
   public
     constructor Create;
     destructor Destroy; override;
 
     procedure Execute;
 
-    property CadCanvas : TCadCanvas read FCadCanvas write SetCadCanvas;
+    property CadCanvas: TCadCanvas read FCadCanvas write SetCadCanvas;
 
-    property MinPoint : TCadPoint read FMinPoint;
-    property MaxPoint : TCadPoint read FMaxPoint;
-    property TickDistanceX : double read FTickDistanceX write SetTickDistanceX;
-    property TickDistanceY : double read FTickDistanceY write SetTickDistanceY;
-    property TickSize : double read FTickSize write SetTickSize;
-    property TickLabelSize : double read FTickLabelSize write SetTickLabelSize;
-    property TickLabelDistance : double read FTickLabelDistance write SetTickLabelDistance;
-    property TickLabelFormat : string read FTickLabelFormat write SetTickLabelFormat;
-    property TicksTop : boolean read FTicksTop write SetTicksTop;
-    property TicksBottom : boolean read FTicksBottom write SetTicksBottom;
-    property TicksLeft : boolean read FTicksLeft write SetTicksLeft;
-    property TicksRight : boolean read FTicksRight write SetTicksRight;
-    property LabelX : string read FLabelX write SetLabelX;
-    property LabelY : string read FLabelY write SetLabelY;
-    property LabelUnitX : string read FLabelUnitX write SetLabelUnitX;
-    property LabelUnitY : string read FLabelUnitY write SetLabelUnitY;
-    property LabelSize : double read FLabelSize write SetLabelSize;
-    property LabelUnitSize : double read FLabelUnitSize write SetLabelUnitSize;
-    property LabelDistance : double read FLabelDistance write SetLabelDistance;
-    property LabelUnitSpacing : double read FLabelUnitSpacing write SetLabelUnitSpacing;
-    property Scaling : TScaling read FScaling write FScaling;
+    property MinPoint: TCadPoint read FMinPoint;
+    property MaxPoint: TCadPoint read FMaxPoint;
+    property TickDistanceX: double read FTickDistanceX write SetTickDistanceX;
+    property TickDistanceY: double read FTickDistanceY write SetTickDistanceY;
+    property TickSize: double read FTickSize write SetTickSize;
+    property TickLabelSize: double read FTickLabelSize write SetTickLabelSize;
+    property TickLabelDistance: double read FTickLabelDistance write
+      SetTickLabelDistance;
+    property TickLabelFormat
+      : string read FTickLabelFormat write SetTickLabelFormat;
+    property TicksTop: boolean read FTicksTop write SetTicksTop;
+    property TicksBottom: boolean read FTicksBottom write SetTicksBottom;
+    property TicksLeft: boolean read FTicksLeft write SetTicksLeft;
+    property TicksRight: boolean read FTicksRight write SetTicksRight;
+    property LabelX: string read FLabelX write SetLabelX;
+    property LabelY: string read FLabelY write SetLabelY;
+    property LabelUnitX: string read FLabelUnitX write SetLabelUnitX;
+    property LabelUnitY: string read FLabelUnitY write SetLabelUnitY;
+    property LabelSize: double read FLabelSize write SetLabelSize;
+    property LabelUnitSize: double read FLabelUnitSize write SetLabelUnitSize;
+    property LabelDistance: double read FLabelDistance write SetLabelDistance;
+    property LabelDistanceX: double read FLabelDistanceX write SetLabelDistanceX;
+    property LabelDistanceY: double read FLabelDistanceY write SetLabelDistanceY;
+    property LabelUnitSpacing: double read FLabelUnitSpacing write
+      SetLabelUnitSpacing;
+    property Scaling: TScaling read FScaling write FScaling;
   end;
 
   { Property group defining properties for the diagram axes. Properties given in
     drawing units are scaled to represent a certain size on a "virtual drawing
     canvas" given in a specified scale 1:xxx. (Need to find a better definition
-    ...)}
+    ...) }
   TCadAxesRecord = class(TPersistent)
   private
     FAutoX: boolean;
@@ -123,7 +136,7 @@ type
     FMaxX: double;
     FMinY: double;
 
-    FNotify : boolean;
+    FNotify: boolean;
     FOnChangeAutoY: TNotifyEvent;
     FOnChangeAutoX: TNotifyEvent;
     FOnChangeValue: TNotifyEvent;
@@ -132,12 +145,14 @@ type
     FTickDistanceY: double;
     FTickLabelDistance: double;
     FTickLabelSize: double;
-    FTicksTop : boolean;
-    FTicksBottom : boolean;
-    FTicksLeft : boolean;
-    FTicksRight : boolean;
+    FTicksTop: boolean;
+    FTicksBottom: boolean;
+    FTicksLeft: boolean;
+    FTicksRight: boolean;
     FLabelSize: double;
     FLabelDistance: double;
+    FLabelDistanceX: double;
+    FLabelDistanceY: double;
     FLabelUnitSpacing: double;
     FLabelUnitSize: double;
     FLabelUnitX: string;
@@ -178,88 +193,99 @@ type
     procedure SetTicksLeft(const Value: boolean);
     procedure SetTicksRight(const Value: boolean);
     procedure SetTicksTop(const Value: boolean);
+    procedure SetLabelDistanceX(const Value: double);
+    procedure SetLabelDistanceY(const Value: double);
 
   public
-    constructor Create(AOwner : TComponent);
+    constructor Create(AOwner: TComponent);
     destructor Destroy; override;
-    procedure Assign(Source : TPersistent); override;
+    procedure Assign(Source: TPersistent); override;
 
     procedure LockNotify;
     procedure UnlockNotify;
 
-    property OnChangeValue : TNotifyEvent read FOnChangeValue write SetOnChangeValue;
-    property OnChangeAutoX : TNotifyEvent read FOnChangeAutoX write SetOnChangeAutoX;
-    property OnChangeAutoY : TNotifyEvent read FOnChangeAutoY write SetOnChangeAutoY;
+    property OnChangeValue: TNotifyEvent read FOnChangeValue write
+      SetOnChangeValue;
+    property OnChangeAutoX: TNotifyEvent read FOnChangeAutoX write
+      SetOnChangeAutoX;
+    property OnChangeAutoY: TNotifyEvent read FOnChangeAutoY write
+      SetOnChangeAutoY;
   published
     { Automatic calculation of axes X extents. }
-    property AutoX : boolean read FAutoX write SetAutoX;
+    property AutoX: boolean read FAutoX write SetAutoX;
 
     { Automatic calculation of axes Y extents. }
-    property AutoY : boolean read FAutoY write SetAutoY;
+    property AutoY: boolean read FAutoY write SetAutoY;
 
     { Max X coordinate of diagram axes. When AutoX i set to @true this property
-      is automatically calculated.  }
-    property MaxX  : double read FMaxX write SetMaxX;
+      is automatically calculated. }
+    property MaxX: double read FMaxX write SetMaxX;
 
     { Min X coordinate of diagram axes. When AutoX i set to @true this property
-      is automatically calculated.  }
-    property MinX  : double read FMinX write SetMinX;
+      is automatically calculated. }
+    property MinX: double read FMinX write SetMinX;
 
     { Max Y coordinate of diagram axes. When AutoY i set to @true this property
-      is automatically calculated.  }
-    property MaxY  : double read FMaxY write SetMaxY;
+      is automatically calculated. }
+    property MaxY: double read FMaxY write SetMaxY;
 
     { Min Y coordinate of diagram axes. When AutoY i set to @true this property
-      is automatically calculated.  }
-    property MinY  : double read FMinY write SetMinY;
+      is automatically calculated. }
+    property MinY: double read FMinY write SetMinY;
 
     { Distance between axes X tick labels. }
-    property TickDistanceX : double read FTickDistanceX write SetTickDistanceX;
+    property TickDistanceX: double read FTickDistanceX write SetTickDistanceX;
 
     { Distance between axes Y tick labels. }
-    property TickDistanceY : double read FTickDistanceY write SetTickDistanceY;
+    property TickDistanceY: double read FTickDistanceY write SetTickDistanceY;
 
     { Size of the tick mark (drawing units). }
-    property TickSize : double read FTickSize write SetTickSize;
+    property TickSize: double read FTickSize write SetTickSize;
 
     { Distance to tick label. (drawing units). }
-    property TickLabelDistance : double read FTickLabelDistance write SetTickLabelDistance;
+    property TickLabelDistance: double read FTickLabelDistance write
+      SetTickLabelDistance;
 
     { Tick label size. (drawing units). }
-    property TickLabelSize : double read FTickLabelSize write SetTickLabelSize;
+    property TickLabelSize: double read FTickLabelSize write SetTickLabelSize;
 
     { Format string used to represent the tick label value. See the Delphi
       format routine. }
-    property TickLabelFormat : string read FTickLabelFormat write SetTickLabelFormat;
+    property TickLabelFormat
+      : string read FTickLabelFormat write SetTickLabelFormat;
 
-    property TicksTop : boolean read FTicksTop write SetTicksTop;
-    property TicksBottom : boolean read FTicksBottom write SetTicksBottom;
-    property TicksLeft : boolean read FTicksLeft write SetTicksLeft;
-    property TicksRight : boolean read FTicksRight write SetTicksRight;
-
-    { X-axis label string. }
-    property LabelX : string read FLabelX write SetLabelX;
+    property TicksTop: boolean read FTicksTop write SetTicksTop;
+    property TicksBottom: boolean read FTicksBottom write SetTicksBottom;
+    property TicksLeft: boolean read FTicksLeft write SetTicksLeft;
+    property TicksRight: boolean read FTicksRight write SetTicksRight;
 
     { X-axis label string. }
-    property LabelY : string read FLabelY write SetLabelY;
+    property LabelX: string read FLabelX write SetLabelX;
+
+    { X-axis label string. }
+    property LabelY: string read FLabelY write SetLabelY;
 
     { X-axis label unit string. }
-    property LabelUnitX : string read FLabelUnitX write SetLabelUnitX;
+    property LabelUnitX: string read FLabelUnitX write SetLabelUnitX;
 
     { X-axis label unit string. }
-    property LabelUnitY : string read FLabelUnitY write SetLabelUnitY;
+    property LabelUnitY: string read FLabelUnitY write SetLabelUnitY;
 
     { Axis label size. (drawing units) }
-    property LabelSize : double read FLabelSize write SetLabelSize;
+    property LabelSize: double read FLabelSize write SetLabelSize;
 
     { Axis label unit size. (drawing units) }
-    property LabelUnitSize : double read FLabelUnitSize write SetLabelUnitSize;
+    property LabelUnitSize: double read FLabelUnitSize write SetLabelUnitSize;
 
     { Distance from diagram axes to Axis label. (drawing units) }
-    property LabelDistance : double read FLabelDistance write SetLabelDistance;
+    property LabelDistance: double read FLabelDistance write SetLabelDistance;
+
+    property LabelDistanceX: double read FLabelDistanceX write SetLabelDistanceX;
+    property LabelDistanceY: double read FLabelDistanceY write SetLabelDistanceY;
 
     { Spacing between axis label and axis unit label. (drawing units) }
-    property LabelUnitSpacing : double read FLabelUnitSpacing write SetLabelUnitSpacing;
+    property LabelUnitSpacing: double read FLabelUnitSpacing write
+      SetLabelUnitSpacing;
   end;
 
   // Title < -- titlespacing -- > Subtitle < -- Titledistance -- >
@@ -269,8 +295,8 @@ type
   private
     FShowTriangles: boolean;
     FOnChangeShowTriangles: TNotifyEvent;
-    FOnChangeValue : TNotifyEvent;
-    FNotify : boolean;
+    FOnChangeValue: TNotifyEvent;
+    FNotify: boolean;
     FTitleSize: double;
     FSubTitleSize: double;
     FTitleSpacing: double;
@@ -311,68 +337,74 @@ type
     procedure SetLegendSize(const Value: double);
 
   public
-    constructor Create(AOwner : TComponent);
+    constructor Create(AOwner: TComponent);
     destructor Destroy; override;
-    procedure Assign(Source : TPersistent); override;
+    procedure Assign(Source: TPersistent); override;
 
     procedure LockNotify;
     procedure UnlockNotify;
 
-    property OnChangeShowTriangles : TNotifyEvent read FOnChangeShowTriangles write SetOnChangeShowTriangles;
-    property OnChangeValue : TNotifyEvent read FOnChangeValue write SetOnChangeValue;
+    property OnChangeShowTriangles
+      : TNotifyEvent read FOnChangeShowTriangles write SetOnChangeShowTriangles;
+    property OnChangeValue: TNotifyEvent read FOnChangeValue write
+      SetOnChangeValue;
   published
     { Show triangle mesh used for meshing. }
-    property ShowTriangles : boolean read FShowTriangles write SetShowTriangles;
+    property ShowTriangles: boolean read FShowTriangles write SetShowTriangles;
 
     { Diagram title. }
-    property Title : string read FTitle write SetTitle;
+    property Title: string read FTitle write SetTitle;
 
     { Diagram title size in drawing units. }
-    property TitleSize : double read FTitleSize write SetTitleSize;
+    property TitleSize: double read FTitleSize write SetTitleSize;
 
     { Diagram sub title. }
-    property SubTitle : string read FSubTitle write SetSubTitle;
+    property SubTitle: string read FSubTitle write SetSubTitle;
 
     { Diagram sub title size in drawing units. }
-    property SubTitleSize : double read FSubTitleSize write SetSubTitleSize;
+    property SubTitleSize: double read FSubTitleSize write SetSubTitleSize;
 
     { Spacing between title and sub title in drawing units. }
-    property TitleSpacing : double read FTitleSpacing write SetTitleSpacing;
+    property TitleSpacing: double read FTitleSpacing write SetTitleSpacing;
 
     { Distance between title and diagram axes in drawing units. }
-    property TitleDistance : double read FTitleDistance write SetTitleDistance;
+    property TitleDistance: double read FTitleDistance write SetTitleDistance;
 
     { Legend visibility flag. }
-    property ShowLegend : boolean read FShowLegend write SetShowLegend;
+    property ShowLegend: boolean read FShowLegend write SetShowLegend;
 
     { Distance from diagram axes to legend in drawing units. }
-    property LegendDistance : double read FLegendDistance write SetLegendDistance;
+    property LegendDistance
+      : double read FLegendDistance write SetLegendDistance;
 
     { Legend height in drawing units. }
-    property LegendHeight : double read FLegendHeight write SetLegendHeight;
+    property LegendHeight: double read FLegendHeight write SetLegendHeight;
 
     { Legend text height in drawing units. }
-    property LegendTextHeight : double read FLegendTextHeight write SetLegendTextHeight;
+    property LegendTextHeight: double read FLegendTextHeight write
+      SetLegendTextHeight;
 
     { Distance between legend text labels and legend in drawing units. }
-    property LegendTextDistance : double read FLegendTextDistance write SetLegendTextDistance;
+    property LegendTextDistance: double read FLegendTextDistance write
+      SetLegendTextDistance;
 
     { Format used to represent the legend values. See the Delphi format routine. }
-    property LegendFormat : string read FLegendFormat write SetLegendFormat;
+    property LegendFormat: string read FLegendFormat write SetLegendFormat;
 
     { Diagram X scale. 1:ScaleX. When @code(AutoScale) is set to @true this
       property is automatically calculated. }
-    property ScaleX : double read FScaleX write SetScaleX;
+    property ScaleX: double read FScaleX write SetScaleX;
 
     { Sets the diagram vertical exaggeration. The diagram height is scaled with
       this amount in the y direction. }
-    property VerticalExaggeration : double read FVerticalExaggeration write SetVerticalExaggeration;
+    property VerticalExaggeration: double read FVerticalExaggeration write
+      SetVerticalExaggeration;
 
     { Flag for automatic scale calculation based on diagram input values. }
-    property AutoScale : boolean read FAutoScale write SetAutoScale;
+    property AutoScale: boolean read FAutoScale write SetAutoScale;
 
-    { Relative legend size with respect to diagram axes. (1.0 default)}
-    property LegendSize : double read FLegendSize write SetLegendSize;
+    { Relative legend size with respect to diagram axes. (1.0 default) }
+    property LegendSize: double read FLegendSize write SetLegendSize;
   end;
 
   { @value scClip Remove triangles above surface, clip crossing triangles. (Unstable)
@@ -380,7 +412,8 @@ type
     @value scRemoveCrossing Remove triangles above and crossing surface. No clipping.
     @value scRemoveReverse Remove triangles below surface. No clipping.
     @value scRemoveCrossingReverse Remove triangles below and crossing surface. No clipping. }
-  TCadMeshClipSurfaceType = (scClip, scRemove, scRemoveCrossing, scRemoveReverse, scRemoveCrossingReverse);
+  TCadMeshClipSurfaceType = (scClip, scRemove, scRemoveCrossing,
+    scRemoveReverse, scRemoveCrossingReverse);
   TCadMeshDuplicateProcessing = (tdIgnore, tdReplace, tdMean);
 
   { Property group describing properties controlling diagram mesh generation. }
@@ -394,7 +427,7 @@ type
     FMeshType: TMeshType;
     FClipSurface: boolean;
     FClipSurfaceType: TCadMeshClipSurfaceType;
-    FAlignWithSurface : boolean;
+    FAlignWithSurface: boolean;
     FTriangleExecutable: string;
     FTriangleImplementation: TTriangleImplementation;
     FDuplicateProcessing: TCadMeshDuplicateProcessing;
@@ -407,66 +440,73 @@ type
     procedure SetClipSurface(const Value: boolean);
     procedure SetClipSurfaceType(const Value: TCadMeshClipSurfaceType);
     procedure SetTriangleExecutable(const Value: string);
-    procedure SetTriangleImplementation(
-      const Value: TTriangleImplementation);
+    procedure SetTriangleImplementation(const Value: TTriangleImplementation);
     procedure SetAlignWithSurface(const Value: boolean);
     procedure SetDuplicateProcessing(const Value: TCadMeshDuplicateProcessing);
 
   public
-    constructor Create(AOwner : TComponent);
+    constructor Create(AOwner: TComponent);
     destructor Destroy; override;
-    procedure Assign(Source : TPersistent); override;
+    procedure Assign(Source: TPersistent); override;
 
     procedure LockNotify;
     procedure UnlockNotify;
 
-    property OnChangeValue : TNotifyEvent read FOnChangeValue write SetOnChangeValue;
+    property OnChangeValue: TNotifyEvent read FOnChangeValue write
+      SetOnChangeValue;
   published
     { Automatically calculate diagram limits. (Default @true). }
-    property AutoLimits : boolean read FAutoLimits write SetAutoLimits;
+    property AutoLimits: boolean read FAutoLimits write SetAutoLimits;
 
     { Return max diagram value. }
-    property MaxValue : double read FMaxValue write SetMaxValue;
+    property MaxValue: double read FMaxValue write SetMaxValue;
 
     { Return min diagram value. }
-    property MinValue : double read FMinValue write SetMinValue;
+    property MinValue: double read FMinValue write SetMinValue;
 
     { Set the desired mesh type. mtTriangles, mtIsolines, mtSolid. (Default mtSolid). }
-    property MeshType : TMeshType read FMeshType write SetMeshType;
+    property MeshType: TMeshType read FMeshType write SetMeshType;
 
     { Clip to surface. (Default @false). }
-    property ClipSurface : boolean read FClipSurface write SetClipSurface;
+    property ClipSurface: boolean read FClipSurface write SetClipSurface;
 
     { Determines how the triangles are clipped to a defined surface contour. }
-    property ClipSurfaceType : TCadMeshClipSurfaceType read FClipSurfaceType write SetClipSurfaceType;
+    property ClipSurfaceType
+      : TCadMeshClipSurfaceType read FClipSurfaceType write SetClipSurfaceType;
 
-    property AlignWithSurface : boolean read FAlignWithSurface write SetAlignWithSurface;
+    property AlignWithSurface: boolean read FAlignWithSurface write
+      SetAlignWithSurface;
 
     { Search path to Triangle executable. }
-    property TriangleExecutable : string read FTriangleExecutable write SetTriangleExecutable;
+    property TriangleExecutable: string read FTriangleExecutable write
+      SetTriangleExecutable;
 
     { Delaunay algorithm used to create triangulation used to create the diagram mesh. }
-    property TriangleImplementation : TTriangleImplementation read FTriangleImplementation write SetTriangleImplementation;
+    property TriangleImplementation
+      : TTriangleImplementation read FTriangleImplementation write
+      SetTriangleImplementation;
 
-    property DuplicateProcessing : TCadMeshDuplicateProcessing read FDuplicateProcessing write SetDuplicateProcessing;
+    property DuplicateProcessing
+      : TCadMeshDuplicateProcessing read FDuplicateProcessing write
+      SetDuplicateProcessing;
   end;
 
   TCadScalingOptions = (soAbsolute, soRelativeHeight, soRelativeWidth);
 
   TTrianglePointList = class
   private
-    FPoints : TObjectList;
+    FPoints: TObjectList;
     function GetPoint(idx: integer): TTrianglePoint;
-    function GetCount : integer;
+    function GetCount: integer;
   public
     constructor Create;
     destructor Destroy; override;
 
-    procedure AddPoint(x, y, value : double);
+    procedure AddPoint(x, y, Value: double);
     procedure Clear;
 
-    property Point[idx : integer] : TTrianglePoint read GetPoint;
-    property Count : integer read GetCount;
+    property Point[idx: integer]: TTrianglePoint read GetPoint;
+    property Count: integer read GetCount;
   end;
 
   TCadSurfaceContour = class(TCadPolyLine)
@@ -482,16 +522,16 @@ type
     FCadCanvas: TCadCanvas;
     FCadMesh: TCadMesh;
     FTriangle: TTriangle;
-    FAxes2D : TCadAxes2D;
-    FNotationLayer : TCadLayer;
-    FTitleLayer : TCadLayer;
+    FAxes2D: TCadAxes2D;
+    FNotationLayer: TCadLayer;
+    FTitleLayer: TCadLayer;
     FAxes: TCadAxesRecord;
     FDiagram: TCadDiagramRecord;
-    FDirty : boolean;
+    FDirty: boolean;
     FMesh: TCadMeshRecord;
     FScaling: TScaling;
-    FOffsetContour : TCadOffsetContour;
-    FTempPointList : TTrianglePointList;
+    FOffsetContour: TCadOffsetContour;
+    FTempPointList: TTrianglePointList;
 
     procedure SetCadCanvas(const Value: TCadCanvas);
     procedure SetAxes(const Value: TCadAxesRecord);
@@ -528,7 +568,7 @@ type
     destructor Destroy; override;
 
     { Add a point/value pair to the surface diagram. }
-    procedure AddPoint(x, y, value : double);
+    procedure AddPoint(x, y, Value: double);
 
     { Clear all added point/value pairs. }
     procedure Clear;
@@ -537,29 +577,30 @@ type
       specified in the @code(CadCanvas) property. }
     procedure Execute;
 
-    property Axes2D : TCadAxes2D read FAxes2D;
+    property Axes2D: TCadAxes2D read FAxes2D;
 
     { Defines the isolines used to generated both a solid surface diagram
       and a isoline based diagram, see @link(TIsoLines). }
-    property IsoLines : TIsoLines read GetIsoLines write SetIsoLines;
+    property IsoLines: TIsoLines read GetIsoLines write SetIsoLines;
 
     { Controls the diagram scaling, see @link(TScaling). }
-    property Scaling : TScaling read FScaling;
+    property Scaling: TScaling read FScaling;
 
-    property OffsetContour : TCadOffsetContour read FOffsetContour write SetOffsetContour;
+    property OffsetContour: TCadOffsetContour read FOffsetContour write
+      SetOffsetContour;
   published
     { Published declarations }
     { Target CadCanvas to send generated diagram. }
-    property CadCanvas : TCadCanvas read FCadCanvas write SetCadCanvas;
+    property CadCanvas: TCadCanvas read FCadCanvas write SetCadCanvas;
 
     { Axes property group. }
-    property Axes : TCadAxesRecord read FAxes write SetAxes;
+    property Axes: TCadAxesRecord read FAxes write SetAxes;
 
     { Diagram property group. }
-    property Diagram : TCadDiagramRecord read FDiagram write SetDiagram;
+    property Diagram: TCadDiagramRecord read FDiagram write SetDiagram;
 
     { Mesh property group. }
-    property Mesh : TCadMeshRecord read FMesh write SetMesh;
+    property Mesh: TCadMeshRecord read FMesh write SetMesh;
   end;
 
 procedure Register;
@@ -579,46 +620,46 @@ begin
 
   // Initialize variables
 
-  FCadCanvas:=nil;
-  FNotationLayer:=nil;
-  FTitleLayer:=nil;
+  FCadCanvas := nil;
+  FNotationLayer := nil;
+  FTitleLayer := nil;
 
   // Initialize internal utility objects
   // for triangulation and meshing
 
-  FTriangle:=TTriangle.Create(Self);
-  FTriangle.TriangleImplementation:=tiInternal;
+  FTriangle := TTriangle.Create(Self);
+  FTriangle.TriangleImplementation := tiInternal;
 
-  FCadMesh:=TCadMesh.Create(Self);
-  FCadMesh.Triangle:=FTriangle;
-  FCadMesh.IsoLines.Size:=12;
+  FCadMesh := TCadMesh.Create(Self);
+  FCadMesh.Triangle := FTriangle;
+  FCadMesh.IsoLines.Size := 12;
 
-  FScaling:=TScaling.Create;
+  FScaling := TScaling.Create;
 
   // Axes object
 
-  FAxes2D:=TCadAxes2D.Create;
-  FAxes2D.Scaling:=FScaling;
+  FAxes2D := TCadAxes2D.Create;
+  FAxes2D.Scaling := FScaling;
 
   // Initialize axes sub property
 
-  FAxes:=TCadAxesRecord.Create(AOwner);
-  FAxes.OnChangeValue:=Self.AxesChangeValue;
-  FAxes.OnChangeAutoX:=Self.AxesChangeAutoX;
-  FAxes.OnChangeAutoY:=Self.AxesChangeAutoY;
+  FAxes := TCadAxesRecord.Create(AOwner);
+  FAxes.OnChangeValue := Self.AxesChangeValue;
+  FAxes.OnChangeAutoX := Self.AxesChangeAutoX;
+  FAxes.OnChangeAutoY := Self.AxesChangeAutoY;
 
-  FDiagram:=TCadDiagramRecord.Create(AOwner);
-  FDiagram.OnChangeShowTriangles:=Self.DiagramChangeShowTriangles;
-  FDiagram.OnChangeValue:=Self.DiagramChangeValue;
+  FDiagram := TCadDiagramRecord.Create(AOwner);
+  FDiagram.OnChangeShowTriangles := Self.DiagramChangeShowTriangles;
+  FDiagram.OnChangeValue := Self.DiagramChangeValue;
 
-  FMesh:=TCadMeshRecord.Create(AOwner);
-  FMesh.OnChangeValue:=Self.MeshChangeValue;
+  FMesh := TCadMeshRecord.Create(AOwner);
+  FMesh.OnChangeValue := Self.MeshChangeValue;
 
-  FOffsetContour:=TCadOffsetContour.Create;
+  FOffsetContour := TCadOffsetContour.Create;
 
-  FTempPointList:=TTrianglePointList.Create;
+  FTempPointList := TTrianglePointList.Create;
 
-  FDirty:=true;
+  FDirty := true;
 
 end;
 
@@ -640,15 +681,15 @@ begin
   inherited;
 end;
 
-procedure TCadSurfaceDiagram2D.AddPoint(x, y, value: double);
+procedure TCadSurfaceDiagram2D.AddPoint(x, y, Value: double);
 begin
 
   // Add unscaled points to a temporary point list, so that
   // we can reapply vertical exaggeration later on, without the need
   // to add the points again.
 
-  FTempPointList.AddPoint(x, y, value);
-  FDirty:=true;
+  FTempPointList.AddPoint(x, y, Value);
+  FDirty := true;
 end;
 
 procedure TCadSurfaceDiagram2D.Clear;
@@ -662,66 +703,66 @@ begin
   FCadMesh.Clear;
 
   CreateLayers;
-  
-  FDirty:=true;
+
+  FDirty := true;
 end;
 
 procedure TCadSurfaceDiagram2D.CreateLayers;
 begin
   if assigned(CadCanvas) then
   begin
-    FNotationLayer:=CadCanvas.AddLayer('NOTATION');
-    FTitleLayer:=CadCanvas.AddLayer('TITLES');
+    FNotationLayer := CadCanvas.AddLayer('NOTATION');
+    FTitleLayer := CadCanvas.AddLayer('TITLES');
   end;
 end;
 
 procedure TCadSurfaceDiagram2D.CreateTriangulation;
 var
-    i : integer;
-    TP : TTrianglePoint;
+  i: integer;
+  TP: TTrianglePoint;
 begin
 
   // Clear old triangulation
 
   if (FMesh.TriangleImplementation = tiExternal) then
-    begin
-      FTriangle.TriangleExecutable:=FMesh.TriangleExecutable;
-      FTriangle.TriangleImplementation:=tiExternal;
-    end
+  begin
+    FTriangle.TriangleExecutable := FMesh.TriangleExecutable;
+    FTriangle.TriangleImplementation := tiExternal;
+  end
   else
-    FTriangle.TriangleImplementation:=tiInternal;
+    FTriangle.TriangleImplementation := tiInternal;
 
   if FMesh.DuplicateProcessing = tdIgnore then
-    FTriangle.DuplicateProcessing:=TTriangleDuplicateProcessing.tdIgnore
+    FTriangle.DuplicateProcessing := TTriangleDuplicateProcessing.tdIgnore
   else if FMesh.DuplicateProcessing = tdReplace then
-    FTriangle.DuplicateProcessing:=TTriangleDuplicateProcessing.tdReplace
+    FTriangle.DuplicateProcessing := TTriangleDuplicateProcessing.tdReplace
   else
-    FTriangle.DuplicateProcessing:=TTriangleDuplicateProcessing.tdMean;
+    FTriangle.DuplicateProcessing := TTriangleDuplicateProcessing.tdMean;
 
   FTriangle.Clear;
 
   // Add temporary points
 
-  for i:=0 to FTempPointList.Count-1 do
+  for i := 0 to FTempPointList.Count - 1 do
   begin
-    TP:=FTempPointList.Point[i];
-    FTriangle.AddPoint(TP.X, TP.Y*FScaling.VerticalExaggeration, TP.Value);
+    TP := FTempPointList.Point[i];
+    FTriangle.AddPoint(TP.x, TP.y * FScaling.VerticalExaggeration, TP.Value);
   end;
 
   // Set triangle options
 
-  FCadMesh.Triangle.ClipPolyline:=FMesh.ClipSurface;
+  FCadMesh.Triangle.ClipPolyline := FMesh.ClipSurface;
 
   if FMesh.ClipSurfaceType = scClip then
-    FTriangle.TriangleClipProcessing:=tpClip
+    FTriangle.TriangleClipProcessing := tpClip
   else if FMesh.ClipSurfaceType = scRemove then
-    FTriangle.TriangleClipProcessing:=tpRemove
+    FTriangle.TriangleClipProcessing := tpRemove
   else if FMesh.ClipSurfaceType = scRemoveReverse then
-    FTriangle.TriangleClipProcessing:=tpRemoveReverse
+    FTriangle.TriangleClipProcessing := tpRemoveReverse
   else if FMesh.ClipSurfaceType = scRemoveCrossing then
-    FTriangle.TriangleClipProcessing:=tpRemoveCrossing
+    FTriangle.TriangleClipProcessing := tpRemoveCrossing
   else if FMesh.ClipSurfaceType = scRemoveCrossingReverse then
-    FTriangle.TriangleClipProcessing:=tpRemoveCrossingReverse;
+    FTriangle.TriangleClipProcessing := tpRemoveCrossingReverse;
 
   // Triangulate
 
@@ -729,13 +770,14 @@ begin
 
   // Do deformation
 
-  if (FOffsetContour.Count>0) then
+  if (FOffsetContour.Count > 0) then
   begin
 
     FTriangle.OffsetPolyline.Clear;
 
-    for i:=0 to FOffsetContour.Count-1 do
-      FTriangle.OffsetPolyline.AddPoint(FOffsetContour.Points[i].X, FOffsetContour.Points[i].Y*FScaling.VerticalExaggeration);
+    for i := 0 to FOffsetContour.Count - 1 do
+      FTriangle.OffsetPolyline.AddPoint(FOffsetContour.Points[i].x,
+        FOffsetContour.Points[i].y * FScaling.VerticalExaggeration);
 
     FTriangle.Offset;
 
@@ -745,10 +787,11 @@ begin
 
   UpdateAxesProperties;
 
-  FTriangle.TriangleClipRect.Left:=Axes.MinX;
-  FTriangle.TriangleClipRect.Right:=Axes.MaxX;
-  FTriangle.TriangleClipRect.Top:=Axes.MaxY*FScaling.VerticalExaggeration;
-  FTriangle.TriangleClipRect.Bottom:=Axes.MinY*FScaling.VerticalExaggeration;
+  FTriangle.TriangleClipRect.Left := Axes.MinX;
+  FTriangle.TriangleClipRect.Right := Axes.MaxX;
+  FTriangle.TriangleClipRect.Top := Axes.MaxY * FScaling.VerticalExaggeration;
+  FTriangle.TriangleClipRect.Bottom :=
+    Axes.MinY * FScaling.VerticalExaggeration;
 
   // Do the clipping...
 
@@ -761,27 +804,27 @@ begin
 
   // This is the important stuff...
 
-  //FCadMesh.MeshType:=mtTriangles;
-  //FCadMesh.Execute;
+  // FCadMesh.MeshType:=mtTriangles;
+  // FCadMesh.Execute;
 
-  //FCadMesh.TriangleLayer.Visible:=FDiagram.ShowTriangles;
-  //FCadMesh.TriangleLayer.Color:=0;
+  // FCadMesh.TriangleLayer.Visible:=FDiagram.ShowTriangles;
+  // FCadMesh.TriangleLayer.Color:=0;
 
-  FCadMesh.MeshType:=FMesh.MeshType;
+  FCadMesh.MeshType := FMesh.MeshType;
   if FMesh.FAutoLimits then
-    begin
-      FCadMesh.IsoLines.Min:=FTriangle.MinValue;
-      FCadMesh.IsoLines.Max:=FTriangle.MaxValue;
-    end
+  begin
+    FCadMesh.IsoLines.Min := FTriangle.MinValue;
+    FCadMesh.IsoLines.Max := FTriangle.MaxValue;
+  end
   else
-    begin
-      FCadMesh.IsoLines.Min:=FMesh.MinValue;
-      FCadMesh.IsoLines.Max:=FMesh.MaxValue;
-    end;
+  begin
+    FCadMesh.IsoLines.Min := FMesh.MinValue;
+    FCadMesh.IsoLines.Max := FMesh.MaxValue;
+  end;
 
   //
-  //       1   2   3   n         = .IsoLines.Size := n
-  //  1 <--|-2-|-3-|-n-|--> n+1
+  // 1   2   3   n         = .IsoLines.Size := n
+  // 1 <--|-2-|-3-|-n-|--> n+1
 
   FCadMesh.Execute;
 
@@ -794,7 +837,7 @@ begin
 
     // Create extra graphics
 
-    CadCanvas.CurrentLayer:=FNotationLayer;
+    CadCanvas.CurrentLayer := FNotationLayer;
 
     UpdateAxesProperties;
 
@@ -847,7 +890,7 @@ begin
 
   // Create surface contour
 
-  //CreateSurfaceContour;
+  // CreateSurfaceContour;
 
 end;
 
@@ -869,7 +912,7 @@ begin
     if assigned(FNotationLayer) then
     begin
       FNotationLayer.Clear;
-      CadCanvas.CurrentLayer:=FNotationLayer;
+      CadCanvas.CurrentLayer := FNotationLayer;
       Self.CreateAxes;
     end;
   end;
@@ -882,7 +925,7 @@ begin
     if assigned(FTitleLayer) then
     begin
       FTitleLayer.Clear;
-      CadCanvas.CurrentLayer:=FTitleLayer;
+      CadCanvas.CurrentLayer := FTitleLayer;
       Self.CreateTitles;
     end;
   end;
@@ -895,107 +938,109 @@ begin
 
   FAxes.LockNotify;
 
-  Axes2D.TickDistanceX:=FAxes.TickDistanceX;
-  Axes2D.TickDistanceY:=FAxes.TickDistanceY;
-  Axes2D.TickSize:=FAxes.TickSize;
-  Axes2D.TickLabelSize:=FAxes.TickLabelSize;
-  Axes2D.TickLabelDistance:=FAxes.TickLabelDistance;
-  Axes2D.TickLabelFormat:=FAxes.TickLabelFormat;
-  Axes2D.TicksTop:=FAxes.TicksTop;
-  Axes2D.TicksBottom:=FAxes.TicksBottom;
-  Axes2D.TicksLeft:=FAxes.TicksLeft;
-  Axes2D.TicksRight:=FAxes.TicksRight;
-  Axes2D.LabelX:=FAxes.LabelX;
-  Axes2D.LabelY:=FAxes.LabelY;
-  Axes2D.LabelUnitX:=FAxes.LabelUnitX;
-  Axes2D.LabelUnitY:=FAxes.LabelUnitY;
-  Axes2D.LabelSize:=FAxes.LabelSize;
-  Axes2D.LabelUnitSize:=FAxes.LabelUnitSize;
-  Axes2D.LabelDistance:=FAxes.LabelDistance;
-  Axes2D.LabelUnitSpacing:=FAxes.LabelUnitSpacing;
+  Axes2D.TickDistanceX := FAxes.TickDistanceX;
+  Axes2D.TickDistanceY := FAxes.TickDistanceY;
+  Axes2D.TickSize := FAxes.TickSize;
+  Axes2D.TickLabelSize := FAxes.TickLabelSize;
+  Axes2D.TickLabelDistance := FAxes.TickLabelDistance;
+  Axes2D.TickLabelFormat := FAxes.TickLabelFormat;
+  Axes2D.TicksTop := FAxes.TicksTop;
+  Axes2D.TicksBottom := FAxes.TicksBottom;
+  Axes2D.TicksLeft := FAxes.TicksLeft;
+  Axes2D.TicksRight := FAxes.TicksRight;
+  Axes2D.LabelX := FAxes.LabelX;
+  Axes2D.LabelY := FAxes.LabelY;
+  Axes2D.LabelUnitX := FAxes.LabelUnitX;
+  Axes2D.LabelUnitY := FAxes.LabelUnitY;
+  Axes2D.LabelSize := FAxes.LabelSize;
+  Axes2D.LabelUnitSize := FAxes.LabelUnitSize;
+  Axes2D.LabelDistance := FAxes.LabelDistance;
+  Axes2D.LabelDistanceX := FAxes.LabelDistanceX;
+  Axes2D.LabelDistanceY := FAxes.LabelDistanceY;
+  Axes2D.LabelUnitSpacing := FAxes.LabelUnitSpacing;
 
   if FAxes.AutoX then
-    begin
-      Axes2D.MinPoint.X:=FTriangle.MinPoint.X;
-      Axes2D.MaxPoint.X:=FTriangle.MaxPoint.X;
-      FAxes.MinX:=Axes2D.MinPoint.X;
-      FAxes.MaxX:=Axes2D.MaxPoint.X;
-    end
+  begin
+    Axes2D.MinPoint.x := FTriangle.MinPoint.x;
+    Axes2D.MaxPoint.x := FTriangle.MaxPoint.x;
+    FAxes.MinX := Axes2D.MinPoint.x;
+    FAxes.MaxX := Axes2D.MaxPoint.x;
+  end
   else
-    begin
-      Axes2D.MinPoint.X:=FAxes.MinX;
-      Axes2D.MaxPoint.X:=FAxes.MaxX;
-    end;
+  begin
+    Axes2D.MinPoint.x := FAxes.MinX;
+    Axes2D.MaxPoint.x := FAxes.MaxX;
+  end;
 
   if FAxes.AutoY then
-    begin
-      Axes2D.MinPoint.Y:=FTriangle.MinPoint.Y;
-      Axes2D.MaxPoint.Y:=FTriangle.MaxPoint.Y;
-      FAxes.MinY:=Axes2D.MinPoint.Y/FDiagram.FVerticalExaggeration;
-      FAxes.MaxY:=Axes2D.MaxPoint.Y/FDiagram.FVerticalExaggeration;
-    end
+  begin
+    Axes2D.MinPoint.y := FTriangle.MinPoint.y;
+    Axes2D.MaxPoint.y := FTriangle.MaxPoint.y;
+    FAxes.MinY := Axes2D.MinPoint.y / FDiagram.FVerticalExaggeration;
+    FAxes.MaxY := Axes2D.MaxPoint.y / FDiagram.FVerticalExaggeration;
+  end
   else
-    begin
-      Axes2D.MinPoint.Y:=Self.FAxes.MinY*FDiagram.FVerticalExaggeration;
-      Axes2D.MaxPoint.Y:=Self.FAxes.MaxY*FDiagram.FVerticalExaggeration;
-    end;
+  begin
+    Axes2D.MinPoint.y := Self.FAxes.MinY * FDiagram.FVerticalExaggeration;
+    Axes2D.MaxPoint.y := Self.FAxes.MaxY * FDiagram.FVerticalExaggeration;
+  end;
 
-    FAxes.UnlockNotify;
+  FAxes.UnlockNotify;
 end;
 
 procedure TCadSurfaceDiagram2D.CalcScaling;
 var
-    i : integer;
-    DiagramWidth, DiagramHeight : double;
-    DiagramSize : double;
-    ScaleFactor : double;
-    TextHeight : double;
-    Diff : double;
-    MinDiff : double;
-    MinDiffPos : integer;
+  i: integer;
+  DiagramWidth, DiagramHeight: double;
+  DiagramSize: double;
+  ScaleFactor: double;
+  TextHeight: double;
+  Diff: double;
+  MinDiff: double;
+  MinDiffPos: integer;
 begin
 
   // Calculate the size of the current diagram
 
-  DiagramWidth:=FAxes.MaxX-FAxes.MinX;
-  DiagramHeight:=FAxes.MaxY-FAxes.MinY;
+  DiagramWidth := FAxes.MaxX - FAxes.MinX;
+  DiagramHeight := FAxes.MaxY - FAxes.MinY;
 
-  if DiagramWidth>DiagramHeight then
-    DiagramSize:=DiagramWidth
+  if DiagramWidth > DiagramHeight then
+    DiagramSize := DiagramWidth
   else
-    DiagramSize:=DiagramHeight;
+    DiagramSize := DiagramHeight;
 
   // TextHeight = 3% of DiagramSize
 
-  TextHeight:=3*DiagramSize/100;
+  TextHeight := 3 * DiagramSize / 100;
 
-  ScaleFactor:=TextHeight/5e-3;
+  ScaleFactor := TextHeight / 5E-3;
 
   // Loop through the standard scalings to find an
   // appropriate scale
 
-  MinDiff:=1e300;
-  MinDiffPos:=0;
+  MinDiff := 1E300;
+  MinDiffPos := 0;
 
-  for i:=1 to StandardScaleCount do
+  for i := 1 to StandardScaleCount do
   begin
-    Diff:=abs(ScaleFactor-StandardScales[i]);
-    if Diff<MinDiff then
+    Diff := abs(ScaleFactor - StandardScales[i]);
+    if Diff < MinDiff then
     begin
-      MinDiff:=Diff;
-      MinDiffPos:=i;
+      MinDiff := Diff;
+      MinDiffPos := i;
     end;
   end;
 
-  FDiagram.ScaleX:=StandardScales[MinDiffPos];
+  FDiagram.ScaleX := StandardScales[MinDiffPos];
 
 end;
 
 procedure TCadSurfaceDiagram2D.AxesChangeAutoX(Sender: TObject);
 begin
-  FAxes.MaxX:=FTriangle.MaxPoint.X;
-  FAxes.MinX:=FTriangle.MinPoint.X;
-  Axes2D.MaxPoint.X:=FTriangle.MaxPoint.X;
+  FAxes.MaxX := FTriangle.MaxPoint.x;
+  FAxes.MinX := FTriangle.MinPoint.x;
+  Axes2D.MaxPoint.x := FTriangle.MaxPoint.x;
   Self.UpdateAxes;
 end;
 
@@ -1003,9 +1048,9 @@ procedure TCadSurfaceDiagram2D.AxesChangeAutoY(Sender: TObject);
 begin
   if FAxes.AutoY then
   begin
-    FAxes.MaxY:=FTriangle.MaxPoint.Y/FScaling.VerticalExaggeration;
-    FAxes.MinY:=FTriangle.MinPoint.Y/FScaling.VerticalExaggeration;
-    Axes2D.MaxPoint.Y:=FTriangle.MaxPoint.Y;
+    FAxes.MaxY := FTriangle.MaxPoint.y / FScaling.VerticalExaggeration;
+    FAxes.MinY := FTriangle.MinPoint.y / FScaling.VerticalExaggeration;
+    Axes2D.MaxPoint.y := FTriangle.MaxPoint.y;
   end;
   Self.UpdateAxes;
 end;
@@ -1017,11 +1062,11 @@ end;
 
 procedure TCadSurfaceDiagram2D.DiagramChangeValue(Sender: TObject);
 begin
-  FScaling.ScaleX:=FDiagram.ScaleX;
+  FScaling.ScaleX := FDiagram.ScaleX;
 
-  if FDiagram.VerticalExaggeration<>FScaling.VerticalExaggeration then
+  if FDiagram.VerticalExaggeration <> FScaling.VerticalExaggeration then
   begin
-    FScaling.VerticalExaggeration:=FDiagram.VerticalExaggeration;
+    FScaling.VerticalExaggeration := FDiagram.VerticalExaggeration;
     Self.UpdateMesh;
     Self.UpdateAxes;
     Self.UpdateTitles;
@@ -1035,9 +1080,9 @@ end;
 
 procedure TCadSurfaceDiagram2D.SetCadCanvas(const Value: TCadCanvas);
 begin
-  FCadCanvas:=Value;
-  FCadMesh.CadCavnas:=Value;
-  FAxes2D.CadCanvas:=Value;
+  FCadCanvas := Value;
+  FCadMesh.CadCavnas := Value;
+  FAxes2D.CadCanvas := Value;
 
   CreateLayers;
 end;
@@ -1065,63 +1110,61 @@ end;
 procedure TCadSurfaceDiagram2D.DiagramChangeShowTriangles(Sender: TObject);
 begin
   if FDiagram.ShowTriangles then
+  begin
+    if assigned(FCadMesh) then
     begin
-      if assigned(FCadMesh) then
-      begin
-        if assigned(FCadMesh.TriangleLayer) then
-          FCadMesh.TriangleLayer.Visible:=true;
-      end;
-    end
-  else
-    begin
-      if assigned(FCadMesh) then
-      begin
-        if assigned(FCadMesh.TriangleLayer) then
-          FCadMesh.TriangleLayer.Visible:=false;
-      end;
+      if assigned(FCadMesh.TriangleLayer) then
+        FCadMesh.TriangleLayer.Visible := true;
     end;
+  end
+  else
+  begin
+    if assigned(FCadMesh) then
+    begin
+      if assigned(FCadMesh.TriangleLayer) then
+        FCadMesh.TriangleLayer.Visible := false;
+    end;
+  end;
 end;
 
 procedure TCadSurfaceDiagram2D.CreateTitles;
 var
-    DiagramWidth : double;
-//    DiagramHeight : double;
+  DiagramWidth: double;
+  // DiagramHeight : double;
 begin
   if assigned(CadCanvas) then
   begin
 
     // Create extra graphics
 
-    CadCanvas.CurrentLayer:=FNotationLayer;
+    CadCanvas.CurrentLayer := FNotationLayer;
 
-    DiagramWidth:=Self.Axes2D.MaxPoint.X - Self.Axes2D.MinPoint.X;
-    //DiagramHeight:=Self.Axes2D.MaxPoint.Y - Self.Axes2D.MinPoint.Y;
+    DiagramWidth := Self.Axes2D.MaxPoint.x - Self.Axes2D.MinPoint.x;
+    // DiagramHeight:=Self.Axes2D.MaxPoint.Y - Self.Axes2D.MinPoint.Y;
 
-    CadCanvas.TextJustifyX:=tjCenter;
-    CadCanvas.TextJustifyY:=tjBottom;
+    CadCanvas.TextJustifyX := tjCenter;
+    CadCanvas.TextJustifyY := tjBottom;
 
-    if (FDiagram.SubTitle='') then
-      begin
-        CadCanvas.TextHeight:=Scaling.L2G(FDiagram.TitleSize);
-        CadCanvas.TextOut(
-          Self.Axes2D.MinPoint.X + DiagramWidth/2,
-          Self.Axes2D.MaxPoint.Y + Scaling.L2G(FDiagram.TitleDistance), FDiagram.Title);
-      end
+    if (FDiagram.SubTitle = '') then
+    begin
+      CadCanvas.TextHeight := Scaling.L2G(FDiagram.TitleSize);
+      CadCanvas.TextOut(Self.Axes2D.MinPoint.x + DiagramWidth / 2,
+        Self.Axes2D.MaxPoint.y + Scaling.L2G(FDiagram.TitleDistance),
+        FDiagram.Title);
+    end
     else
-      begin
-        CadCanvas.TextHeight:=Scaling.L2G(FDiagram.SubTitleSize);
-        CadCanvas.TextOut(
-          Self.Axes2D.MinPoint.X + DiagramWidth/2,
-          Self.Axes2D.MaxPoint.Y + Scaling.L2G(FDiagram.TitleDistance),
-          FDiagram.SubTitle);
+    begin
+      CadCanvas.TextHeight := Scaling.L2G(FDiagram.SubTitleSize);
+      CadCanvas.TextOut(Self.Axes2D.MinPoint.x + DiagramWidth / 2,
+        Self.Axes2D.MaxPoint.y + Scaling.L2G(FDiagram.TitleDistance),
+        FDiagram.SubTitle);
 
-        CadCanvas.TextHeight:=Scaling.L2G(FDiagram.TitleSize);
-        CadCanvas.TextOut(
-          Self.Axes2D.MinPoint.X + DiagramWidth/2,
-          Self.Axes2D.MaxPoint.Y + Scaling.L2G(FDiagram.TitleDistance) +
-          Scaling.L2G(FDiagram.SubTitleSize)+Scaling.L2G(FDiagram.TitleSpacing), FDiagram.Title);
-      end;
-
+      CadCanvas.TextHeight := Scaling.L2G(FDiagram.TitleSize);
+      CadCanvas.TextOut(Self.Axes2D.MinPoint.x + DiagramWidth / 2,
+        Self.Axes2D.MaxPoint.y + Scaling.L2G(FDiagram.TitleDistance)
+          + Scaling.L2G(FDiagram.SubTitleSize) + Scaling.L2G
+          (FDiagram.TitleSpacing), FDiagram.Title);
+    end;
 
     CadCanvas.ResetTextJustify;
 
@@ -1130,62 +1173,63 @@ end;
 
 procedure TCadSurfaceDiagram2D.CreateLegend;
 var
-    DiagramWidth : double;
-    //DiagramHeight : double;
-    StartX, StartY, MidX : double;
-    ColorWidth : double;
-    i : integer;
+  DiagramWidth: double;
+  // DiagramHeight : double;
+  StartX, StartY, MidX: double;
+  ColorWidth: double;
+  i: integer;
 begin
   if assigned(CadCanvas) then
   begin
-    CadCanvas.CurrentLayer:=FNotationLayer;
-    DiagramWidth:=Self.Axes2D.MaxPoint.X - Self.Axes2D.MinPoint.X;
-    //DiagramHeight:=Self.Axes2D.MaxPoint.Y - Self.Axes2D.MinPoint.Y;
+    CadCanvas.CurrentLayer := FNotationLayer;
+    DiagramWidth := Self.Axes2D.MaxPoint.x - Self.Axes2D.MinPoint.x;
+    // DiagramHeight:=Self.Axes2D.MaxPoint.Y - Self.Axes2D.MinPoint.Y;
 
-    MidX:=(Self.Axes2D.MinPoint.X+Self.Axes2D.MaxPoint.X)*0.5;
+    MidX := (Self.Axes2D.MinPoint.x + Self.Axes2D.MaxPoint.x) * 0.5;
 
-    StartX:=MidX-DiagramWidth*FDiagram.LegendSize*0.5;
-    StartY:=Self.Axes2D.MinPoint.Y-Scaling.L2G(Diagram.LegendDistance);
+    StartX := MidX - DiagramWidth * FDiagram.LegendSize * 0.5;
+    StartY := Self.Axes2D.MinPoint.y - Scaling.L2G(Diagram.LegendDistance);
 
-    ColorWidth:=DiagramWidth*FDiagram.LegendSize/(FCadMesh.IsoLines.Size+1);
+    ColorWidth := DiagramWidth * FDiagram.LegendSize /
+      (FCadMesh.IsoLines.Size + 1);
 
-    for i:=0 to FCadMesh.IsoLines.IntervalSize-1 do
+    for i := 0 to FCadMesh.IsoLines.IntervalSize - 1 do
     begin
-      CadCanvas.CurrentLayer:=FCadMesh.IntervalLayers.Items[i] as TCadLayer;
-      CadCanvas.CurrentColor:=256;
-      CadCanvas.Solid4(
-        StartX + i*ColorWidth, StartY,
-        StartX + (i+1)*ColorWidth, StartY,
-        StartX + (i+1)*ColorWidth, StartY - Scaling.L2G(Diagram.LegendHeight),
-        StartX + i*ColorWidth, StartY - Scaling.L2G(Diagram.LegendHeight)
-      );
-      CadCanvas.CurrentLayer:=FNotationLayer;
-      CadCanvas.CurrentColor:=255;
-      CadCanvas.MoveTo(StartX + i*ColorWidth, StartY);
-      CadCanvas.LineTo(StartX + i*ColorWidth, StartY-Scaling.L2G(Diagram.LegendHeight));
+      CadCanvas.CurrentLayer := FCadMesh.IntervalLayers.Items[i] as TCadLayer;
+      CadCanvas.CurrentColor := 256;
+      CadCanvas.Solid4(StartX + i * ColorWidth, StartY, StartX + (i + 1)
+          * ColorWidth, StartY, StartX + (i + 1) * ColorWidth,
+        StartY - Scaling.L2G(Diagram.LegendHeight), StartX + i * ColorWidth,
+        StartY - Scaling.L2G(Diagram.LegendHeight));
+      CadCanvas.CurrentLayer := FNotationLayer;
+      CadCanvas.CurrentColor := 255;
+      CadCanvas.MoveTo(StartX + i * ColorWidth, StartY);
+      CadCanvas.LineTo(StartX + i * ColorWidth, StartY - Scaling.L2G
+          (Diagram.LegendHeight));
     end;
 
-    CadCanvas.CurrentLayer:=FNotationLayer;
-    CadCanvas.CurrentColor:=255;
+    CadCanvas.CurrentLayer := FNotationLayer;
+    CadCanvas.CurrentColor := 255;
 
-    for i:=1 to FCadMesh.IsoLines.Size do
+    for i := 1 to FCadMesh.IsoLines.Size do
     begin
-      CadCanvas.MoveTo(StartX + i*ColorWidth, StartY);
-      CadCanvas.LineTo(StartX + i*ColorWidth, StartY-Scaling.L2G(Diagram.LegendHeight));
-      CadCanvas.TextJustifyY:=tjTop;
-      CadCanvas.TextJustifyX:=tjCenter;
-      CadCanvas.TextHeight:=Scaling.L2G(Diagram.LegendTextHeight);
-      CadCanvas.TextOut(
-        StartX + i*ColorWidth,
-        StartY - Scaling.L2G(Diagram.LegendHeight) - Scaling.L2G(Diagram.LegendTextDistance),
-        format(Diagram.LegendFormat, [FCadMesh.IsoLines.Values[i-1]]));
+      CadCanvas.MoveTo(StartX + i * ColorWidth, StartY);
+      CadCanvas.LineTo(StartX + i * ColorWidth, StartY - Scaling.L2G
+          (Diagram.LegendHeight));
+      CadCanvas.TextJustifyY := tjTop;
+      CadCanvas.TextJustifyX := tjCenter;
+      CadCanvas.TextHeight := Scaling.L2G(Diagram.LegendTextHeight);
+      CadCanvas.TextOut(StartX + i * ColorWidth, StartY - Scaling.L2G
+          (Diagram.LegendHeight) - Scaling.L2G(Diagram.LegendTextDistance),
+        format(Diagram.LegendFormat, [FCadMesh.IsoLines.Values[i - 1]]));
       CadCanvas.ResetTextJustify;
     end;
 
     CadCanvas.MoveTo(StartX, StartY);
-    CadCanvas.LineTo(StartX + DiagramWidth*FDiagram.LegendSize, StartY);
-    CadCanvas.LineTo(StartX + DiagramWidth*FDiagram.LegendSize, StartY-Scaling.L2G(Diagram.LegendHeight));
-    CadCanvas.LineTo(StartX, StartY-Scaling.L2G(Diagram.LegendHeight));
+    CadCanvas.LineTo(StartX + DiagramWidth * FDiagram.LegendSize, StartY);
+    CadCanvas.LineTo(StartX + DiagramWidth * FDiagram.LegendSize,
+      StartY - Scaling.L2G(Diagram.LegendHeight));
+    CadCanvas.LineTo(StartX, StartY - Scaling.L2G(Diagram.LegendHeight));
     CadCanvas.LineTo(StartX, StartY);
 
   end;
@@ -1198,9 +1242,9 @@ end;
 function TCadSurfaceDiagram2D.GetIsoLines: TIsoLines;
 begin
   if assigned(FCadMesh) then
-    Result:=FCadMesh.IsoLines
+    Result := FCadMesh.IsoLines
   else
-    Result:=nil;
+    Result := nil;
 end;
 
 { TCadAxes2D }
@@ -1211,37 +1255,39 @@ begin
 
   // Initialize canvas variable
 
-  FCadCanvas:=nil;
+  FCadCanvas := nil;
 
   // Min and max points define the diagram axes.
 
-  FMinPoint:=TCadPoint.Create;
-  FMaxPoint:=TCadPoint.Create;
+  FMinPoint := TCadPoint.Create;
+  FMaxPoint := TCadPoint.Create;
 
   // Initialize it to something sane.
 
-  MinPoint.X:=0;
-  MinPoint.Y:=0;
-  MaxPoint.X:=1;
-  MaxPoint.Y:=1;
+  MinPoint.x := 0;
+  MinPoint.y := 0;
+  MaxPoint.x := 1;
+  MaxPoint.y := 1;
 
-  FTickDistanceX:=0.1;
-  FTickDistanceY:=0.1;
-  FTickSize:=1;
-  FTickLabelSize:=2.5;
-  FTickLabelDistance:=0.5;
+  FTickDistanceX := 0.1;
+  FTickDistanceY := 0.1;
+  FTickSize := 1;
+  FTickLabelSize := 2.5;
+  FTickLabelDistance := 0.5;
 
-  FLabelX:='x';
-  FLabelY:='y';
-  FLabelUnitX:='(m)';
-  FLabelUnitY:='(m)';
+  FLabelX := 'x';
+  FLabelY := 'y';
+  FLabelUnitX := '(m)';
+  FLabelUnitY := '(m)';
 
-  FLabelSize:=2.5;
-  FLabelUnitSize:=2.5;
-  FLabelDistance:=2;
-  FLabelUnitSpacing:=2;
+  FLabelSize := 2.5;
+  FLabelUnitSize := 2.5;
+  FLabelDistance := 2;
+  FLabelDistanceX := 2;
+  FLabelDistanceY := 2;
+  FLabelUnitSpacing := 2;
 
-  FScaling:=nil;
+  FScaling := nil;
 end;
 
 destructor TCadAxes2D.Destroy;
@@ -1256,160 +1302,186 @@ end;
 
 procedure TCadAxes2D.Execute;
 var
-    x : double;
-    y : double;
+  x: double;
+  y: double;
+
+  LastTickX: double;
+  LastTickY: double;
 begin
   if assigned(CadCanvas) and assigned(Scaling) then
   begin
 
     // Draw border
 
-    CadCanvas.CurrentColor:=255;
+    CadCanvas.CurrentColor := 255;
 
-    CadCanvas.MoveTo(MinPoint.X, MinPoint.Y);
-    CadCanvas.LineTo(MaxPoint.X, MinPoint.Y);
-    CadCanvas.LineTo(MaxPoint.X, MaxPoint.Y);
-    CadCanvas.LineTo(MinPoint.X, MaxPoint.Y);
-    CadCanvas.LineTo(MinPoint.X, MinPoint.Y);
+    CadCanvas.MoveTo(MinPoint.x, MinPoint.y);
+    CadCanvas.LineTo(MaxPoint.x, MinPoint.y);
+    CadCanvas.LineTo(MaxPoint.x, MaxPoint.y);
+    CadCanvas.LineTo(MinPoint.x, MaxPoint.y);
+    CadCanvas.LineTo(MinPoint.x, MinPoint.y);
 
     // Draw labels
 
     with CadCanvas do
     begin
-      TextJustifyX:=tjRight;
-      TextJustifyY:=tjCenter;
-      TextHeight:=Scaling.L2G(FLabelSize);
-      TextOut(MaxPoint.X + Scaling.L2G(FLabelDistance), MinPoint.Y, FLabelX);
-      TextHeight:=Scaling.L2G(FLabelUnitSize);
-      TextOut(MaxPoint.X + Scaling.L2G(FLabelDistance) + TextSizeX(FLabelUnitX) + Scaling.L2G(FLabelUnitSpacing), MinPoint.Y, FLabelUnitX);
+      TextJustifyX := tjRight;
+      TextJustifyY := tjCenter;
+      TextHeight := Scaling.L2G(FLabelSize);
+      TextOut(MaxPoint.x + Scaling.L2G(FLabelDistanceX), MinPoint.y, FLabelX);
+      TextHeight := Scaling.L2G(FLabelUnitSize);
+      TextOut(MaxPoint.x + Scaling.L2G(FLabelDistanceX) + TextSizeX(FLabelUnitX)
+          + Scaling.L2G(FLabelUnitSpacing), MinPoint.y, FLabelUnitX);
 
-      TextJustifyX:=tjCenter;
-      TextJustifyY:=tjBottom;
-      TextHeight:=Scaling.L2G(FLabelSize);
-      TextOut(MinPoint.X, MaxPoint.Y + Scaling.L2G(FLabelDistance), FLabelUnitY);
-      TextHeight:=Scaling.L2G(FLabelUnitSize);
-      TextOut(MinPoint.X, MaxPoint.Y + Scaling.L2G(FLabelDistance) + Scaling.L2G(FLabelSize) + Scaling.L2G(FLabelUnitSpacing), FLabelY)
+      TextJustifyX := tjCenter;
+      TextJustifyY := tjBottom;
+      TextHeight := Scaling.L2G(FLabelUnitSize);
+      TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY),
+        FLabelUnitY);
+      TextHeight := Scaling.L2G(FLabelSize);
+      TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY) + Scaling.L2G
+          (FLabelSize) + Scaling.L2G(FLabelUnitSpacing), FLabelY)
     end;
 
     // Draw tick marks
 
-    x:=MinPoint.X;
+    x := MinPoint.x;
 
-    while x<MaxPoint.X do
+    while x < MaxPoint.x do
     begin
       with CadCanvas do
       begin
         if Self.TicksBottom then
         begin
-          MoveTo(x, MinPoint.Y);
-          LineTo(x, MinPoint.Y-Scaling.L2G(FTickSize));
-          TextJustifyX:=tjCenter;
-          TextJustifyY:=tjTop;
-          TextHeight:=Scaling.L2G(FTickLabelSize);
-          TextOut(x, MinPoint.Y - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
+          MoveTo(x, MinPoint.y);
+          LineTo(x, MinPoint.y - Scaling.L2G(FTickSize));
+          TextJustifyX := tjCenter;
+          TextJustifyY := tjTop;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(x, MinPoint.y - Scaling.L2G(FTickSize) - Scaling.L2G
+              (FTickLabelDistance), format(FTickLabelFormat, [x]));
           ResetTextJustify;
         end;
 
         if Self.TicksTop then
         begin
-          MoveTo(x, MaxPoint.Y);
-          LineTo(x, MaxPoint.Y+Scaling.L2G(FTickSize));
-          TextJustifyX:=tjCenter;
-          TextJustifyY:=tjBottom;
-          TextHeight:=Scaling.L2G(FTickLabelSize);
-          TextOut(x, MaxPoint.Y + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
+          MoveTo(x, MaxPoint.y);
+          LineTo(x, MaxPoint.y + Scaling.L2G(FTickSize));
+          TextJustifyX := tjCenter;
+          TextJustifyY := tjBottom;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(x, MaxPoint.y + Scaling.L2G(FTickSize) + Scaling.L2G
+              (FTickLabelDistance), format(FTickLabelFormat, [x]));
           ResetTextJustify;
         end;
-        x:=x + FTickDistanceX;
+        LastTickX := x;
+        x := x + FTickDistanceX;
       end;
     end;
 
-    // Draw last tick...
+    // Draw last tick... X
 
-    x:=MaxPoint.X;
+    x := MaxPoint.x;
 
-    with CadCanvas do
+    if (x - LastTickX) >= Scaling.L2G(FTickDistanceX) then
     begin
-      if Self.TicksBottom then
+      with CadCanvas do
       begin
-        MoveTo(x, MinPoint.Y);
-        LineTo(x, MinPoint.Y-Scaling.L2G(FTickSize));
-        TextJustifyX:=tjCenter;
-        TextJustifyY:=tjTop;
-        TextHeight:=Scaling.L2G(FTickLabelSize);
-        TextOut(x, MinPoint.Y - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
-        ResetTextJustify;
-      end;
+        if Self.TicksBottom then
+        begin
+          MoveTo(x, MinPoint.y);
+          LineTo(x, MinPoint.y - Scaling.L2G(FTickSize));
+          TextJustifyX := tjCenter;
+          TextJustifyY := tjTop;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(x, MinPoint.y - Scaling.L2G(FTickSize) - Scaling.L2G
+              (FTickLabelDistance), format(FTickLabelFormat, [x]));
+          ResetTextJustify;
+        end;
 
-      if Self.TicksTop then
-      begin
-        MoveTo(x, MaxPoint.Y);
-        LineTo(x, MaxPoint.Y+Scaling.L2G(FTickSize));
-        TextJustifyX:=tjCenter;
-        TextJustifyY:=tjBottom;
-        TextHeight:=Scaling.L2G(FTickLabelSize);
-        TextOut(x, MaxPoint.Y + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), format(FTickLabelFormat, [x]));
-        ResetTextJustify;
+        if Self.TicksTop then
+        begin
+          MoveTo(x, MaxPoint.y);
+          LineTo(x, MaxPoint.y + Scaling.L2G(FTickSize));
+          TextJustifyX := tjCenter;
+          TextJustifyY := tjBottom;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(x, MaxPoint.y + Scaling.L2G(FTickSize) + Scaling.L2G
+              (FTickLabelDistance), format(FTickLabelFormat, [x]));
+          ResetTextJustify;
+        end;
       end;
     end;
 
-    y:=MinPoint.Y;
+    y := MinPoint.y;
 
-    while y<MaxPoint.Y do
+    while y < MaxPoint.y do
     begin
       with CadCanvas do
       begin
         if Self.TicksLeft then
         begin
-          MoveTo(MinPoint.X, y);
-          LineTo(MinPoint.X-Scaling.L2G(FTickSize), y);
-          TextJustifyY:=tjCenter;
-          TextJustifyX:=tjRight;
-          TextHeight:=Scaling.L2G(FTickLabelSize);
-          TextOut(MinPoint.X - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
+          MoveTo(MinPoint.x, y);
+          LineTo(MinPoint.x - Scaling.L2G(FTickSize), y);
+          TextJustifyY := tjCenter;
+          TextJustifyX := tjRight;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(MinPoint.x - Scaling.L2G(FTickSize) - Scaling.L2G
+              (FTickLabelDistance), y, format(FTickLabelFormat,
+              [y / Scaling.VerticalExaggeration]));
           ResetTextJustify;
         end;
 
         if Self.TicksRight then
         begin
-          MoveTo(MaxPoint.X, y);
-          LineTo(MaxPoint.X+Scaling.L2G(FTickSize), y);
-          TextJustifyY:=tjCenter;
-          TextJustifyX:=tjLeft;
-          TextHeight:=Scaling.L2G(FTickLabelSize);
-          TextOut(MaxPoint.X + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
+          MoveTo(MaxPoint.x, y);
+          LineTo(MaxPoint.x + Scaling.L2G(FTickSize), y);
+          TextJustifyY := tjCenter;
+          TextJustifyX := tjLeft;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(MaxPoint.x + Scaling.L2G(FTickSize) + Scaling.L2G
+              (FTickLabelDistance), y, format(FTickLabelFormat,
+              [y / Scaling.VerticalExaggeration]));
           ResetTextJustify;
         end;
-        y:=y + FTickDistanceY*Scaling.VerticalExaggeration;
+        LastTickY := y;
+        y := y + FTickDistanceY * Scaling.VerticalExaggeration;
       end;
     end;
 
     // Draw last tick...
 
-    y:=MaxPoint.Y;
+    y := MaxPoint.y;
 
-    with CadCanvas do
+    if (y - LastTickY) >= Scaling.L2G(FTickDistanceY) then
     begin
-      if Self.TicksLeft then
+      with CadCanvas do
       begin
-        MoveTo(MinPoint.X, y);
-        LineTo(MinPoint.X-Scaling.L2G(FTickSize), y);
-        TextJustifyY:=tjCenter;
-        TextJustifyX:=tjRight;
-        TextHeight:=Scaling.L2G(FTickLabelSize);
-        TextOut(MinPoint.X - Scaling.L2G(FTickSize) - Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
-        ResetTextJustify;
-      end;
+        if Self.TicksLeft then
+        begin
+          MoveTo(MinPoint.x, y);
+          LineTo(MinPoint.x - Scaling.L2G(FTickSize), y);
+          TextJustifyY := tjCenter;
+          TextJustifyX := tjRight;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(MinPoint.x - Scaling.L2G(FTickSize) - Scaling.L2G
+              (FTickLabelDistance), y, format(FTickLabelFormat,
+              [y / Scaling.VerticalExaggeration]));
+          ResetTextJustify;
+        end;
 
-      if Self.TicksRight then
-      begin
-        MoveTo(MaxPoint.X, y);
-        LineTo(MaxPoint.X+Scaling.L2G(FTickSize), y);
-        TextJustifyY:=tjCenter;
-        TextJustifyX:=tjLeft;
-        TextHeight:=Scaling.L2G(FTickLabelSize);
-        TextOut(MaxPoint.X + Scaling.L2G(FTickSize) + Scaling.L2G(FTickLabelDistance), y, format(FTickLabelFormat, [y/Scaling.VerticalExaggeration]));
-        ResetTextJustify;
+        if Self.TicksRight then
+        begin
+          MoveTo(MaxPoint.x, y);
+          LineTo(MaxPoint.x + Scaling.L2G(FTickSize), y);
+          TextJustifyY := tjCenter;
+          TextJustifyX := tjLeft;
+          TextHeight := Scaling.L2G(FTickLabelSize);
+          TextOut(MaxPoint.x + Scaling.L2G(FTickSize) + Scaling.L2G
+              (FTickLabelDistance), y, format(FTickLabelFormat,
+              [y / Scaling.VerticalExaggeration]));
+          ResetTextJustify;
+        end;
       end;
     end;
   end;
@@ -1423,6 +1495,16 @@ end;
 procedure TCadAxes2D.SetLabelDistance(const Value: double);
 begin
   FLabelDistance := Value;
+end;
+
+procedure TCadAxes2D.SetLabelDistanceX(const Value: double);
+begin
+  FLabelDistanceX := Value;
+end;
+
+procedure TCadAxes2D.SetLabelDistanceY(const Value: double);
+begin
+  FLabelDistanceY := Value;
 end;
 
 procedure TCadAxes2D.SetLabelSize(const Value: double);
@@ -1515,25 +1597,25 @@ end;
 constructor TCadDiagramRecord.Create(AOwner: TComponent);
 begin
   inherited Create;
-  FNotify:=true;
-  FOnChangeShowTriangles:=nil;
-  FOnChangeValue:=nil;
-  Self.FTitleSize:=5;
-  Self.FSubTitleSize:=3.5;
-  Self.FTitleSpacing:=2;
-  Self.FTitleDistance:=20;
-  Self.FSubTitle:='Subtitle';
-  Self.FTitle:='Title';
-  Self.FShowLegend:=true;
-  Self.FLegendDistance:=20;
-  Self.FLegendHeight:=5;
-  Self.FLegendTextHeight:=2.5;
-  Self.FLegendTextDistance:=2;
-  Self.FLegendFormat:='%g';
-  Self.FLegendSize:=1.0;
-  Self.FScaleX:=500;
-  Self.FVerticalExaggeration:=1;
-  Self.FAutoScale:=true;
+  FNotify := true;
+  FOnChangeShowTriangles := nil;
+  FOnChangeValue := nil;
+  Self.FTitleSize := 5;
+  Self.FSubTitleSize := 3.5;
+  Self.FTitleSpacing := 2;
+  Self.FTitleDistance := 20;
+  Self.FSubTitle := 'Subtitle';
+  Self.FTitle := 'Title';
+  Self.FShowLegend := true;
+  Self.FLegendDistance := 20;
+  Self.FLegendHeight := 5;
+  Self.FLegendTextHeight := 2.5;
+  Self.FLegendTextDistance := 2;
+  Self.FLegendFormat := '%g';
+  Self.FLegendSize := 1.0;
+  Self.FScaleX := 500;
+  Self.FVerticalExaggeration := 1;
+  Self.FAutoScale := true;
 end;
 
 destructor TCadDiagramRecord.Destroy;
@@ -1546,27 +1628,27 @@ procedure TCadDiagramRecord.Assign(Source: TPersistent);
 begin
   if Source is TCadDiagramRecord then
     with TCadDiagramRecord(Source) do
-      begin
-        Self.FShowTriangles:=FShowTriangles;
-        Self.FTitleSize:=FTitleSize;
-        Self.FSubTitleSize:=FSubTitleSize;
-        Self.FTitleSpacing:=FTitleSpacing;
-        Self.FTitleDistance:=FTitleDistance;
-        Self.FSubTitle:=FSubTitle;
-        Self.FTitle:=FTitle;
-        Self.FShowLegend:=FShowLegend;
-        Self.FLegendDistance:=FLegendDistance;
-        Self.FLegendHeight:=FLegendHeight;
-        Self.FLegendTextDistance:=FLegendTextDistance;
-        Self.FLegendTextHeight:=FLegendTextHeight;
-        Self.FLegendFormat:=FLegendFormat;
-        Self.FScaleX:=FScaleX;
-        Self.FVerticalExaggeration:=FVerticalExaggeration;
-        Self.FAutoScale:=FAutoScale;
-        Self.FLegendSize:=FLegendSize;
-      end
-  else
-    inherited; //raises an exception
+    begin
+      Self.FShowTriangles := FShowTriangles;
+      Self.FTitleSize := FTitleSize;
+      Self.FSubTitleSize := FSubTitleSize;
+      Self.FTitleSpacing := FTitleSpacing;
+      Self.FTitleDistance := FTitleDistance;
+      Self.FSubTitle := FSubTitle;
+      Self.FTitle := FTitle;
+      Self.FShowLegend := FShowLegend;
+      Self.FLegendDistance := FLegendDistance;
+      Self.FLegendHeight := FLegendHeight;
+      Self.FLegendTextDistance := FLegendTextDistance;
+      Self.FLegendTextHeight := FLegendTextHeight;
+      Self.FLegendFormat := FLegendFormat;
+      Self.FScaleX := FScaleX;
+      Self.FVerticalExaggeration := FVerticalExaggeration;
+      Self.FAutoScale := FAutoScale;
+      Self.FLegendSize := FLegendSize;
+    end
+    else
+      inherited; // raises an exception
 end;
 
 procedure TCadDiagramRecord.SetShowTriangles(const Value: boolean);
@@ -1575,8 +1657,7 @@ begin
   ChangeShowTriangles;
 end;
 
-procedure TCadDiagramRecord.SetOnChangeShowTriangles(
-  const Value: TNotifyEvent);
+procedure TCadDiagramRecord.SetOnChangeShowTriangles(const Value: TNotifyEvent);
 begin
   FOnChangeShowTriangles := Value;
 end;
@@ -1595,12 +1676,12 @@ end;
 
 procedure TCadDiagramRecord.LockNotify;
 begin
-  FNotify:=false;
+  FNotify := false;
 end;
 
 procedure TCadDiagramRecord.UnlockNotify;
 begin
-  FNotify:=true;
+  FNotify := true;
 end;
 
 procedure TCadDiagramRecord.SetSubTitle(const Value: string);
@@ -1710,34 +1791,36 @@ end;
 constructor TCadAxesRecord.Create(AOwner: TComponent);
 begin
   inherited Create;
-  FOnChangeValue:=nil;
-  FOnChangeAutoX:=nil;
-  FOnChangeAutoY:=nil;
-  FAutoX:=true;
-  FAutoY:=true;
-  FMinX:=0;
-  FMinY:=0;
-  FMaxX:=1;
-  FMaxY:=1;
-  FTickDistanceX:=0.1;
-  FTickDistanceY:=0.1;
-  FTickSize:=0.01;
-  FTickLabelSize:=0.02;
-  FTickLabelDistance:=0.02;
-  FTickLabelFormat:='%g';
-  FTicksTop:=True;
-  FTicksBottom:=False;
-  FTicksLeft:=True;
-  FTicksRight:=True;
-  FLabelX:='x';
-  FLabelY:='y';
-  FLabelUnitX:='(m)';
-  FLabelUnitY:='(m)';
-  FLabelSize:=10;
-  FLabelUnitSize:=10;
-  FLabelDistance:=2;
-  FLabelUnitSpacing:=2;
-  FNotify:=true;
+  FOnChangeValue := nil;
+  FOnChangeAutoX := nil;
+  FOnChangeAutoY := nil;
+  FAutoX := true;
+  FAutoY := true;
+  FMinX := 0;
+  FMinY := 0;
+  FMaxX := 1;
+  FMaxY := 1;
+  FTickDistanceX := 0.1;
+  FTickDistanceY := 0.1;
+  FTickSize := 0.01;
+  FTickLabelSize := 0.02;
+  FTickLabelDistance := 0.02;
+  FTickLabelFormat := '%g';
+  FTicksTop := true;
+  FTicksBottom := false;
+  FTicksLeft := true;
+  FTicksRight := true;
+  FLabelX := 'x';
+  FLabelY := 'y';
+  FLabelUnitX := '(m)';
+  FLabelUnitY := '(m)';
+  FLabelSize := 10;
+  FLabelUnitSize := 10;
+  FLabelDistance := 2;
+  FLabelDistanceX := 2;
+  FLabelDistanceY := 2;
+  FLabelUnitSpacing := 2;
+  FNotify := true;
 end;
 
 destructor TCadAxesRecord.Destroy;
@@ -1750,34 +1833,36 @@ procedure TCadAxesRecord.Assign(Source: TPersistent);
 begin
   if Source is TCadAxesRecord then
     with TCadAxesRecord(Source) do
-      begin
-        Self.FAutoX:=FAutoX;
-        Self.FAutoY:=FAutoY;
-        Self.FMinX:=FMinX;
-        Self.FMaxX:=FMaxX;
-        Self.FMinY:=FMinY;
-        Self.FMaxY:=FMaxY;
-        Self.FTickDistanceX:=FTickDistanceX;
-        Self.FTickDistanceY:=FTickDistanceY;
-        Self.FTickSize:=FTickSize;
-        Self.FTickLabelDistance:=FTickLabelDistance;
-        Self.FTickLabelSize:=FTickLabelSize;
-        Self.FTickLabelFormat:=FTickLabelFormat;
-        Self.FTicksTop:=FTicksTop;
-        Self.FTicksBottom:=FTicksBottom;
-        Self.FTicksLeft:=FTicksLeft;
-        Self.FTicksRight:=FTicksRight;
-        Self.FLabelX:=FLabelX;
-        Self.FLabelY:=FLabelY;
-        Self.FLabelUnitX:=FLabelUnitX;
-        Self.FLabelUnitY:=FLabelUnitY;
-        Self.FLabelSize:=FLabelSize;
-        Self.FLabelUnitSize:=FLabelUnitSize;
-        Self.FLabelDistance:=FLabelDistance;
-        Self.FLabelUnitSpacing:=FLabelUnitSpacing;
-      end
-  else
-    inherited; //raises an exception
+    begin
+      Self.FAutoX := FAutoX;
+      Self.FAutoY := FAutoY;
+      Self.FMinX := FMinX;
+      Self.FMaxX := FMaxX;
+      Self.FMinY := FMinY;
+      Self.FMaxY := FMaxY;
+      Self.FTickDistanceX := FTickDistanceX;
+      Self.FTickDistanceY := FTickDistanceY;
+      Self.FTickSize := FTickSize;
+      Self.FTickLabelDistance := FTickLabelDistance;
+      Self.FTickLabelSize := FTickLabelSize;
+      Self.FTickLabelFormat := FTickLabelFormat;
+      Self.FTicksTop := FTicksTop;
+      Self.FTicksBottom := FTicksBottom;
+      Self.FTicksLeft := FTicksLeft;
+      Self.FTicksRight := FTicksRight;
+      Self.FLabelX := FLabelX;
+      Self.FLabelY := FLabelY;
+      Self.FLabelUnitX := FLabelUnitX;
+      Self.FLabelUnitY := FLabelUnitY;
+      Self.FLabelSize := FLabelSize;
+      Self.FLabelUnitSize := FLabelUnitSize;
+      Self.FLabelDistance := FLabelDistance;
+      Self.FLabelDistanceX := FLabelDistanceX;
+      Self.FLabelDistanceY := FLabelDistanceY;
+      Self.FLabelUnitSpacing := FLabelUnitSpacing;
+    end
+    else
+      inherited; // raises an exception
 end;
 
 procedure TCadAxesRecord.ChangeAutoX;
@@ -1887,12 +1972,12 @@ end;
 
 procedure TCadAxesRecord.LockNotify;
 begin
-  FNotify:=false;
+  FNotify := false;
 end;
 
 procedure TCadAxesRecord.UnlockNotify;
 begin
-  FNotify:=true;
+  FNotify := true;
 end;
 
 procedure TCadAxesRecord.SetTickLabelDistance(const Value: double);
@@ -1916,6 +2001,18 @@ end;
 procedure TCadAxesRecord.SetLabelDistance(const Value: double);
 begin
   FLabelDistance := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetLabelDistanceX(const Value: double);
+begin
+  FLabelDistanceX := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetLabelDistanceY(const Value: double);
+begin
+  FLabelDistanceY := Value;
   ChangeValue;
 end;
 
@@ -1972,33 +2069,33 @@ end;
 constructor TCadMeshRecord.Create(AOwner: TComponent);
 begin
   inherited Create;
-  FNotify:=true;
+  FNotify := true;
 
-  FAutoLimits:=true;
-  FMaxValue:=1;
-  FMinValue:=-1;
-  FMeshType:=mtFilled;
-  FTriangleImplementation:=tiInternal;
-  FTriangleExecutable:='';
-  FDuplicateProcessing:=tdMean;
+  FAutoLimits := true;
+  FMaxValue := 1;
+  FMinValue := -1;
+  FMeshType := mtFilled;
+  FTriangleImplementation := tiInternal;
+  FTriangleExecutable := '';
+  FDuplicateProcessing := tdMean;
 end;
 
 procedure TCadMeshRecord.Assign(Source: TPersistent);
 begin
   if Source is TCadMeshRecord then
     with TCadMeshRecord(Source) do
-      begin
-        Self.FAutoLimits:=FAutoLimits;
-        Self.FMaxValue:=FMaxValue;
-        Self.FMinValue:=FMinValue;
-        Self.FMeshType:=FMeshType;
-        Self.FClipSurface:=FClipSurface;
-        Self.FTriangleExecutable:=FTriangleExecutable;
-        Self.FTriangleImplementation:=FTriangleImplementation;
-        Self.FDuplicateProcessing:=FDuplicateProcessing;
-      end
-  else
-    inherited; //raises an exception
+    begin
+      Self.FAutoLimits := FAutoLimits;
+      Self.FMaxValue := FMaxValue;
+      Self.FMinValue := FMinValue;
+      Self.FMeshType := FMeshType;
+      Self.FClipSurface := FClipSurface;
+      Self.FTriangleExecutable := FTriangleExecutable;
+      Self.FTriangleImplementation := FTriangleImplementation;
+      Self.FDuplicateProcessing := FDuplicateProcessing;
+    end
+    else
+      inherited; // raises an exception
 end;
 
 destructor TCadMeshRecord.Destroy;
@@ -2009,12 +2106,12 @@ end;
 
 procedure TCadMeshRecord.LockNotify;
 begin
-  FNotify:=false;
+  FNotify := false;
 end;
 
 procedure TCadMeshRecord.UnlockNotify;
 begin
-  FNotify:=true;
+  FNotify := true;
 end;
 
 procedure TCadMeshRecord.ChangeValue;
@@ -2058,22 +2155,21 @@ begin
   ChangeValue;
 end;
 
-
 procedure TCadMeshRecord.SetClipSurface(const Value: boolean);
 begin
   FClipSurface := Value;
   ChangeValue;
 end;
 
-procedure TCadMeshRecord.SetClipSurfaceType(
-  const Value: TCadMeshClipSurfaceType);
+procedure TCadMeshRecord.SetClipSurfaceType
+  (const Value: TCadMeshClipSurfaceType);
 begin
   FClipSurfaceType := Value;
   ChangeValue;
 end;
 
-procedure TCadMeshRecord.SetDuplicateProcessing(
-  const Value: TCadMeshDuplicateProcessing);
+procedure TCadMeshRecord.SetDuplicateProcessing
+  (const Value: TCadMeshDuplicateProcessing);
 begin
   FDuplicateProcessing := Value;
   ChangeValue;
@@ -2085,8 +2181,8 @@ begin
   ChangeValue;
 end;
 
-procedure TCadMeshRecord.SetTriangleImplementation(
-  const Value: TTriangleImplementation);
+procedure TCadMeshRecord.SetTriangleImplementation
+  (const Value: TTriangleImplementation);
 begin
   FTriangleImplementation := Value;
   ChangeValue;
@@ -2096,19 +2192,19 @@ end;
 
 constructor TScaling.Create;
 begin
-  FScaleX:=500;
-  FUnitMultiplier:=1e3;
-  FVerticalExaggeration:=1.0;
+  FScaleX := 500;
+  FUnitMultiplier := 1E3;
+  FVerticalExaggeration := 1.0;
 end;
 
 function TScaling.G2L(d: double): double;
 begin
-  Result:=FUnitMultiplier*d/FScaleX;
+  Result := FUnitMultiplier * d / FScaleX;
 end;
 
 function TScaling.L2G(d: double): double;
 begin
-  Result:=d*FScaleX/FUnitMultiplier;
+  Result := d * FScaleX / FUnitMultiplier;
 end;
 
 procedure TScaling.SetScaleX(const Value: double);
@@ -2131,7 +2227,7 @@ end;
 constructor TTrianglePointList.Create;
 begin
   inherited;
-  FPoints:=TObjectList.Create(False);
+  FPoints := TObjectList.Create(false);
 end;
 
 destructor TTrianglePointList.Destroy;
@@ -2141,42 +2237,41 @@ begin
   inherited;
 end;
 
-procedure TTrianglePointList.AddPoint(x, y, value: double);
+procedure TTrianglePointList.AddPoint(x, y, Value: double);
 var
-    TP : TTrianglePoint;
+  TP: TTrianglePoint;
 begin
-  TP:=TTrianglePoint.Create;
-  TP.X:=x;
-  TP.Y:=y;
-  TP.Value:=value;
+  TP := TTrianglePoint.Create;
+  TP.x := x;
+  TP.y := y;
+  TP.Value := Value;
   FPoints.Add(TP)
 end;
 
 procedure TTrianglePointList.Clear;
 var
-    i : integer;
-    TP : TTrianglePoint;
+  i: integer;
+  TP: TTrianglePoint;
 begin
-  for i:=0 to FPoints.Count-1 do
+  for i := 0 to FPoints.Count - 1 do
   begin
-    TP:=TTrianglePoint(FPoints[i]);
+    TP := TTrianglePoint(FPoints[i]);
     TP.Free;
   end;
   FPoints.Clear;
 end;
 
-
 function TTrianglePointList.GetPoint(idx: integer): TTrianglePoint;
 begin
-  if (idx>=0) and (idx<FPoints.Count) then
-    Result:=TTrianglePoint(FPoints[idx])
+  if (idx >= 0) and (idx < FPoints.Count) then
+    Result := TTrianglePoint(FPoints[idx])
   else
-    Result:=nil;
+    Result := nil;
 end;
 
 function TTrianglePointList.GetCount: integer;
 begin
-  Result:=FPoints.Count;
+  Result := FPoints.Count;
 end;
 
 end.

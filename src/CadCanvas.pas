@@ -14,8 +14,8 @@ uses
 const
 
   CadCanvasMajorVersion = 1;
-  CadCanvasMinorVersion = 2;
-  CadCanvasRelease      = 10;
+  CadCanvasMinorVersion = 3;
+  CadCanvasRelease      = 3;
 
   ColorByLayer = 256;
 
