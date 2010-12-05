@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: Delaunay: Class TDelaunay</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TDelaunay"></a><h1 class="cio">Class TDelaunay</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td><a class="section"  href="#@Fields">Fields</a></td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="Delaunay.html">Delaunay</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TDelaunay = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">TDelaunay</li></ul><h2 class="overview">Overview</h2>
+<a name="@Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="Delaunay.TDelaunay.html#HowMany">HowMany</a></b>: Integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="Delaunay.TDelaunay.html#tPoints">tPoints</a></b>: Integer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="Delaunay.TDelaunay.html#TargetForm">TargetForm</a></b>: TForm;</code></td>
+</tr>
+</table>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="Delaunay.TDelaunay.html#Create">Create</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="Delaunay.TDelaunay.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="Delaunay.TDelaunay.html#Execute">Execute</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="Delaunay.TDelaunay.html#AddPoint">AddPoint</a></b>(x, y, value: double);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="Delaunay.TDelaunay.html#Clear">Clear</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#Vertices">Vertices</a></b>[idx : integer]: <a   href="Delaunay.TDelaunayVertex.html">TDelaunayVertex</a> read GetVertex;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#Triangles">Triangles</a></b>[idx : integer]: <a   href="Delaunay.TDelaunayTriangle.html">TDelaunayTriangle</a> read GetTriangle;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#TriangleCount">TriangleCount</a></b> : integer read GetTriangleCount;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#VertexCount">VertexCount</a></b> : integer read GetVertexCount;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#MaxX">MaxX</a></b> : double read FMaxX;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#MinX">MinX</a></b> : double read FMinX;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#MaxY">MaxY</a></b> : double read FMaxY;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="Delaunay.TDelaunay.html#MinY">MinY</a></b> : double read FMinY;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="HowMany"></a><code><b>HowMany</b>: Integer;</code></td>
+</tr>
+</table>
+<p>
+Public declarations</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="tPoints"></a><code><b>tPoints</b>: Integer;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TargetForm"></a><code><b>TargetForm</b>: TForm;</code></td>
+</tr>
+</table>
+<p>
+Variable for total number of points (vertices)</p>
+<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Execute"></a><code>procedure <b>Execute</b>;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AddPoint"></a><code>procedure <b>AddPoint</b>(x, y, value: double);</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Vertices"></a><code>property <b>Vertices</b>[idx : integer]: <a   href="Delaunay.TDelaunayVertex.html">TDelaunayVertex</a> read GetVertex;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Triangles"></a><code>property <b>Triangles</b>[idx : integer]: <a   href="Delaunay.TDelaunayTriangle.html">TDelaunayTriangle</a> read GetTriangle;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TriangleCount"></a><code>property <b>TriangleCount</b> : integer read GetTriangleCount;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="VertexCount"></a><code>property <b>VertexCount</b> : integer read GetVertexCount;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MaxX"></a><code>property <b>MaxX</b> : double read FMaxX;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MinX"></a><code>property <b>MinX</b> : double read FMinX;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MaxY"></a><code>property <b>MaxY</b> : double read FMaxY;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MinY"></a><code>property <b>MinY</b> : double read FMinY;</code></td>
+</tr>
+</table>
+&nbsp;<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>

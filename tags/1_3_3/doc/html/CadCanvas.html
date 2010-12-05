@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadCanvas</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit CadCanvas</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Uses">uses</a></td><td><a class="section"  href="#@Classes">Classes, Interfaces, Objects and Records</a></td><td><a class="section"  href="#@FuncsProcs">Functions and Procedures</a></td><td><a class="section"  href="#@Types">Types</a></td><td><a class="section"  href="#@Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="@Description"></a><h2 class="description">Description</h2>
+<p>
+Component for drawing CAD like elements on virtual canvas.</p>
+<p>
+ This unit contains the CadCanvas component for supporting a CAD like drawing surface. The unit also contains the classes implementing the supported CAD geomtry primitives.</p>
+<a name="@Uses"></a><h2 class="uses">uses</h2>
+<ul class="useslist"><li>Windows</li><li>Messages</li><li>SysUtils</li><li>Classes</li><li>Graphics</li><li>Controls</li><li>Forms</li><li>Dialogs</li><li>Math</li></ul><h2 class="overview">Overview</h2>
+<a name="@Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadElement.html"><code>TCadElement</code></a></td>
+<td class="itemdesc">Base class for all CAD geometric elements</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadVector.html"><code>TCadVector</code></a></td>
+<td class="itemdesc">Basic vector class</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadPoint.html"><code>TCadPoint</code></a></td>
+<td class="itemdesc">Alias for the TCadVector</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadLine.html"><code>TCadLine</code></a></td>
+<td class="itemdesc">Base class for line elements</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadSimpleLine.html"><code>TCadSimpleLine</code></a></td>
+<td class="itemdesc">Simple line class</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadPolyLine.html"><code>TCadPolyLine</code></a></td>
+<td class="itemdesc">Polyline class</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadPolygon.html"><code>TCadPolygon</code></a></td>
+<td class="itemdesc">Polygon class (not yet implemented).</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadSolid.html"><code>TCadSolid</code></a></td>
+<td class="itemdesc">Solid class (4 sided polygon)</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadText.html"><code>TCadText</code></a></td>
+<td class="itemdesc">Text class</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadLayer.html"><code>TCadLayer</code></a></td>
+<td class="itemdesc">Layer class for containing a set of drawing elements with common properties.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="CadCanvas.TCadCanvas.html"><code>TCadCanvas</code></a></td>
+<td class="itemdesc">Non visual component for managing a CAD drawing surface.</td>
+</tr>
+</table>
+<a name="@FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.html#Register">Register</a></b>;</code></td>
+</tr>
+</table>
+<a name="@Types"></a><h3 class="summary">Types</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="CadCanvas.html#TCadTextJustify">TCadTextJustify</a></b> = (...);</code></td>
+</tr>
+</table>
+<a name="@Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="CadCanvas.html#CadCanvasMajorVersion">CadCanvasMajorVersion</a></b> = 1;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="CadCanvas.html#CadCanvasMinorVersion">CadCanvasMinorVersion</a></b> = 2;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="CadCanvas.html#CadCanvasRelease">CadCanvasRelease</a></b>      = 9;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="CadCanvas.html#ColorByLayer">ColorByLayer</a></b> = 256;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="Register"></a><code>procedure <b>Register</b>;</code></td>
+</tr>
+</table>
+<p>
+Published declarations</p>
+<h3 class="detail">Types</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="TCadTextJustify"></a><code><b>TCadTextJustify</b> = (...);</code></td>
+</tr>
+</table>
+<p>
+Text justification constants. For use with <code>TextJustifyX</code> and <code>TextJustifyY</code> properties.</p>
+<ul>
+<li>
+tjLeft: </li>
+<li>
+tjRight: </li>
+<li>
+tjCenter: </li>
+<li>
+tjTop: </li>
+<li>
+tjBottom: </li>
+</ul>
+<h3 class="detail">Constants</h3>
+<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="CadCanvasMajorVersion"></a><code><b>CadCanvasMajorVersion</b> = 1;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="CadCanvasMinorVersion"></a><code><b>CadCanvasMinorVersion</b> = 2;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="CadCanvasRelease"></a><code><b>CadCanvasRelease</b>      = 9;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="itemcode"><a name="ColorByLayer"></a><code><b>ColorByLayer</b> = 256;</code></td>
+</tr>
+</table>
+&nbsp;<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>

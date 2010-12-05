@@ -1,0 +1,86 @@
+DiGraph Classes {
+  TCadCanvas -> TComponent
+  TCadCanvas [href="CadCanvas.TCadCanvas.html"]
+  TCadDxfDevice -> TComponent
+  TCadDxfDevice [href="CadDxfDevice.TCadDxfDevice.html"]
+  TCadG32Device -> TComponent
+  TCadG32Device [href="CadG32Device.TCadG32Device.html"]
+  TCadMesh -> TComponent
+  TCadMesh [href="CadMesh.TCadMesh.html"]
+  TCadSurfaceDiagram2D -> TComponent
+  TCadSurfaceDiagram2D [href="CadSurfaceDiagram2D.TCadSurfaceDiagram2D.html"]
+  TTriangle -> TComponent
+  TTriangle [href="Triangle.TTriangle.html"]
+  TCadOpenGLDevice -> TGraphicControl
+  TCadOpenGLDevice [href="CadOpenGLDevice.TCadOpenGLDevice.html"]
+  TCadWinDevice -> TGraphicControl
+  TCadWinDevice [href="CadWinDevice.TCadWinDevice.html"]
+  TCadAxes2D -> TObject
+  TCadAxes2D [href="CadSurfaceDiagram2D.TCadAxes2D.html"]
+  TCadElement -> TObject
+  TCadElement [href="CadCanvas.TCadElement.html"]
+  TCadLine -> TCadElement
+  TCadLine [href="CadCanvas.TCadLine.html"]
+  TCadPolyLine -> TCadLine
+  TCadPolyLine [href="CadCanvas.TCadPolyLine.html"]
+  TCadSurfaceContour -> TCadPolyLine
+  TCadSurfaceContour [href="CadSurfaceDiagram2D.TCadSurfaceContour.html"]
+  TCadSimpleLine -> TCadLine
+  TCadSimpleLine [href="CadCanvas.TCadSimpleLine.html"]
+  TCadPolygon -> TCadElement
+  TCadPolygon [href="CadCanvas.TCadPolygon.html"]
+  TCadSolid -> TCadElement
+  TCadSolid [href="CadCanvas.TCadSolid.html"]
+  TCadText -> TCadElement
+  TCadText [href="CadCanvas.TCadText.html"]
+  TCadVector -> TCadElement
+  TCadVector [href="CadCanvas.TCadVector.html"]
+  TCadPoint -> TCadVector
+  TCadPoint [href="CadCanvas.TCadPoint.html"]
+  TCadG32Colors -> TObject
+  TCadG32Colors [href="CadG32Device.TCadG32Colors.html"]
+  TCadG32Layer -> TObject
+  TCadG32Layer [href="CadG32Device.TCadG32Layer.html"]
+  TCadLayer -> TObject
+  TCadLayer [href="CadCanvas.TCadLayer.html"]
+  TCadWinColors -> TObject
+  TCadWinColors [href="CadWinDevice.TCadWinColors.html"]
+  TCadWinLayer -> TObject
+  TCadWinLayer [href="CadWinDevice.TCadWinLayer.html"]
+  TDelaunay -> TObject
+  TDelaunay [href="Delaunay.TDelaunay.html"]
+  TDelaunayTriangle -> TObject
+  TDelaunayTriangle [href="Delaunay.TDelaunayTriangle.html"]
+  TDelaunayVertex -> TObject
+  TDelaunayVertex [href="Delaunay.TDelaunayVertex.html"]
+  TInterval -> TObject
+  TInterval [href="CadMesh.TInterval.html"]
+  TIsoLine -> TObject
+  TIsoLine [href="CadMesh.TIsoLine.html"]
+  TIsoLines -> TObject
+  TIsoLines [href="CadMesh.TIsoLines.html"]
+  TRefCounted -> TObject
+  TRefCounted [href="Triangle.TRefCounted.html"]
+  TTriangleElement -> TRefCounted
+  TTriangleElement [href="Triangle.TTriangleElement.html"]
+  TTriangleLine -> TRefCounted
+  TTriangleLine [href="Triangle.TTriangleLine.html"]
+  TTrianglePoint -> TRefCounted
+  TTrianglePoint [href="Triangle.TTrianglePoint.html"]
+  TTrianglePolyline -> TRefCounted
+  TTrianglePolyline [href="Triangle.TTrianglePolyline.html"]
+  TRefList -> TObject
+  TRefList [href="Triangle.TRefList.html"]
+  TScaling -> TObject
+  TScaling [href="CadSurfaceDiagram2D.TScaling.html"]
+  TTriangleClipRect -> TObject
+  TTriangleClipRect [href="Triangle.TTriangleClipRect.html"]
+  TTrianglePointList -> TObject
+  TTrianglePointList [href="CadSurfaceDiagram2D.TTrianglePointList.html"]
+  TCadAxesRecord -> TPersistent
+  TCadAxesRecord [href="CadSurfaceDiagram2D.TCadAxesRecord.html"]
+  TCadDiagramRecord -> TPersistent
+  TCadDiagramRecord [href="CadSurfaceDiagram2D.TCadDiagramRecord.html"]
+  TCadMeshRecord -> TPersistent
+  TCadMeshRecord [href="CadSurfaceDiagram2D.TCadMeshRecord.html"]
+}
