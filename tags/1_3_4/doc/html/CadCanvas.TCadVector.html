@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.9.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CadCanvas's Documentation: CadCanvas: Class TCadVector</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="TCadVector"></a><h1 class="cio">Class TCadVector</h1>
+<table class="sections">
+<tr>
+<td><a class="section"  href="#@Description">Description</a></td><td><a class="section"  href="#@Hierarchy">Hierarchy</a></td><td><a class="section"  href="#@Fields">Fields</a></td><td><a class="section"  href="#@Methods">Methods</a></td><td><a class="section"  href="#@Properties">Properties</a></td></tr></table>
+<a name="@Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="CadCanvas.html">CadCanvas</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TCadVector = class(<a class="normal" href="CadCanvas.TCadElement.html">TCadElement</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Basic vector class</p>
+<a name="@Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="CadCanvas.TCadElement.html">TCadElement</a></li>
+<li class="thisitem">TCadVector</li></ul><h2 class="overview">Overview</h2>
+<a name="@Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code><b><a   href="CadCanvas.TCadVector.html#FX">FX</a></b> : double;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code><b><a   href="CadCanvas.TCadVector.html#FY">FY</a></b> : double;</code></td>
+</tr>
+</table>
+<a name="@Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadVector.html#ScalarProduct">ScalarProduct</a></b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : double;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadVector.html#CrossProduct">CrossProduct</a></b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : double;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadVector.html#Angle">Angle</a></b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : double;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="CadCanvas.TCadVector.html#EqualTo">EqualTo</a></b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="CadCanvas.TCadVector.html#Assign">Assign</a></b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>);</code></td>
+</tr>
+</table>
+<a name="@Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadVector.html#Length">Length</a></b> : double read GetLength;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadVector.html#X">X</a></b> : double read <a   href="CadCanvas.TCadVector.html#FX">FX</a> write <a   href="CadCanvas.TCadVector.html#FX">FX</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="CadCanvas.TCadVector.html#Y">Y</a></b> : double read <a   href="CadCanvas.TCadVector.html#FY">FY</a> write <a   href="CadCanvas.TCadVector.html#FY">FY</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="FX"></a><code><b>FX</b> : double;</code></td>
+</tr>
+</table>
+&nbsp;<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="FY"></a><code><b>FY</b> : double;</code></td>
+</tr>
+</table>
+&nbsp;<h3 class="detail">Methods</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScalarProduct"></a><code>function <b>ScalarProduct</b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : double;</code></td>
+</tr>
+</table>
+<p>
+Computes the scalar product with vector v.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CrossProduct"></a><code>function <b>CrossProduct</b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : double;</code></td>
+</tr>
+</table>
+<p>
+Computes the cross product with vector v.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Angle"></a><code>function <b>Angle</b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : double;</code></td>
+</tr>
+</table>
+<p>
+Computes the angle between two vectors.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EqualTo"></a><code>function <b>EqualTo</b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>) : boolean;</code></td>
+</tr>
+</table>
+<p>
+Returns true if vector equal to v.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(v : <a   href="CadCanvas.TCadVector.html">TCadVector</a>);</code></td>
+</tr>
+</table>
+<p>
+Assigns the vector from the input vector v.</p>
+<h3 class="detail">Properties</h3>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Length"></a><code>property <b>Length</b> : double read GetLength;</code></td>
+</tr>
+</table>
+<p>
+Returns the length of the vector.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="X"></a><code>property <b>X</b> : double read <a   href="CadCanvas.TCadVector.html#FX">FX</a> write <a   href="CadCanvas.TCadVector.html#FX">FX</a>;</code></td>
+</tr>
+</table>
+<p>
+Vector x component.</p>
+<table class="detail">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Y"></a><code>property <b>Y</b> : double read <a   href="CadCanvas.TCadVector.html#FY">FY</a> write <a   href="CadCanvas.TCadVector.html#FY">FY</a>;</code></td>
+</tr>
+</table>
+<p>
+Vector y component.</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.9.0</a> on 2005-10-31 00:36:40</em>
+</span>
+</body></html>
