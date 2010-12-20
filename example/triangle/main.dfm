@@ -29,6 +29,7 @@ object frmMain: TfrmMain
     Scale = 1.000000000000000000
     ScaleMode = smNormal
     TabOrder = 0
+    ExplicitLeft = 257
   end
   object PageControl1: TPageControl
     AlignWithMargins = True
@@ -169,10 +170,6 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Diagram'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object DiagramProperties: TValueListEditor
         AlignWithMargins = True
         Left = 3
@@ -208,10 +205,6 @@ object frmMain: TfrmMain
     object TabSheet3: TTabSheet
       Caption = 'Mesh'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkShowTriangles: TCheckBox
         Left = 12
         Top = 9
@@ -236,10 +229,6 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Tests'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object btnTest1: TButton
         Left = 3
         Top = 3

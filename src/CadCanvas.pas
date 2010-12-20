@@ -698,33 +698,41 @@ end;
 procedure TCadCanvas.TextOut(x, y: double; Text: string);
 var
     TextElement : TCadText;
+    OpposingPoint : TCadPoint;
 begin
+  OpposingPoint:=TCadPoint.Create;
   TextElement:=TCadText.Create;
 
   if (TextJustifyX = tjLeft) then
     begin
       TextElement.Position.X:=x;
+      OpposingPoint.X:=Self.TextSizeX(Text);
     end
   else if (TextJustifyX = tjCenter) then
     begin
       TextElement.Position.X:=x-Self.TextSizeX(Text)/2;
+      OpposingPoint.X:=x+Self.TextSizeX(Text)/2;
     end
   else
     begin
       TextElement.Position.X:=x-Self.TextSizeX(Text);
+      OpposingPoint.X:=x;
     end;
 
   if (TextJustifyY = tjTop) then
     begin
-      TextElement.Position.Y:=y
+      TextElement.Position.Y:=y;
+      OpposingPoint.Y:=y-Self.TextSizeY(Text);
     end
   else if (TextJustifyY = tjCenter) then
     begin
       TextElement.Position.Y:=y+self.TextSizeY(Text)/2;
+      OpposingPoint.Y:=y-self.TextSizeY(Text)/2;;
     end
   else
     begin
       TextElement.Position.Y:=Y+Self.TextSizeY(Text);
+      OpposingPoint.Y:=y;
     end;
 
 
@@ -734,8 +742,10 @@ begin
   TextElement.Color:=FCurrentColor;
 
   UpdateMaxMin(TextElement.Position);
+  UpdateMaxMin(OpposingPoint);
 
   FCurrentLayer.Add(TextElement);
+  OpposingPoint.Free;
 end;
 
 procedure TCadCanvas.Solid3(x1, y1, x2, y2, x3, y3: double);
