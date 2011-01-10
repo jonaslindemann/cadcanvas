@@ -1,0 +1,60 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{2BF4164E-E93C-4954-9C4B-331908F8F3F3}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="package\cadcomp.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="example\triangle\TestTriangle.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="example\eriviz\ErivizTest.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="cadcomp">
+			<MSBuild Projects="package\cadcomp.dproj"/>
+		</Target>
+		<Target Name="cadcomp:Clean">
+			<MSBuild Targets="Clean" Projects="package\cadcomp.dproj"/>
+		</Target>
+		<Target Name="cadcomp:Make">
+			<MSBuild Targets="Make" Projects="package\cadcomp.dproj"/>
+		</Target>
+		<Target Name="TestTriangle">
+			<MSBuild Projects="example\triangle\TestTriangle.dproj"/>
+		</Target>
+		<Target Name="TestTriangle:Clean">
+			<MSBuild Targets="Clean" Projects="example\triangle\TestTriangle.dproj"/>
+		</Target>
+		<Target Name="TestTriangle:Make">
+			<MSBuild Targets="Make" Projects="example\triangle\TestTriangle.dproj"/>
+		</Target>
+		<Target Name="ErivizTest">
+			<MSBuild Projects="example\eriviz\ErivizTest.dproj"/>
+		</Target>
+		<Target Name="ErivizTest:Clean">
+			<MSBuild Targets="Clean" Projects="example\eriviz\ErivizTest.dproj"/>
+		</Target>
+		<Target Name="ErivizTest:Make">
+			<MSBuild Targets="Make" Projects="example\eriviz\ErivizTest.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="cadcomp;TestTriangle;ErivizTest"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="cadcomp:Clean;TestTriangle:Clean;ErivizTest:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="cadcomp:Make;TestTriangle:Make;ErivizTest:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>
