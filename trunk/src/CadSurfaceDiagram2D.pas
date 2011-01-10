@@ -52,21 +52,30 @@ type
     FTicksBottom: boolean;
     FTicksLeft: boolean;
     FTicksRight: boolean;
-    FLabelUnitSpacing: double;
-    FLabelDistance: double;
-    FLabelDistanceX: double;
-    FLabelDistanceY: double;
 
-    FLabelSize: double;
+    FScaling: TScaling;
+
     FLabelUnitY: string;
     FLabelX: string;
     FLabelUnitX: string;
     FLabelY: string;
-    FLabelUnitSize: double;
     FTickLabelFormat: string;
-    FScaling: TScaling;
-    FLabelXVisible : boolean;
-    FLabelYVisible : boolean;
+
+    FLabelSize: double;
+    FLabelDistanceX: double;
+    FLabelDistanceY: double;
+    FLabelUnitSpacing: double;
+    FLabelUnitSize: double;
+    FLabelDistance: double;
+
+    FLabelXVisible: boolean;
+    FLabelYVisible: boolean;
+    FLabelXJustify: TCadTextJustify;
+    FLabelYJustify: TCadTextJustify;
+    FLabelXPosition: integer;
+    FLabelYPosition: integer;
+    FLabelUnitXVisible: boolean;
+    FLabelUnitYVisible: boolean;
 
     procedure SetCadCanvas(const Value: TCadCanvas);
     procedure SetTickDistanceX(const Value: double);
@@ -91,6 +100,12 @@ type
     procedure SetLabelDistanceY(const Value: double);
     procedure SetLabelXVisible(const Value: boolean);
     procedure SetLabelYVisible(const Value: boolean);
+    procedure SetLabelXJustify(const Value: TCadTextJustify);
+    procedure SetLabelYJustify(const Value: TCadTextJustify);
+    procedure SetLabelXPosition(const Value: integer);
+    procedure SetLabelYPosition(const Value: integer);
+    procedure SetLabelUnitXVisible(const Value: boolean);
+    procedure SetLabelUnitYVisible(const Value: boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -120,13 +135,28 @@ type
     property LabelSize: double read FLabelSize write SetLabelSize;
     property LabelUnitSize: double read FLabelUnitSize write SetLabelUnitSize;
     property LabelDistance: double read FLabelDistance write SetLabelDistance;
-    property LabelDistanceX: double read FLabelDistanceX write SetLabelDistanceX;
-    property LabelDistanceY: double read FLabelDistanceY write SetLabelDistanceY;
+    property LabelDistanceX
+      : double read FLabelDistanceX write SetLabelDistanceX;
+    property LabelDistanceY
+      : double read FLabelDistanceY write SetLabelDistanceY;
     property LabelUnitSpacing: double read FLabelUnitSpacing write
       SetLabelUnitSpacing;
     property LabelXVisible: boolean read FLabelXVisible write SetLabelXVisible;
     property LabelYVisible: boolean read FLabelYVisible write SetLabelYVisible;
     property Scaling: TScaling read FScaling write FScaling;
+
+    property LabelYJustify: TCadTextJustify read FLabelYJustify write
+      SetLabelYJustify;
+    property LabelXJustify: TCadTextJustify read FLabelXJustify write
+      SetLabelXJustify;
+    property LabelXPosition
+      : integer read FLabelXPosition write SetLabelXPosition;
+    property LabelYPosition
+      : integer read FLabelYPosition write SetLabelYPosition;
+    property LabelUnitXVisible: boolean read FLabelUnitXVisible write
+      SetLabelUnitXVisible;
+    property LabelUnitYVisible: boolean read FLabelUnitYVisible write
+      SetLabelUnitYVisible;
   end;
 
   { Property group defining properties for the diagram axes. Properties given in
@@ -168,6 +198,12 @@ type
     FTickLabelFormat: string;
     FLabelXVisible: boolean;
     FLabelYVisible: boolean;
+    FLabelUnitXVisible: boolean;
+    FLabelXJustify: TCadTextJustify;
+    FLabelUnitYVisible: boolean;
+    FLabelYJustify: TCadTextJustify;
+    FLabelXPosition: integer;
+    FLabelYPosition: integer;
 
     procedure SetAutoX(const Value: boolean);
     procedure SetAutoY(const Value: boolean);
@@ -205,6 +241,12 @@ type
     procedure SetLabelDistanceY(const Value: double);
     procedure SetLabelXVisible(const Value: boolean);
     procedure SetLabelYVisible(const Value: boolean);
+    procedure SetLabelUnitXVisible(const Value: boolean);
+    procedure SetLabelUnitYVisible(const Value: boolean);
+    procedure SetLabelXJustify(const Value: TCadTextJustify);
+    procedure SetLabelXPosition(const Value: integer);
+    procedure SetLabelYJustify(const Value: TCadTextJustify);
+    procedure SetLabelYPosition(const Value: integer);
 
   public
     constructor Create(AOwner: TComponent);
@@ -293,14 +335,30 @@ type
     { Distance from diagram axes to Axis label. (drawing units) }
     property LabelDistance: double read FLabelDistance write SetLabelDistance;
 
-    property LabelDistanceX: double read FLabelDistanceX write SetLabelDistanceX;
-    property LabelDistanceY: double read FLabelDistanceY write SetLabelDistanceY;
+    property LabelDistanceX
+      : double read FLabelDistanceX write SetLabelDistanceX;
+    property LabelDistanceY
+      : double read FLabelDistanceY write SetLabelDistanceY;
 
     { Spacing between axis label and axis unit label. (drawing units) }
     property LabelUnitSpacing: double read FLabelUnitSpacing write
       SetLabelUnitSpacing;
     property LabelXVisible: boolean read FLabelXVisible write SetLabelXVisible;
     property LabelYVisible: boolean read FLabelYVisible write SetLabelYVisible;
+
+    property LabelYJustify: TCadTextJustify read FLabelYJustify write
+      SetLabelYJustify;
+    property LabelXJustify: TCadTextJustify read FLabelXJustify write
+      SetLabelXJustify;
+    property LabelXPosition
+      : integer read FLabelXPosition write SetLabelXPosition;
+    property LabelYPosition
+      : integer read FLabelYPosition write SetLabelYPosition;
+    property LabelUnitXVisible: boolean read FLabelUnitXVisible write
+      SetLabelUnitXVisible;
+    property LabelUnitYVisible: boolean read FLabelUnitYVisible write
+      SetLabelUnitYVisible;
+
   end;
 
   // Title < -- titlespacing -- > Subtitle < -- Titledistance -- >
@@ -328,6 +386,11 @@ type
     FVerticalExaggeration: double;
     FAutoScale: boolean;
     FLegendSize: double;
+    FLegendLabel: string;
+    FLegendLabelDistance: double;
+    FLegendLabelPos: integer;
+    FLegendLabelSize: double;
+
     procedure SetShowTriangles(const Value: boolean);
     procedure SetOnChangeShowTriangles(const Value: TNotifyEvent);
 
@@ -350,6 +413,10 @@ type
     procedure SetVerticalExaggeration(const Value: double);
     procedure SetAutoScale(const Value: boolean);
     procedure SetLegendSize(const Value: double);
+    procedure SetLegendLabel(const Value: string);
+    procedure SetLegendLabelDistance(const Value: double);
+    procedure SetLegendLabelPos(const Value: integer);
+    procedure SetLegendLabelSize(const Value: double);
 
   public
     constructor Create(AOwner: TComponent);
@@ -423,6 +490,13 @@ type
 
     { Relative legend size with respect to diagram axes. (1.0 default) }
     property LegendSize: double read FLegendSize write SetLegendSize;
+
+    property LegendLabel: string read FLegendLabel write SetLegendLabel;
+    property LegendLabelDistance: double read FLegendLabelDistance write
+      SetLegendLabelDistance;
+    property LegendLabelPos
+      : integer read FLegendLabelPos write SetLegendLabelPos;
+    property LegendLabelSize : double read FLegendLabelSize write SetLegendLabelSize;
   end;
 
   { @value scClip Remove triangles above surface, clip crossing triangles. (Unstable)
@@ -598,8 +672,8 @@ type
       specified in the @code(CadCanvas) property. }
     procedure Execute;
 
-    procedure SaveSettings(IniFile : TIniFile);
-    procedure LoadSettings(IniFile : TIniFile);
+    procedure SaveSettings(IniFile: TIniFile);
+    procedure LoadSettings(IniFile: TIniFile);
 
     property Axes2D: TCadAxes2D read FAxes2D;
 
@@ -986,6 +1060,13 @@ begin
   Axes2D.LabelXVisible := FAxes.LabelXVisible;
   Axes2D.LabelYVisible := FAxes.LabelYVisible;
 
+  Axes2D.LabelUnitXVisible := FAxes.LabelUnitXVisible;
+  Axes2D.LabelXJustify := FAxes.LabelXJustify;
+  Axes2D.LabelUnitYVisible := FAxes.LabelUnitYVisible;
+  Axes2D.LabelYJustify := FAxes.LabelYJustify;
+  Axes2D.LabelXPosition := FAxes.LabelXPosition;
+  Axes2D.LabelYPosition := FAxes.LabelYPosition;
+
   if FAxes.AutoX then
   begin
     Axes2D.MinPoint.x := FTriangle.MinPoint.x;
@@ -1114,14 +1195,14 @@ begin
   CreateLayers;
 end;
 
-procedure TCadSurfaceDiagram2D.SaveSettings(IniFile : TIniFile);
+procedure TCadSurfaceDiagram2D.SaveSettings(IniFile: TIniFile);
 begin
   Self.Diagram.SaveToIni(IniFile);
   Self.Axes.SaveToIni(IniFile);
   Self.Mesh.SaveToIni(IniFile);
 end;
 
-procedure TCadSurfaceDiagram2D.LoadSettings(IniFile : TIniFile);
+procedure TCadSurfaceDiagram2D.LoadSettings(IniFile: TIniFile);
 begin
   Self.Diagram.ReadFromIni(IniFile);
   Self.Axes.ReadFromIni(IniFile);
@@ -1273,6 +1354,30 @@ begin
     CadCanvas.LineTo(StartX, StartY - Scaling.L2G(Diagram.LegendHeight));
     CadCanvas.LineTo(StartX, StartY);
 
+    if Diagram.LegendLabelPos = 0 then
+    begin
+      CadCanvas.TextJustifyX := tjLeft;
+      CadCanvas.TextJustifyY := tjTop;
+      CadCanvas.TextHeight := Scaling.L2G(Diagram.LegendLabelSize);
+      CadCanvas.TextOut(
+          StartX,
+          StartY - Scaling.L2G(Diagram.LegendHeight)
+          - Scaling.L2G(Diagram.LegendTextDistance)
+          - Scaling.L2G(Diagram.LegendTextHeight)
+          - Scaling.L2G(Diagram.LegendLabelDistance), Diagram.LegendLabel);
+    end;
+
+    if Diagram.LegendLabelPos = 1 then
+    begin
+      CadCanvas.TextJustifyX := tjRight;
+      CadCanvas.TextJustifyY := tjTop;
+      CadCanvas.TextHeight := Scaling.L2G(Diagram.LegendLabelSize);
+      CadCanvas.TextOut(StartX + DiagramWidth * FDiagram.LegendSize,
+          StartY - Scaling.L2G(Diagram.LegendHeight)
+          - Scaling.L2G(Diagram.LegendTextDistance)
+          - Scaling.L2G(Diagram.LegendTextHeight)
+          - Scaling.L2G(Diagram.LegendLabelDistance), Diagram.LegendLabel);
+    end;
   end;
 end;
 
@@ -1287,7 +1392,6 @@ begin
   else
     Result := nil;
 end;
-
 
 { TCadAxes2D }
 
@@ -1328,8 +1432,18 @@ begin
   FLabelDistanceX := 2;
   FLabelDistanceY := 2;
   FLabelUnitSpacing := 2;
-  FLabelXVisible:=true;
-  FLabelYVisible:=true;
+
+  FLabelXVisible := true;
+  FLabelYVisible := true;
+
+  FLabelXJustify := tjRight;
+  FLabelYJustify := tjLeft;
+
+  FLabelXPosition := 0;
+  FLabelYPosition := 1;
+
+  FLabelUnitXVisible := false;
+  FLabelUnitYVisible := false;
 
   FScaling := nil;
 end;
@@ -1371,25 +1485,114 @@ begin
     begin
       if Self.LabelXVisible then
       begin
-        TextJustifyX := tjRight;
-        TextJustifyY := tjCenter;
-        TextHeight := Scaling.L2G(FLabelSize);
-        TextOut(MaxPoint.x + Scaling.L2G(FLabelDistanceX), MinPoint.y, FLabelX);
-        TextHeight := Scaling.L2G(FLabelUnitSize);
-        TextOut(MaxPoint.x + Scaling.L2G(FLabelDistanceX) + TextSizeX(FLabelUnitX)
-            + Scaling.L2G(FLabelUnitSpacing), MinPoint.y, FLabelUnitX);
+        case FLabelXPosition of
+          0:
+            begin
+              // Default position top of y
+              TextJustifyX := FLabelXJustify;
+              TextJustifyY := tjBottom;
+              if FLabelUnitYVisible then
+              begin
+                TextHeight := Scaling.L2G(FLabelUnitSize);
+                TextOut(MaxPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceX),
+                  FLabelUnitY);
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MaxPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceX)
+                    + Scaling.L2G(FLabelSize) + Scaling.L2G(FLabelUnitSpacing),
+                  FLabelX)
+              end
+              else
+              begin
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MaxPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceX)
+                    + Scaling.L2G(FLabelSize), FLabelX)
+              end;
+            end;
+          1:
+            begin
+              // Default position bottom of y
+              TextJustifyX := FLabelXJustify;
+              TextJustifyY := tjTop;
+              if FLabelUnitYVisible then
+              begin
+                TextHeight := Scaling.L2G(FLabelUnitSize);
+                TextOut(MaxPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceX),
+                  FLabelUnitY);
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MaxPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceX)
+                    - Scaling.L2G(FLabelSize) - Scaling.L2G(FLabelUnitSpacing),
+                  FLabelX)
+              end
+              else
+              begin
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MaxPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceY)
+                    - Scaling.L2G(FLabelSize), FLabelX)
+              end;
+            end;
+          2:
+            begin
+              TextJustifyX := tjRight;
+              TextJustifyY := tjCenter;
+              TextHeight := Scaling.L2G(FLabelSize);
+              TextOut(MaxPoint.x + Scaling.L2G(FLabelDistanceX), MinPoint.y,
+                FLabelX);
+              TextHeight := Scaling.L2G(FLabelUnitSize);
+              TextOut(MaxPoint.x + Scaling.L2G(FLabelDistanceX) + TextSizeX
+                  (FLabelUnitX) + Scaling.L2G(FLabelUnitSpacing), MinPoint.y,
+                FLabelUnitX);
+            end;
+        end;
       end;
 
       if Self.LabelYVisible then
       begin
-        TextJustifyX := tjCenter;
-        TextJustifyY := tjBottom;
-        TextHeight := Scaling.L2G(FLabelUnitSize);
-        TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY),
-          FLabelUnitY);
-        TextHeight := Scaling.L2G(FLabelSize);
-        TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY) + Scaling.L2G
-            (FLabelSize) + Scaling.L2G(FLabelUnitSpacing), FLabelY)
+        case FLabelYPosition of
+          0:
+            begin
+              // Default position top of y
+              TextJustifyX := FLabelYJustify;
+              TextJustifyY := tjBottom;
+              if FLabelUnitYVisible then
+              begin
+                TextHeight := Scaling.L2G(FLabelUnitSize);
+                TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY),
+                  FLabelUnitY);
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY)
+                    + Scaling.L2G(FLabelSize) + Scaling.L2G(FLabelUnitSpacing),
+                  FLabelY)
+              end
+              else
+              begin
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MinPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceY)
+                    + Scaling.L2G(FLabelSize), FLabelY)
+              end;
+            end;
+          1:
+            begin
+              // Default position bottom of y
+              TextJustifyX := FLabelYJustify;
+              TextJustifyY := tjTop;
+              if FLabelUnitYVisible then
+              begin
+                TextHeight := Scaling.L2G(FLabelUnitSize);
+                TextOut(MinPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceY),
+                  FLabelUnitY);
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MinPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceY)
+                    - Scaling.L2G(FLabelSize) - Scaling.L2G(FLabelUnitSpacing),
+                  FLabelY)
+              end
+              else
+              begin
+                TextHeight := Scaling.L2G(FLabelSize);
+                TextOut(MinPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceY)
+                    - Scaling.L2G(FLabelSize), FLabelY)
+              end;
+            end;
+        end;
       end;
     end;
 
@@ -1577,14 +1780,34 @@ begin
   FLabelUnitX := Value;
 end;
 
+procedure TCadAxes2D.SetLabelUnitXVisible(const Value: boolean);
+begin
+  FLabelUnitXVisible := Value;
+end;
+
 procedure TCadAxes2D.SetLabelUnitY(const Value: string);
 begin
   FLabelUnitY := Value;
 end;
 
+procedure TCadAxes2D.SetLabelUnitYVisible(const Value: boolean);
+begin
+  FLabelUnitYVisible := Value;
+end;
+
 procedure TCadAxes2D.SetLabelX(const Value: string);
 begin
   FLabelX := Value;
+end;
+
+procedure TCadAxes2D.SetLabelXJustify(const Value: TCadTextJustify);
+begin
+  FLabelXJustify := Value;
+end;
+
+procedure TCadAxes2D.SetLabelXPosition(const Value: integer);
+begin
+  FLabelXPosition := Value;
 end;
 
 procedure TCadAxes2D.SetLabelXVisible(const Value: boolean);
@@ -1595,6 +1818,16 @@ end;
 procedure TCadAxes2D.SetLabelY(const Value: string);
 begin
   FLabelY := Value;
+end;
+
+procedure TCadAxes2D.SetLabelYJustify(const Value: TCadTextJustify);
+begin
+  FLabelYJustify := Value;
+end;
+
+procedure TCadAxes2D.SetLabelYPosition(const Value: integer);
+begin
+  FLabelYPosition := Value;
 end;
 
 procedure TCadAxes2D.SetLabelYVisible(const Value: boolean);
@@ -1676,6 +1909,11 @@ begin
   Self.FScaleX := 500;
   Self.FVerticalExaggeration := 1;
   Self.FAutoScale := true;
+
+  Self.FLegendLabel := 'LegendLabel';
+  Self.FLegendLabelDistance := 2;
+  Self.FLegendLabelPos := 1;
+  Self.FLegendLabelSize := 2.5;
 end;
 
 destructor TCadDiagramRecord.Destroy;
@@ -1706,6 +1944,10 @@ begin
       Self.FVerticalExaggeration := FVerticalExaggeration;
       Self.FAutoScale := FAutoScale;
       Self.FLegendSize := FLegendSize;
+      Self.FLegendLabel := FLegendLabel;
+      Self.FLegendLabelDistance := FLegendLabelDistance;
+      Self.FLegendLabelPos := FLegendLabelPos;
+      Self.FLegendLabelSize := FLegendLabelSize;
     end
     else
       inherited; // raises an exception
@@ -1760,6 +2002,11 @@ begin
     WriteFloat('Diagram', 'VerticalExaggeration', FVerticalExaggeration);
     WriteBool('Diagram', 'AutoScale', FAutoScale);
     WriteFloat('Diagram', 'LegendSize', FLegendSize);
+
+    WriteString('Diagram', 'LegendLabel', FLegendLabel);
+    WriteFloat('Diagram', 'LegendLabelDistance', FLegendLabelDistance);
+    WriteInteger('Diagram', 'LegendLabelPos', FLegendLabelPos);
+    WriteFloat('Diagram', 'LegendLabelSize', FLegendLabelSize);
   end;
 end;
 
@@ -1767,23 +2014,33 @@ procedure TCadDiagramRecord.ReadFromIni(Source: TIniFile);
 begin
   with Source do
   begin
-    FShowTriangles:=ReadBool('Diagram', 'ShowTriangles', FShowTriangles);
-    FTitleSize:=ReadFloat('Diagram', 'TitleSize', FTitleSize);
-    FSubTitleSize:=ReadFloat('Diagram', 'SubTitleSize', FSubTitleSize);
-    FTitleSpacing:=ReadFloat('Diagram', 'TitleSpacing', FTitleSpacing);
-    FTitleDistance:=ReadFloat('Diagram', 'TitleDistance', FTitleDistance);
-    FSubTitle:=ReadString('Diagram', 'SubTitle', FSubTitle);
-    FTitle:=ReadString('Diagram', 'Title', FTitle);
-    FShowLegend:=ReadBool('Diagram', 'ShowLegend', FShowLegend);
-    FLegendDistance:=ReadFloat('Diagram', 'LegendDistance', FLegendDistance);
-    FLegendHeight:=ReadFloat('Diagram', 'LegendHeight', FLegendHeight);
-    FLegendTextHeight:=ReadFloat('Diagram', 'LegendTextHeight', FLegendTextHeight);
-    FLegendTextDistance:=ReadFloat('Diagram', 'LegendTextDistance', FLegendTextDistance);
-    FLegendFormat:=ReadString('Diagram', 'LegendFormat', FLegendFormat);
-    FScaleX:=ReadFloat('Diagram', 'ScaleX', FScaleX);
-    FVerticalExaggeration:=ReadFloat('Diagram', 'VerticalExaggeration', FVerticalExaggeration);
-    FAutoScale:=ReadBool('Diagram', 'AutoScale', FAutoScale);
-    FLegendSize:=ReadFloat('Diagram', 'LegendSize', FLegendSize);
+    FShowTriangles := ReadBool('Diagram', 'ShowTriangles', FShowTriangles);
+    FTitleSize := ReadFloat('Diagram', 'TitleSize', FTitleSize);
+    FSubTitleSize := ReadFloat('Diagram', 'SubTitleSize', FSubTitleSize);
+    FTitleSpacing := ReadFloat('Diagram', 'TitleSpacing', FTitleSpacing);
+    FTitleDistance := ReadFloat('Diagram', 'TitleDistance', FTitleDistance);
+    FSubTitle := ReadString('Diagram', 'SubTitle', FSubTitle);
+    FTitle := ReadString('Diagram', 'Title', FTitle);
+    FShowLegend := ReadBool('Diagram', 'ShowLegend', FShowLegend);
+    FLegendDistance := ReadFloat('Diagram', 'LegendDistance', FLegendDistance);
+    FLegendHeight := ReadFloat('Diagram', 'LegendHeight', FLegendHeight);
+    FLegendTextHeight := ReadFloat('Diagram', 'LegendTextHeight',
+      FLegendTextHeight);
+    FLegendTextDistance := ReadFloat('Diagram', 'LegendTextDistance',
+      FLegendTextDistance);
+    FLegendFormat := ReadString('Diagram', 'LegendFormat', FLegendFormat);
+    FScaleX := ReadFloat('Diagram', 'ScaleX', FScaleX);
+    FVerticalExaggeration := ReadFloat('Diagram', 'VerticalExaggeration',
+      FVerticalExaggeration);
+    FAutoScale := ReadBool('Diagram', 'AutoScale', FAutoScale);
+    FLegendSize := ReadFloat('Diagram', 'LegendSize', FLegendSize);
+
+    FLegendLabel := ReadString('Diagram', 'LegendLabel', FLegendLabel);
+    FLegendLabelDistance := ReadFloat('Diagram', 'LegendLabelDistance',
+      FLegendLabelDistance);
+    FLegendLabelPos := ReadInteger('Diagram', 'LegendLabelPos',
+      FLegendLabelPos);
+    FLegendLabelSize := ReadFloat('Diagram', 'LegendLabelSize', FLegendLabelSize);
   end;
 end;
 
@@ -1849,6 +2106,30 @@ end;
 procedure TCadDiagramRecord.SetLegendHeight(const Value: double);
 begin
   FLegendHeight := Value;
+  ChangeValue;
+end;
+
+procedure TCadDiagramRecord.SetLegendLabel(const Value: string);
+begin
+  FLegendLabel := Value;
+  ChangeValue;
+end;
+
+procedure TCadDiagramRecord.SetLegendLabelDistance(const Value: double);
+begin
+  FLegendLabelDistance := Value;
+  ChangeValue;
+end;
+
+procedure TCadDiagramRecord.SetLegendLabelPos(const Value: integer);
+begin
+  FLegendLabelPos := Value;
+  ChangeValue;
+end;
+
+procedure TCadDiagramRecord.SetLegendLabelSize(const Value: double);
+begin
+  FLegendLabelSize := Value;
   ChangeValue;
 end;
 
@@ -1972,6 +2253,16 @@ begin
       Self.FLabelUnitSpacing := FLabelUnitSpacing;
       Self.FLabelXVisible := FLabelXVisible;
       Self.FLabelYVisible := FLabelYVisible;
+
+      Self.FLabelXVisible := FLabelXVisible;
+      Self.FLabelYVisible := FLabelYVisible;
+      Self.FLabelXJustify := FLabelXJustify;
+      Self.FLabelYJustify := FLabelYJustify;
+      Self.FLabelXPosition := FLabelXPosition;
+      Self.FLabelYPosition := FLabelYPosition;
+      Self.FLabelUnitXVisible := FLabelUnitXVisible;
+      Self.FLabelUnitYVisible := FLabelUnitYVisible;
+
     end
     else
       inherited; // raises an exception
@@ -2009,41 +2300,90 @@ begin
     WriteFloat('Axes', 'LabelUnitSpacing', FLabelUnitSpacing);
     WriteBool('Axes', 'LabelXVisible', FLabelXVisible);
     WriteBool('Axes', 'LabelYVisible', FLabelYVisible);
+
+    if FLabelXJustify = tjLeft then
+      WriteInteger('Axes', 'LabelXJustify', 0);
+    if FLabelXJustify = tjCenter then
+      WriteInteger('Axes', 'LabelXJustify', 1);
+    if FLabelXJustify = tjRight then
+      WriteInteger('Axes', 'LabelXJustify', 2);
+
+    if FLabelYJustify = tjLeft then
+      WriteInteger('Axes', 'LabelYJustify', 0);
+    if FLabelYJustify = tjCenter then
+      WriteInteger('Axes', 'LabelYJustify', 1);
+    if FLabelYJustify = tjRight then
+      WriteInteger('Axes', 'LabelYJustify', 2);
+
+    WriteInteger('Axes', 'LabelXPosition', FLabelXPosition);
+    WriteInteger('Axes', 'LabelYPosition', FLabelYPosition);
+    WriteBool('Axes', 'LabelUnitXVisible', FLabelUnitXVisible);
+    WriteBool('Axes', 'LabelUnitYVisible', FLabelUnitYVisible);
   end;
 end;
 
 procedure TCadAxesRecord.ReadFromIni(Source: TIniFile);
+var
+  TempVal: integer;
 begin
   with Source do
   begin
-    FAutoX:=ReadBool('Axes', 'AutoX', FAutoX);
-    FAutoY:=ReadBool('Axes', 'AutoY', FAutoY);
-    FMinX:=ReadFloat('Axes', 'MinX', FMinX);
-    FMaxX:=ReadFloat('Axes', 'MaxX', FMaxX);
-    FMinY:=ReadFloat('Axes', 'MinY', FMinY);
-    FMaxY:=ReadFloat('Axes', 'MaxY', FMaxY);
-    FTickDistanceX:=ReadFloat('Axes', 'TickDistanceX', FTickDistanceX);
-    FTickDistanceY:=ReadFloat('Axes', 'TickDistanceY', FTickDistanceY);
-    FTickSize:=ReadFloat('Axes', 'TickSize', FTickSize);
-    FTickLabelDistance:=ReadFloat('Axes', 'TickLabelDistance', FTickLabelDistance);
-    FTickLabelSize:=ReadFloat('Axes', 'TickLabelSize', FTickLabelSize);
-    FTickLabelFormat:=ReadString('Axes', 'TickLabelFormat', FTickLabelFormat);
-    FTicksTop:=ReadBool('Axes', 'TicksTop', FTicksTop);
-    FTicksBottom:=ReadBool('Axes', 'TicksBottom', FTicksBottom);
-    FTicksLeft:=ReadBool('Axes', 'TicksLeft', FTicksLeft);
-    FTicksRight:=ReadBool('Axes', 'TicksRight', FTicksRight);
-    FLabelX:=ReadString('Axes', 'LabelX', FLabelX);
-    FLabelY:=ReadString('Axes', 'LabelY', FLabelY);
-    FLabelUnitX:=ReadString('Axes', 'LabelUnitX', FLabelUnitX);
-    FLabelUnitY:=ReadString('Axes', 'LabelUnitY', FLabelUnitY);
-    FLabelSize:=ReadFloat('Axes', 'LabelSize', FLabelSize);
-    FLabelUnitSize:=ReadFloat('Axes', 'LabelUnitSize', FLabelUnitSize);
-    FLabelDistance:=ReadFloat('Axes', 'LabelDistance', FLabelDistance);
-    FLabelDistanceX:=ReadFloat('Axes', 'LabelDistanceX', FLabelDistanceX);
-    FLabelDistanceY:=ReadFloat('Axes', 'LabelDistanceY', FLabelDistanceY);
-    FLabelUnitSpacing:=ReadFloat('Axes', 'LabelUnitSpacing', FLabelUnitSpacing);
-    FLabelXVisible:=ReadBool('Axes', 'LabelXVisible', FLabelXVisible);
-    FLabelYVisible:=ReadBool('Axes', 'LabelYVisible', FLabelYVisible);
+    FAutoX := ReadBool('Axes', 'AutoX', FAutoX);
+    FAutoY := ReadBool('Axes', 'AutoY', FAutoY);
+    FMinX := ReadFloat('Axes', 'MinX', FMinX);
+    FMaxX := ReadFloat('Axes', 'MaxX', FMaxX);
+    FMinY := ReadFloat('Axes', 'MinY', FMinY);
+    FMaxY := ReadFloat('Axes', 'MaxY', FMaxY);
+    FTickDistanceX := ReadFloat('Axes', 'TickDistanceX', FTickDistanceX);
+    FTickDistanceY := ReadFloat('Axes', 'TickDistanceY', FTickDistanceY);
+    FTickSize := ReadFloat('Axes', 'TickSize', FTickSize);
+    FTickLabelDistance := ReadFloat('Axes', 'TickLabelDistance',
+      FTickLabelDistance);
+    FTickLabelSize := ReadFloat('Axes', 'TickLabelSize', FTickLabelSize);
+    FTickLabelFormat := ReadString('Axes', 'TickLabelFormat', FTickLabelFormat);
+    FTicksTop := ReadBool('Axes', 'TicksTop', FTicksTop);
+    FTicksBottom := ReadBool('Axes', 'TicksBottom', FTicksBottom);
+    FTicksLeft := ReadBool('Axes', 'TicksLeft', FTicksLeft);
+    FTicksRight := ReadBool('Axes', 'TicksRight', FTicksRight);
+    FLabelX := ReadString('Axes', 'LabelX', FLabelX);
+    FLabelY := ReadString('Axes', 'LabelY', FLabelY);
+    FLabelUnitX := ReadString('Axes', 'LabelUnitX', FLabelUnitX);
+    FLabelUnitY := ReadString('Axes', 'LabelUnitY', FLabelUnitY);
+    FLabelSize := ReadFloat('Axes', 'LabelSize', FLabelSize);
+    FLabelUnitSize := ReadFloat('Axes', 'LabelUnitSize', FLabelUnitSize);
+    FLabelDistance := ReadFloat('Axes', 'LabelDistance', FLabelDistance);
+    FLabelDistanceX := ReadFloat('Axes', 'LabelDistanceX', FLabelDistanceX);
+    FLabelDistanceY := ReadFloat('Axes', 'LabelDistanceY', FLabelDistanceY);
+    FLabelUnitSpacing := ReadFloat('Axes', 'LabelUnitSpacing',
+      FLabelUnitSpacing);
+    FLabelXVisible := ReadBool('Axes', 'LabelXVisible', FLabelXVisible);
+    FLabelYVisible := ReadBool('Axes', 'LabelYVisible', FLabelYVisible);
+
+    TempVal := ReadInteger('Axes', 'LabelXJustify', 0);
+
+    if TempVal = 0 then
+      FLabelXJustify := tjLeft;
+    if TempVal = 1 then
+      FLabelXJustify := tjCenter;
+    if TempVal = 2 then
+      FLabelXJustify := tjRight;
+
+    TempVal := ReadInteger('Axes', 'LabelYJustify', 0);
+
+    if TempVal = 0 then
+      FLabelYJustify := tjLeft;
+    if TempVal = 1 then
+      FLabelYJustify := tjCenter;
+    if TempVal = 2 then
+      FLabelYJustify := tjRight;
+
+    FLabelXPosition := ReadInteger('Axes', 'LabelXPosition', FLabelXPosition);
+    FLabelYPosition := ReadInteger('Axes', 'LabelYPosition', FLabelYPosition);
+    FLabelUnitXVisible := ReadBool('Axes', 'LabelUnitXVisible',
+      FLabelUnitXVisible);
+    FLabelUnitYVisible := ReadBool('Axes', 'LabelUnitYVisible',
+      FLabelUnitYVisible);
+
   end;
 end;
 
@@ -2064,7 +2404,6 @@ begin
   if assigned(OnChangeValue) and FNotify then
     OnChangeValue(Self);
 end;
-
 
 procedure TCadAxesRecord.SetAutoX(const Value: boolean);
 begin
@@ -2223,15 +2562,39 @@ begin
   ChangeValue;
 end;
 
+procedure TCadAxesRecord.SetLabelUnitXVisible(const Value: boolean);
+begin
+  FLabelUnitXVisible := Value;
+  ChangeValue;
+end;
+
 procedure TCadAxesRecord.SetLabelUnitY(const Value: string);
 begin
   FLabelUnitY := Value;
   ChangeValue;
 end;
 
+procedure TCadAxesRecord.SetLabelUnitYVisible(const Value: boolean);
+begin
+  FLabelUnitYVisible := Value;
+  ChangeValue;
+end;
+
 procedure TCadAxesRecord.SetLabelX(const Value: string);
 begin
   FLabelX := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetLabelXJustify(const Value: TCadTextJustify);
+begin
+  FLabelXJustify := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetLabelXPosition(const Value: integer);
+begin
+  FLabelXPosition := Value;
   ChangeValue;
 end;
 
@@ -2244,6 +2607,18 @@ end;
 procedure TCadAxesRecord.SetLabelY(const Value: string);
 begin
   FLabelY := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetLabelYJustify(const Value: TCadTextJustify);
+begin
+  FLabelYJustify := Value;
+  ChangeValue;
+end;
+
+procedure TCadAxesRecord.SetLabelYPosition(const Value: integer);
+begin
+  FLabelYPosition := Value;
   ChangeValue;
 end;
 
@@ -2307,9 +2682,9 @@ procedure TCadMeshRecord.ReadFromIni(Source: TIniFile);
 begin
   with Source do
   begin
-    FAutoLimits:=ReadBool('Mesh', 'AutoLimits', FAutoLimits);
-    FMaxValue:=ReadFloat('Mesh', 'MaxValue', FMaxValue);
-    FMinValue:=ReadFloat('Mesh', 'MinValue', FMinValue);
+    FAutoLimits := ReadBool('Mesh', 'AutoLimits', FAutoLimits);
+    FMaxValue := ReadFloat('Mesh', 'MaxValue', FMaxValue);
+    FMinValue := ReadFloat('Mesh', 'MinValue', FMinValue);
   end;
 end;
 
