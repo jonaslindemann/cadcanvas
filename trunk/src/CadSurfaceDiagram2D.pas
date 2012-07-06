@@ -1146,9 +1146,12 @@ end;
 
 procedure TCadSurfaceDiagram2D.AxesChangeAutoX(Sender: TObject);
 begin
-  FAxes.MaxX := FTriangle.MaxPoint.x;
-  FAxes.MinX := FTriangle.MinPoint.x;
-  Axes2D.MaxPoint.x := FTriangle.MaxPoint.x;
+  if FAxes.FAutoX then
+  begin
+    FAxes.MaxX := FTriangle.MaxPoint.x;
+    FAxes.MinX := FTriangle.MinPoint.x;
+    Axes2D.MaxPoint.x := FTriangle.MaxPoint.x;
+  end;
   Self.UpdateAxes;
 end;
 

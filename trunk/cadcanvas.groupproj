@@ -12,6 +12,9 @@
 			<Projects Include="example\eriviz\ErivizTest.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="..\erigraph3\erigraph3.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
 		<Target Name="ErivizTest:Make">
 			<MSBuild Targets="Make" Projects="example\eriviz\ErivizTest.dproj"/>
 		</Target>
+		<Target Name="erigraph3">
+			<MSBuild Projects="..\erigraph3\erigraph3.dproj"/>
+		</Target>
+		<Target Name="erigraph3:Clean">
+			<MSBuild Targets="Clean" Projects="..\erigraph3\erigraph3.dproj"/>
+		</Target>
+		<Target Name="erigraph3:Make">
+			<MSBuild Targets="Make" Projects="..\erigraph3\erigraph3.dproj"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="cadcomp;TestTriangle;ErivizTest"/>
+			<CallTarget Targets="cadcomp;TestTriangle;ErivizTest;erigraph3"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="cadcomp:Clean;TestTriangle:Clean;ErivizTest:Clean"/>
+			<CallTarget Targets="cadcomp:Clean;TestTriangle:Clean;ErivizTest:Clean;erigraph3:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="cadcomp:Make;TestTriangle:Make;ErivizTest:Make"/>
+			<CallTarget Targets="cadcomp:Make;TestTriangle:Make;ErivizTest:Make;erigraph3:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

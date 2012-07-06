@@ -35,7 +35,6 @@
 			<DCC_N>true</DCC_N>
 			<GenDll>true</GenDll>
 			<DCC_S>false</DCC_S>
-			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
 			<DCC_WriteableConstants>true</DCC_WriteableConstants>
 			<GenPackage>true</GenPackage>
 			<DCC_E>false</DCC_E>
