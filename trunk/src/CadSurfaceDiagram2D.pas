@@ -1491,14 +1491,14 @@ begin
         case FLabelXPosition of
           0:
             begin
-              // Default position top of y
+              // Default position top of x
               TextJustifyX := FLabelXJustify;
               TextJustifyY := tjBottom;
               if FLabelUnitYVisible then
               begin
                 TextHeight := Scaling.L2G(FLabelUnitSize);
                 TextOut(MaxPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceX),
-                  FLabelUnitY);
+                  FLabelUnitX);
                 TextHeight := Scaling.L2G(FLabelSize);
                 TextOut(MaxPoint.x, MaxPoint.y + Scaling.L2G(FLabelDistanceX)
                     + Scaling.L2G(FLabelSize) + Scaling.L2G(FLabelUnitSpacing),
@@ -1513,14 +1513,14 @@ begin
             end;
           1:
             begin
-              // Default position bottom of y
+              // Default position bottom of x
               TextJustifyX := FLabelXJustify;
               TextJustifyY := tjTop;
               if FLabelUnitYVisible then
               begin
                 TextHeight := Scaling.L2G(FLabelUnitSize);
                 TextOut(MaxPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceX),
-                  FLabelUnitY);
+                  FLabelUnitX);
                 TextHeight := Scaling.L2G(FLabelSize);
                 TextOut(MaxPoint.x, MinPoint.y - Scaling.L2G(FLabelDistanceX)
                     - Scaling.L2G(FLabelSize) - Scaling.L2G(FLabelUnitSpacing),
