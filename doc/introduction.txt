@@ -12,9 +12,11 @@ The CadCanvas component depends on the Graphics32 library, which must be install
 2. Add location of main installation directory to Tools | Environment Options | Library | Library Path.
 
 3. Select File | Open... on the menu bar. Set Files of type to Delphi package source, locate and open GR32_DSGN_D6.dpk
-(GR32_DSGN_K for Kylix, GR32_DSGN_D2005 for Delphi 2005, GR32_DSGN_D7 for Delphi7, GR32_DSGN_D6 for Delphi6, GR32_DSGN_D5 for Delphi5, GR32_DSGN_D4 for Delphi4 or GR32_DSGN_B5 for C++ Builder) 
+(GR32_DSGN_D2010 for Delphi 2010, GR32_DSGN_K for Kylix, GR32_DSGN_D2005 for Delphi 2005, GR32_DSGN_D7 for Delphi7, GR32_DSGN_D6 for Delphi6, GR32_DSGN_D5 for Delphi5, GR32_DSGN_D4 for Delphi4 or GR32_DSGN_B5 for C++ Builder) 
 A package editor window will appear. Click Compile, then click Install; 
 If compiler asks whether you want to save changes, usually it is a good idea to choose No. 
+
+(If you downloaded Graphics32 directly from their site then you may need to build GR32_D2010 before this step in case you get an error.
 
 @section(2 SecCadCanvasInstall Installing CadCanvas)
 
